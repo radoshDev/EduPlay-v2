@@ -14,10 +14,13 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.33.1",
+    "@vee-validate/zod": "^4.11.3",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.1.6",
+    "vee-validate": "^4.11.3",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.4"
+    "vue-router": "^4.2.4",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.2",

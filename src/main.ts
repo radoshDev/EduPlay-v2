@@ -7,9 +7,9 @@ import App from './App.vue'
 import router from './router'
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
-import { BiBoxArrowInLeft } from 'oh-vue-icons/icons'
+import { BiBoxArrowInLeft, BiGithub } from 'oh-vue-icons/icons'
 
-addIcons(BiBoxArrowInLeft)
+addIcons(BiBoxArrowInLeft, BiGithub)
 
 const app = createApp(App)
 

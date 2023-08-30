@@ -11,6 +11,8 @@ type Props = {
 }
 
 defineProps<Props>()
+
+defineEmits<{ (e: 'click'): void }>()
 </script>
 
 <template>
@@ -23,6 +25,7 @@ defineProps<Props>()
     ]"
     :to="href"
     :href="href"
+    @click="$emit('click')"
   >
     <span v-if="isLoading" className="loading loading-spinner loading-sm" />
     <slot v-else />
