@@ -10,6 +10,7 @@ type Props = {
   size?: Size
 }
 defineProps<Props>()
+defineEmits<{ (e: 'click'): void }>()
 </script>
 
 <template>
@@ -25,6 +26,7 @@ defineProps<Props>()
     ]"
     :to="href"
     :href="href"
+    @click="$emit('click')"
   >
     <slot />
   </component>

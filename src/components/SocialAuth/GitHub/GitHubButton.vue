@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { ButtonText } from '@/components/ui/buttons'
+import { supabase } from '@/lib/supabaseClient'
 
-function githubSignIn() {
-  console.log('Try to sign in with GitHub')
+async function githubSignIn() {
+  const res = await supabase.auth.signInWithOAuth({
+    provider: 'github',
+    options: {
+      scopes: 'repo gist notification'
+    }
+  })
+  console.log({ res })
 }
 </script>
 

@@ -4,6 +4,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { LoginSchema } from '@/schemas/AuthSchema'
 import { InputField } from '@/components/ui'
 import { ButtonText } from '@/components/ui/buttons'
+import { supabase } from '@/lib/supabaseClient'
 
 const { errors, defineComponentBinds, handleSubmit } = useForm({
   validationSchema: toTypedSchema(LoginSchema)
@@ -11,15 +12,17 @@ const { errors, defineComponentBinds, handleSubmit } = useForm({
 const email = defineComponentBinds('email')
 const pwd = defineComponentBinds('password')
 
-const onSubmit = handleSubmit((data) => {
+const onSubmit = handleSubmit(async (data) => {
   console.log({ data })
+  const res = await supabase.auth.signInWithPassword({ email: data.email, password: data.password })
+  console.log({ res })
 })
 </script>
 
 <template>
   <form @submit="onSubmit">
-    <InputField label="Email" type="email" :error="errors.email" v-bind="email" />
-    <InputField label="Password" type="password" :error="errors.password" v-bind="pwd" />
-    <ButtonText type="submit" variant="success">Login</ButtonText>
+    <InputField label="Ел. пошта" type="email" :error="errors.email" v-bind="email" />
+    <InputField label="Пароль" type="password" :error="errors.password" v-bind="pwd" />
+    <ButtonText type="submit" variant="success">Увійти</ButtonText>
   </form>
 </template>

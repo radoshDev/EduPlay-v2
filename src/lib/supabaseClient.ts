@@ -4,4 +4,4 @@ import { createClient } from '@supabase/supabase-js'
 const URL = import.meta.env.VITE_SUPABASE_URL
 const KEY = import.meta.env.VITE_SUPABASE_KEY
 
-export const db = createClient<Database>(URL, KEY)
+export const supabase = createClient<Database>(URL, KEY)

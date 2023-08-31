@@ -8,7 +8,7 @@ import { PageTitle } from '@/components/ui'
 <template>
   <PageLayout>
     <template #title>
-      <PageTitle title="Registration" back-href="/" />
+      <PageTitle title="Реєстрація" back-href="/" />
     </template>
     <div class="w-full max-w-md">
       <RegisterForm />
@@ -16,7 +16,7 @@ import { PageTitle } from '@/components/ui'
       <SocialAuth />
       <div class="mt-5">
         <span class="mr-2">Вже маєте акаунт?</span>
-        <RouterLink to="/login" class="link-primary link">Увійти</RouterLink>
+        <RouterLink to="/login" class="link-primary link">Логін</RouterLink>
       </div>
     </div>
   </PageLayout>

@@ -9,21 +9,21 @@ export interface Database {
           imageUrl: string | null
           slug: string
           sourceLink: string | null
-          title: string | null
+          title: string
         }
         Insert: {
-          title: string | null
           description?: string | null
           imageUrl?: string | null
           slug?: string
           sourceLink?: string | null
+          title: string
         }
         Update: {
           description?: string | null
           imageUrl?: string | null
           slug?: string
           sourceLink?: string | null
-          title?: string | null
+          title?: string
         }
         Relationships: []
       }
@@ -64,6 +64,144 @@ export interface Database {
           }
         ]
       }
+      students: {
+        Row: {
+          avatar: string
+          difficulty: number | null
+          id: string
+          name: string
+          ruoudLength: number | null
+          userId: string | null
+        }
+        Insert: {
+          avatar?: string
+          difficulty?: number | null
+          id?: string
+          name?: string
+          ruoudLength?: number | null
+          userId?: string | null
+        }
+        Update: {
+          avatar?: string
+          difficulty?: number | null
+          id?: string
+          name?: string
+          ruoudLength?: number | null
+          userId?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'students_userId_fkey'
+            columns: ['userId']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          }
+        ]
+      }
+      students_progress: {
+        Row: {
+          date: string
+          id: number
+          studentid: string
+          value: number
+        }
+        Insert: {
+          date: string
+          id?: number
+          studentid: string
+          value: number
+        }
+        Update: {
+          date?: string
+          id?: number
+          studentid?: string
+          value?: number
+        }
+        Relationships: []
+      }
+      task_categories: {
+        Row: {
+          imageUrl: string | null
+          position: number | null
+          slug: string
+          title: string
+        }
+        Insert: {
+          imageUrl?: string | null
+          position?: number | null
+          slug?: string
+          title: string
+        }
+        Update: {
+          imageUrl?: string | null
+          position?: number | null
+          slug?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      task_subcategories: {
+        Row: {
+          difficulty: number | null
+          imageUrl: string | null
+          parentSlug: string
+          position: number | null
+          slug: string
+          title: string
+        }
+        Insert: {
+          difficulty?: number | null
+          imageUrl?: string | null
+          parentSlug: string
+          position?: number | null
+          slug?: string
+          title?: string
+        }
+        Update: {
+          difficulty?: number | null
+          imageUrl?: string | null
+          parentSlug?: string
+          position?: number | null
+          slug?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'task_subcategories_parentSlug_fkey'
+            columns: ['parentSlug']
+            referencedRelation: 'task_categories'
+            referencedColumns: ['slug']
+          }
+        ]
+      }
+      tasks: {
+        Row: {
+          id: string
+          parentSlug: string | null
+          result: string | null
+          value: string
+        }
+        Insert: {
+          id?: string
+          parentSlug?: string | null
+          result?: string | null
+          value?: string
+        }
+        Update: {
+          id?: string
+          parentSlug?: string | null
+          result?: string | null
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'tasks_parentSlug_fkey'
+            columns: ['parentSlug']
+            referencedRelation: 'task_subcategories'
+            referencedColumns: ['slug']
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -72,7 +210,7 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      role: 'user' | 'admin'
     }
     CompositeTypes: {
       [_ in never]: never
