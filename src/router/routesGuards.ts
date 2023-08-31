@@ -14,6 +14,7 @@ export const requiredAuthGuard: NavigationGuard = (to, from, next) => {
 
 export const requiredNotAuthGuard: NavigationGuard = (to, from, next) => {
   const { user } = useUserStore()
+  console.log('requiredNotAuthGuard', { user, to, from })
 
   if (user) {
     next({ name: RouteName.STUDENTS })

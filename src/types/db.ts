@@ -1,4 +1,12 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export type Student = Database['public']['Tables']['students']['Row']
 
 export interface Database {
   public: {
@@ -67,27 +75,27 @@ export interface Database {
       students: {
         Row: {
           avatar: string
-          difficulty: number | null
+          difficulty: number
           id: string
           name: string
-          ruoudLength: number | null
-          userId: string | null
+          roundLength: number
+          userId: string
         }
         Insert: {
           avatar?: string
-          difficulty?: number | null
+          difficulty?: number
           id?: string
           name?: string
-          ruoudLength?: number | null
-          userId?: string | null
+          roundLength?: number
+          userId?: string
         }
         Update: {
           avatar?: string
-          difficulty?: number | null
+          difficulty?: number
           id?: string
           name?: string
-          ruoudLength?: number | null
-          userId?: string | null
+          roundLength?: number
+          userId?: string
         }
         Relationships: [
           {
@@ -102,19 +110,19 @@ export interface Database {
         Row: {
           date: string
           id: number
-          studentid: string
+          studentId: string
           value: number
         }
         Insert: {
           date: string
           id?: number
-          studentid: string
+          studentId: string
           value: number
         }
         Update: {
           date?: string
           id?: number
-          studentid?: string
+          studentId?: string
           value?: number
         }
         Relationships: []

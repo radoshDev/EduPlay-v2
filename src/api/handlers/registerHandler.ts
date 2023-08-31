@@ -1,13 +1,13 @@
 import { supabase } from '@/lib/supabaseClient'
 import type { RegisterInput } from '@/schemas/AuthSchema'
 
-const registerHandler = async ({ email, name, password }: RegisterInput): Promise<void> => {
+const registerHandler = async (userCred: RegisterInput): Promise<void> => {
   const res = await supabase.auth.signUp({
-    email,
-    password,
+    email: userCred.email,
+    password: userCred.password,
     options: {
       data: {
-        name
+        name: userCred.name
       }
     }
   })

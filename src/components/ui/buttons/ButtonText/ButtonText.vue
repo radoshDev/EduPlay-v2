@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Variant, Size } from '@/types/styles'
 import type { AnchorTarget } from '@/types'
+import { onUpdated, ref } from 'vue'
 
 type Props = {
   href?: string
@@ -10,9 +11,19 @@ type Props = {
   target?: AnchorTarget
 }
 
-defineProps<Props>()
-
+const props = defineProps<Props>()
 defineEmits<{ (e: 'click'): void }>()
+
+const button = ref<HTMLButtonElement | null>(null)
+
+onUpdated(() => {
+  if (props.href || !button.value) return
+  if (props.isLoading) {
+    button.value.setAttribute('disabled', 'true')
+  } else {
+    button.value.removeAttribute('disabled')
+  }
+})
 </script>
 
 <template>
@@ -25,6 +36,7 @@ defineEmits<{ (e: 'click'): void }>()
     ]"
     :to="href"
     :href="href"
+    ref="button"
     @click="$emit('click')"
   >
     <span v-if="isLoading" className="loading loading-spinner loading-sm" />
