@@ -3,13 +3,9 @@ import { ButtonText } from '@/components/ui/buttons'
 import { supabase } from '@/lib/supabaseClient'
 
 async function githubSignIn() {
-  const res = await supabase.auth.signInWithOAuth({
-    provider: 'github',
-    options: {
-      scopes: 'repo gist notification'
-    }
+  await supabase.auth.signInWithOAuth({
+    provider: 'github'
   })
-  console.log({ res })
 }
 </script>
 

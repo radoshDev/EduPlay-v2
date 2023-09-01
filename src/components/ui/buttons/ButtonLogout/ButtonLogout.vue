@@ -18,7 +18,6 @@ async function handleLogout() {
   try {
     isLoading.value = true
     const res = await api.logout()
-    console.log({ res })
 
     if (res.error) throw new Error(res.error.message)
     userStore.$reset()

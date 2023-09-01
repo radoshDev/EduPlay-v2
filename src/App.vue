@@ -8,11 +8,11 @@ import { useStudentsStore } from '@/stores/students/studentsStore'
 const { setCurrentUser, user } = useUserStore()
 const { setStudents } = useStudentsStore()
 onMounted(() => {
-  supabase.auth.onAuthStateChange((_, session) => {
-    console.log({ user: session?.user })
-
-    if (session && !user) {
-      console.log('currentUser & students settled')
+  supabase.auth.onAuthStateChange((event, session) => {
+    console.log({ user: session?.user, event })
+    if (!session) return
+    if (event === 'SIGNED_IN') {
+      console.log('currentUser & students settled', user)
 
       setCurrentUser(session.user)
       setStudents(session.user.id)
