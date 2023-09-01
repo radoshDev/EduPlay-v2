@@ -8,9 +8,23 @@ import App from './App.vue'
 import router from './router'
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
-import { BiBoxArrowInLeft, BiGithub, BiGearFill, BiPlusCircleFill } from 'oh-vue-icons/icons'
+import {
+  BiBoxArrowInLeft,
+  BiGithub,
+  BiGearFill,
+  BiPlusCircleFill,
+  MdArrowbackiosOutlined,
+  MdArrowforwardiosOutlined
+} from 'oh-vue-icons/icons'
 
-addIcons(BiBoxArrowInLeft, BiGithub, BiGearFill, BiPlusCircleFill)
+addIcons(
+  BiBoxArrowInLeft,
+  BiGithub,
+  BiGearFill,
+  BiPlusCircleFill,
+  MdArrowbackiosOutlined,
+  MdArrowforwardiosOutlined
+)
 
 const app = createApp(App)
 const pinia = createPinia()

@@ -3,19 +3,27 @@ import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 import { supabase } from './lib/supabaseClient'
 import { useUserStore } from '@/stores/user/userStore'
-import { useStudentsStore } from '@/stores/students/studentsStore'
+import { useStudentStore } from '@/stores/student/studentStore'
+import { useCreatureStore } from './stores/creature/creatureStore'
 
-const { setCurrentUser, user } = useUserStore()
-const { setStudents } = useStudentsStore()
 onMounted(() => {
   supabase.auth.onAuthStateChange((event, session) => {
+    const { setCurrentUser, user } = useUserStore()
+    const { setStudents, students } = useStudentStore()
+    const { setCreatures, creatures } = useCreatureStore()
     console.log({ user: session?.user, event })
     if (!session) return
     if (event === 'SIGNED_IN') {
-      console.log('currentUser & students settled', user)
-
+      console.log('currentUser', user)
       setCurrentUser(session.user)
+    }
+    if (students.data === null && !students.isLoading) {
+      console.log('students', students)
       setStudents(session.user.id)
+    }
+    if (creatures.data === null && !creatures.isLoading) {
+      console.log('creatures', creatures)
+      setCreatures()
     }
   })
 })
@@ -24,3 +32,4 @@ onMounted(() => {
 <template>
   <RouterView />
 </template>
+@/stores/student/studentsStore

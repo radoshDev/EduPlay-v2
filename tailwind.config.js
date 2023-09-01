@@ -7,10 +7,11 @@ module.exports = {
   plugins: [require('daisyui')],
   safelist: [
     {
-      pattern: /(alert|btn|text|ring|badge)-(primary|secondary|neutral|error|success|warning)/
+      pattern:
+        /(alert|btn|text|ring|badge)-(primary|secondary|neutral|error|success|warning)/
     },
     {
-      pattern: /(btn|badge)-(lg|sm|xs)/
+      pattern: /(btn|badge|loading)-(lg|sm|xs)/
     },
     'w-[40px]',
     'w-[60px]',

@@ -1,16 +1,32 @@
 <script setup lang="ts">
 import type { Variant, Size } from '@/types/styles'
 import type { AnchorTarget } from '@/types'
+import { onMounted, onUpdated, ref } from 'vue'
 
 type Props = {
   color: Variant
   round?: boolean
   href?: string
   target?: AnchorTarget
+  disabled?: boolean
   size?: Size
 }
-defineProps<Props>()
-defineEmits<{ (e: 'click'): void }>()
+const props = defineProps<Props>()
+defineEmits<{ (e: 'click', event: Event): void }>()
+const button = ref<HTMLButtonElement | null>(null)
+
+onMounted(setDisabled)
+onUpdated(setDisabled)
+
+function setDisabled() {
+  if (props.href || !button.value) return
+
+  if (props.disabled) {
+    button.value.setAttribute('disabled', 'true')
+  } else {
+    button.value.removeAttribute('disabled')
+  }
+}
 </script>
 
 <template>
@@ -26,7 +42,8 @@ defineEmits<{ (e: 'click'): void }>()
     ]"
     :to="href"
     :href="href"
-    @click="$emit('click')"
+    ref="button"
+    @click="$emit('click', $event)"
   >
     <slot />
   </component>

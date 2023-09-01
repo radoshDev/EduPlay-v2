@@ -7,7 +7,8 @@ export const RouteName = {
   FORGOT_PASSWORD: 'forgot-password',
   ACCOUNT: 'account',
   NOT_FOUND: 'not-found',
-  STUDENTS: 'students'
+  STUDENTS: 'students',
+  STUDENTS_ADD: 'students-add'
 } as const
 
 export const EARN_TYPES = [

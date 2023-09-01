@@ -9,6 +9,7 @@ export type RouteRecord = Omit<RouteRecordRaw, 'name'> & {
 
 const HomePage = () => import('@/pages/HomePage.vue')
 const StudentsPage = () => import('@/pages/students/StudentsPage.vue')
+const AddStudentPage = () => import('@/pages/students/AddStudentPage.vue')
 const AccountPage = () => import('@/pages/AccountPage.vue')
 const LoginPage = () => import('@/pages/auth/LoginPage.vue')
 const RegisterPage = () => import('@/pages/auth/RegisterPage.vue')
@@ -28,6 +29,12 @@ const routes: RouteRecord[] = [
     component: StudentsPage,
     beforeEnter: requiredAuthGuard,
     meta: { title: 'Студенти' }
+  },
+  {
+    path: '/students/add',
+    name: 'students-add',
+    component: AddStudentPage,
+    meta: { title: 'Новий студент' }
   },
   {
     path: '/account',

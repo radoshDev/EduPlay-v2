@@ -20,7 +20,13 @@ defineProps<Props>()
         'ring-offset-2 ring-offset-base-100'
       ]"
     >
-      <img class="object-contain" :src="imageSrc" :alt="alt" :width="size" :height="size" />
+      <img
+        class="!object-contain"
+        :src="imageSrc"
+        :alt="alt"
+        :width="size"
+        :height="size"
+      />
     </div>
   </div>
 </template>

@@ -2,6 +2,7 @@
 import type { Variant, Size } from '@/types/styles'
 import type { AnchorTarget } from '@/types'
 import { onUpdated, ref } from 'vue'
+import { PreloaderBlock } from '@/components/ui'
 
 type Props = {
   href?: string
@@ -39,7 +40,7 @@ onUpdated(() => {
     ref="button"
     @click="$emit('click')"
   >
-    <span v-if="isLoading" className="loading loading-spinner loading-sm" />
+    <PreloaderBlock v-if="isLoading" size="sm" />
     <slot v-else />
   </component>
 </template>

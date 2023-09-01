@@ -1,16 +1,30 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 type Props = {
   label: string
   type?: 'email' | 'number' | 'password'
-  modelValue?: string
+  modelValue?: string | number
   error?: string
 }
 
-defineProps<Props>()
-defineEmits<{
-  (e: 'update:modelValue', val: string): void
+const props = defineProps<Props>()
+const emit = defineEmits<{
+  (e: 'update:modelValue', val?: string | number): void
   (e: 'blur'): void
 }>()
+
+const inputValue = computed({
+  get() {
+    return props.modelValue
+  },
+  set(newValue) {
+    if (newValue && props.type === 'number') {
+      newValue = +newValue
+    }
+    emit('update:modelValue', newValue)
+  }
+})
 </script>
 
 <template>
@@ -20,8 +34,7 @@ defineEmits<{
     </label>
     <input
       :type="type || 'text'"
-      :value="modelValue"
-      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+      v-model="inputValue"
       @blur="$emit('blur')"
       :class="[
         'input-bordered input-info input w-full rounded-full',

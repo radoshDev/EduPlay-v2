@@ -1,5 +1,9 @@
+import addStudentHandler from './addStudentHandler'
 import getStudentsHandler from './getStudentsHandler'
+import updateStudentHandler from './updateStudentHandler'
 
 export default {
-  getStudents: getStudentsHandler
+  addStudent: addStudentHandler,
+  getStudents: getStudentsHandler,
+  updateStudent: updateStudentHandler
 }

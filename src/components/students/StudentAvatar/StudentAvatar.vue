@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { UserAvatar } from '@/components/ui'
 import type { Size, Variant } from '@/types/styles'
+
 type Props = {
   title: string
   imageSrc: string
@@ -44,6 +45,7 @@ const style = computed(() => {
   <component
     :is="!href ? 'div' : href.startsWith('http') ? 'a' : 'router-link'"
     class="text-center"
+    :to="href"
   >
     <UserAvatar
       :image-src="imageSrc"

@@ -4,14 +4,14 @@ import { ButtonText } from '..'
 import { ref } from 'vue'
 import { useToast } from 'vue-toast-notification'
 import { useUserStore } from '@/stores/user/userStore'
-import { useStudentsStore } from '@/stores/students/studentsStore'
+import { useStudentStore } from '@/stores/student/studentStore'
 import { useRouter } from 'vue-router'
 import { RouteName } from '@/utils/constants'
 
 const isLoading = ref(false)
 const $toast = useToast()
 const userStore = useUserStore()
-const studentsStore = useStudentsStore()
+const studentsStore = useStudentStore()
 const router = useRouter()
 
 async function handleLogout() {
@@ -44,3 +44,4 @@ async function handleLogout() {
     Вийти
   </ButtonText>
 </template>
+@/stores/student/studentsStore

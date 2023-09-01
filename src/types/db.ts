@@ -7,6 +7,7 @@ export type Json =
   | Json[]
 
 export type Student = Database['public']['Tables']['students']['Row']
+export type Creature = Database['public']['Tables']['creatures']['Row']
 
 export interface Database {
   public: {
@@ -82,17 +83,17 @@ export interface Database {
           userId: string
         }
         Insert: {
-          avatar?: string
-          difficulty?: number
+          avatar: string
+          difficulty: number
           id?: string
-          name?: string
-          roundLength?: number
-          userId?: string
+          name: string
+          roundLength: number
+          userId: string
         }
         Update: {
           avatar?: string
           difficulty?: number
-          id?: string
+          id: string
           name?: string
           roundLength?: number
           userId?: string

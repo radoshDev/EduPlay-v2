@@ -1,4 +1,6 @@
 export { default as PageTitle } from './PageTitle/PageTitle.vue'
 export { default as InputField } from './InputField/InputField.vue'
+export { default as SelectField } from './SelectField/SelectField.vue'
 export { default as UserAvatar } from './UserAvatar/UserAvatar.vue'
 export { default as AlertNotification } from './AlertNotification/AlertNotification.vue'
+export { default as PreloaderBlock } from './PreloaderBlock/PreloaderBlock.vue'
