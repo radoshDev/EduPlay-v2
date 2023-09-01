@@ -11,8 +11,7 @@ const registerHandler = async (userCred: RegisterInput): Promise<void> => {
       }
     }
   })
-
-  console.log({ authUser: res.data.user })
+  if (res.error) throw new Error(res.error.message || 'Failed to register:(')
 }
 
 export default registerHandler

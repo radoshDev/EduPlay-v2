@@ -6,7 +6,10 @@ import { RegisterSchema } from '@/schemas/AuthSchema'
 import { InputField } from '@/components/ui'
 import { ButtonText } from '@/components/ui/buttons'
 import api from '@/api/api'
+import { useRouter } from 'vue-router'
+import { RouteName } from '@/utils/constants'
 
+const router = useRouter()
 const $toast = useToast({ position: 'top', duration: 5000 })
 
 const { errors, defineComponentBinds, handleSubmit } = useForm({
@@ -20,7 +23,11 @@ const onSubmit = handleSubmit(async (data) => {
   try {
     console.log({ data })
     await api.register(data)
-    $toast.success('Користувача зареєстровано!')
+    $toast.success('Користувача зареєстровано!', {
+      onDismiss: () => {
+        router.push({ name: RouteName.STUDENTS })
+      }
+    })
   } catch (_error) {
     const error = _error as Error
     $toast.error(error.message)
@@ -31,8 +38,18 @@ const onSubmit = handleSubmit(async (data) => {
 <template>
   <form @submit="onSubmit">
     <InputField label="Ім'я" :error="errors.name" v-bind="name" />
-    <InputField label="Ел. пошта" type="email" :error="errors.email" v-bind="email" />
-    <InputField label="Пароль" type="password" :error="errors.password" v-bind="pwd" />
+    <InputField
+      label="Ел. пошта"
+      type="email"
+      :error="errors.email"
+      v-bind="email"
+    />
+    <InputField
+      label="Пароль"
+      type="password"
+      :error="errors.password"
+      v-bind="pwd"
+    />
     <ButtonText type="submit" variant="success">Зареєструватись</ButtonText>
   </form>
 </template>
