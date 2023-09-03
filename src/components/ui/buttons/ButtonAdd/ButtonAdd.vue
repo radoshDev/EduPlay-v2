@@ -6,9 +6,13 @@ defineEmits<{ (e: 'click'): void }>()
 </script>
 
 <template>
-  <ButtonIcon @click="$emit('click')" color="success" round :href="href">
-    <v-icon name="bi-plus-circle-fill" scale="1.5" />
-  </ButtonIcon>
+  <ButtonIcon
+    @click="$emit('click')"
+    :icon="{ name: 'bi-plus-circle-fill', scale: 1.5 }"
+    color="success"
+    round
+    :href="href"
+  />
 </template>
 
 <style scoped lang="scss"></style>

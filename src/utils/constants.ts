@@ -8,27 +8,27 @@ export const RouteName = {
   ACCOUNT: 'account',
   NOT_FOUND: 'not-found',
   STUDENTS: 'students',
-  STUDENTS_ADD: 'students-add'
+  STUDENT_ADD: 'student-add',
+  STUDENT_INFO: 'student-info',
+  EDUCATION_MENU: 'education-menu'
 } as const
 
 export const EARN_TYPES = [
   {
-    title: 'На телефон',
-    type: 'phone',
-    imageSrc:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'
+    title: 'Математика',
+    type: 'math',
+    icon: 'fc-calculator'
   },
   {
-    title: 'На мультики',
-    type: 'cartoon',
-    imageSrc:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg'
+    title: 'Читання',
+    type: 'reading',
+    icon: 'fc-reading-ebook'
   },
   {
     title: 'На монети',
     type: 'coins',
-    imageSrc:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/8.svg'
+    icon: 'bi-cash-coin',
+    fill: '#FBBD23'
   }
 ]
 

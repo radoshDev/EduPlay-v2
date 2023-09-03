@@ -10,9 +10,12 @@ import { ButtonAdd, ButtonIcon } from '@/components/ui/buttons'
     <template #title>
       <PageTitle title="Студенти">
         <template #right-action>
-          <ButtonIcon href="/account" color="secondary" round>
-            <v-icon name="bi-gear-fill" scale="1.5" />
-          </ButtonIcon>
+          <ButtonIcon
+            :icon="{ name: 'bi-gear-fill', scale: 1.5 }"
+            href="/account"
+            color="secondary"
+            round
+          />
         </template>
       </PageTitle>
     </template>

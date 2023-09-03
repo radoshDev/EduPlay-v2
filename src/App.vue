@@ -6,24 +6,34 @@ import { useUserStore } from '@/stores/user/userStore'
 import { useStudentStore } from '@/stores/student/studentStore'
 import { useCreatureStore } from './stores/creature/creatureStore'
 
+const userStore = useUserStore()
+const studentStore = useStudentStore()
+const creatureStore = useCreatureStore()
+
 onMounted(() => {
   supabase.auth.onAuthStateChange((event, session) => {
-    const { setCurrentUser, user } = useUserStore()
-    const { setStudents, students } = useStudentStore()
-    const { setCreatures, creatures } = useCreatureStore()
     console.log({ user: session?.user, event })
     if (!session) return
+
     if (event === 'SIGNED_IN') {
-      console.log('currentUser', user)
-      setCurrentUser(session.user)
+      console.log('currentUser', userStore.user)
+      userStore.setCurrentUser(session.user)
     }
-    if (students.data === null && !students.isLoading) {
-      console.log('students', students)
-      setStudents(session.user.id)
+
+    if (
+      studentStore.students.data === null &&
+      !studentStore.students.isLoading
+    ) {
+      console.log('students', studentStore.students)
+      studentStore.setStudents(session.user.id)
     }
-    if (creatures.data === null && !creatures.isLoading) {
-      console.log('creatures', creatures)
-      setCreatures()
+
+    if (
+      creatureStore.creatures.data === null &&
+      !creatureStore.creatures.isLoading
+    ) {
+      console.log('creatures', creatureStore.creatures)
+      creatureStore.setCreatures()
     }
   })
 })
@@ -32,4 +42,3 @@ onMounted(() => {
 <template>
   <RouterView />
 </template>
-@/stores/student/studentsStore

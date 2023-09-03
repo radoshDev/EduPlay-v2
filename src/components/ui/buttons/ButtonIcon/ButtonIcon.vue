@@ -5,6 +5,7 @@ import { onMounted, onUpdated, ref } from 'vue'
 
 type Props = {
   color: Variant
+  icon: { name: string; scale?: number; fill?: string }
   round?: boolean
   href?: string
   target?: AnchorTarget
@@ -45,7 +46,7 @@ function setDisabled() {
     ref="button"
     @click="$emit('click', $event)"
   >
-    <slot />
+    <v-icon :name="icon.name" :fill="icon.fill" :scale="icon.scale" />
   </component>
 </template>
 

@@ -38,7 +38,6 @@ function handleChangeSlide(e: Event, type: 'next' | 'prev') {
     index.value--
   }
 }
-console.log({ slides: slides.value, index: index.value })
 </script>
 
 <template>
@@ -50,13 +49,12 @@ console.log({ slides: slides.value, index: index.value })
     >
       <ButtonIcon
         @click="(e) => handleChangeSlide(e, 'prev')"
+        :icon="{ name: 'md-arrowbackios-outlined' }"
         :disabled="index === 0"
         color="primary"
         size="sm"
         round
-      >
-        <v-icon name="md-arrowbackios-outlined" />
-      </ButtonIcon>
+      />
 
       <div class="flex h-[132px] w-full flex-wrap gap-2 p-3">
         <PreloaderBlock v-if="creatures.isLoading" size="lg" />
@@ -89,13 +87,12 @@ console.log({ slides: slides.value, index: index.value })
       </div>
       <ButtonIcon
         @click="(e) => handleChangeSlide(e, 'next')"
+        :icon="{ name: 'md-arrowforwardios-outlined' }"
         :disabled="slides.length === 0 || index === slides.length - 1"
         color="primary"
         size="sm"
         round
-      >
-        <v-icon name="md-arrowforwardios-outlined" />
-      </ButtonIcon>
+      />
     </div>
     <div v-if="error" className="mt-1 text-error">{{ error }}</div>
   </div>

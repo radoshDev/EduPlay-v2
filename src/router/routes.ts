@@ -2,6 +2,7 @@ import type { ValueOf } from '@/types'
 import type { RouteName } from '@/utils/constants'
 import type { RouteRecordRaw } from 'vue-router'
 import { requiredAuthGuard, requiredNotAuthGuard } from './routesGuards'
+import { setStudentIdHandler } from './routeHandlers'
 
 export type RouteRecord = Omit<RouteRecordRaw, 'name'> & {
   name: ValueOf<typeof RouteName>
@@ -10,6 +11,9 @@ export type RouteRecord = Omit<RouteRecordRaw, 'name'> & {
 const HomePage = () => import('@/pages/HomePage.vue')
 const StudentsPage = () => import('@/pages/students/StudentsPage.vue')
 const AddStudentPage = () => import('@/pages/students/AddStudentPage.vue')
+const StudentInfoPage = () => import('@/pages/students/StudentInfoPage.vue')
+const EducationMenuPage = () =>
+  import('@/pages/education/EducationMenuPage.vue')
 const AccountPage = () => import('@/pages/AccountPage.vue')
 const LoginPage = () => import('@/pages/auth/LoginPage.vue')
 const RegisterPage = () => import('@/pages/auth/RegisterPage.vue')
@@ -32,9 +36,23 @@ const routes: RouteRecord[] = [
   },
   {
     path: '/students/add',
-    name: 'students-add',
+    name: 'student-add',
     component: AddStudentPage,
     meta: { title: 'Новий студент' }
+  },
+  {
+    path: '/students/:studentId',
+    name: 'student-info',
+    component: StudentInfoPage,
+    beforeEnter: setStudentIdHandler,
+    meta: { title: 'Дані студента' }
+  },
+  {
+    path: '/education/:studentId',
+    name: 'education-menu',
+    component: EducationMenuPage,
+    beforeEnter: setStudentIdHandler,
+    meta: { title: 'Завдання' }
   },
   {
     path: '/account',

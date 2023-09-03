@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { Student } from '@/types/db'
 import type { QueryData } from '@/types'
@@ -10,6 +10,11 @@ export const useStudentStore = defineStore('studentStore', () => {
     isLoading: false,
     error: ''
   })
+  const studentId = ref<string | null>(null)
+
+  const currentStudent = computed(
+    () => students.data?.find((student) => student.id === studentId.value)
+  )
 
   async function setStudents(userId: string) {
     try {
@@ -44,5 +49,12 @@ export const useStudentStore = defineStore('studentStore', () => {
   function $reset() {
     students.data = []
   }
-  return { setStudents, updateStudents, students, $reset }
+  return {
+    setStudents,
+    updateStudents,
+    students,
+    studentId,
+    currentStudent,
+    $reset
+  }
 })
