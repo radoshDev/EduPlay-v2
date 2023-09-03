@@ -9,6 +9,7 @@ export const RouteName = {
   NOT_FOUND: 'not-found',
   STUDENTS: 'students',
   STUDENT_ADD: 'student-add',
+  STUDENT_UPDATE: 'student-update',
   STUDENT_INFO: 'student-info',
   EDUCATION_MENU: 'education-menu'
 } as const

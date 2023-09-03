@@ -17,7 +17,7 @@ const { currentStudent } = storeToRefs(useStudentStore())
         :back-href="currentStudent ? `/education/${currentStudent.id}` : '/'"
       >
         <template #right-action v-if="currentStudent">
-          <ButtonEdit :href="`${currentStudent.id}/update`" />
+          <ButtonEdit :href="`/students/${currentStudent.id}/update`" />
         </template>
       </PageTitle>
     </template>

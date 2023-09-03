@@ -8,6 +8,7 @@ defineEmits<{ (e: 'click', event: Event): void }>()
 <template>
   <ButtonIcon
     @click="(e) => $emit('click', e)"
+    :href="href"
     color="secondary"
     :icon="{ name: 'fa-regular-edit', scale: 1.5 }"
   />

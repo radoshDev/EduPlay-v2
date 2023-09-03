@@ -12,6 +12,7 @@ import { DIFFICULTY_TYPES, RouteName } from '@/utils/constants'
 import SelectAvatar from './SelectAvatar/SelectAvatar.vue'
 import { useUserStore } from '@/stores/user/userStore'
 import { useStudentStore } from '@/stores/student/studentStore'
+import { storeToRefs } from 'pinia'
 
 type Props = {
   defaultValues?: Partial<StudentInput>
@@ -19,7 +20,7 @@ type Props = {
 }
 const props = defineProps<Props>()
 
-const { user } = useUserStore()
+const { user } = storeToRefs(useUserStore())
 const { updateStudents } = useStudentStore()
 const isAdding = computed(() => props.action === 'addStudent')
 const isLoading = ref(false)
@@ -38,17 +39,18 @@ const roundLength = defineComponentBinds('roundLength')
 const onSubmit = handleSubmit(async (data) => {
   try {
     isLoading.value = true
-    console.log({ data })
 
-    if (!user) throw new Error('Unauthorized!')
+    if (!user.value) throw new Error('Unauthorized!')
 
     const newStudent = await api.students[props.action]({
       ...data,
       id: data.id!,
-      userId: user.id
+      userId: user.value.id
     })
     updateStudents(newStudent)
-    router.push({ name: RouteName.STUDENTS })
+    router.push({
+      name: isAdding.value ? RouteName.STUDENTS : RouteName.STUDENT_INFO
+    })
   } catch (_error) {
     const error = _error as Error
     $toast.error(error.message || 'Something went wrong. Try to reload page')

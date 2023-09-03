@@ -11,6 +11,7 @@ export type RouteRecord = Omit<RouteRecordRaw, 'name'> & {
 const HomePage = () => import('@/pages/HomePage.vue')
 const StudentsPage = () => import('@/pages/students/StudentsPage.vue')
 const AddStudentPage = () => import('@/pages/students/AddStudentPage.vue')
+const UpdateStudentPage = () => import('@/pages/students/UpdateStudentPage.vue')
 const StudentInfoPage = () => import('@/pages/students/StudentInfoPage.vue')
 const EducationMenuPage = () =>
   import('@/pages/education/EducationMenuPage.vue')
@@ -46,6 +47,13 @@ const routes: RouteRecord[] = [
     component: StudentInfoPage,
     beforeEnter: setStudentIdHandler,
     meta: { title: 'Дані студента' }
+  },
+  {
+    path: '/students/:studentId/update',
+    name: 'student-update',
+    component: UpdateStudentPage,
+    beforeEnter: setStudentIdHandler,
+    meta: { title: 'Редагування Студента' }
   },
   {
     path: '/education/:studentId',
