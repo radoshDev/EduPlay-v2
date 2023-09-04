@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
 import { ButtonText } from '@/components/ui/buttons'
 import { DatabaseAddIcon } from '@/components/ui/icons'
 import { useTaskStore } from '@/stores/task/taskStore'
-import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { useStudentStore } from '@/stores/student/studentStore'
 
 const taskStore = useTaskStore()
 const { currentTaskRound, isRoundEnd, isBeforeRoundEnd } =
   storeToRefs(taskStore)
+const studentStore = useStudentStore()
 const nextRoundAudioRef = ref<HTMLAudioElement | null>(null)
 const earnedCoinAudioRef = ref<HTMLAudioElement | null>(null)
 
@@ -15,7 +17,7 @@ function handlePrev() {
   if (!currentTaskRound.value) return
   if (isRoundEnd.value) {
     currentTaskRound.value.earned--
-    console.log('handleSaveProgress("subtract")')
+    studentStore.saveStudentProgress('subtract')
   }
 
   currentTaskRound.value.index--
@@ -26,7 +28,7 @@ function handleNext() {
 
   if (isBeforeRoundEnd.value) {
     currentTaskRound.value.earned++
-    console.log('handleSaveProgress("add")')
+    studentStore.saveStudentProgress('add')
   }
 
   currentTaskRound.value.index++

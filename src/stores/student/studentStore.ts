@@ -1,11 +1,12 @@
 import { computed, reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { Student } from '@/types/db'
+import format from 'date-fns/format'
+import type { StudentWithProgress, Student } from '@/types/db'
 import type { QueryData } from '@/types'
 import api from '@/api/api'
 
 export const useStudentStore = defineStore('studentStore', () => {
-  const students = reactive<QueryData<Student[] | null>>({
+  const students = reactive<QueryData<StudentWithProgress[] | null>>({
     data: null,
     isLoading: false,
     error: ''
@@ -32,8 +33,9 @@ export const useStudentStore = defineStore('studentStore', () => {
     }
   }
   function updateStudents(newStudent: Student) {
+    const newStudentWithProgress = { ...newStudent, progress: [] }
     if (!students.data) {
-      students.data = [newStudent]
+      students.data = [newStudentWithProgress]
       return
     }
     const existStudent = students.data.find(
@@ -46,7 +48,41 @@ export const useStudentStore = defineStore('studentStore', () => {
       existStudent.roundLength = newStudent.roundLength
       return
     }
-    students.data.push(newStudent)
+    students.data.push(newStudentWithProgress)
+  }
+  function saveStudentProgress(action: 'add' | 'subtract') {
+    if (!currentStudent.value) return
+    const today = format(new Date(), 'dd-MM-yyyy')
+    const existProgress = currentStudent.value.progress.find(
+      (item) => item.date === today
+    )
+
+    if (!existProgress && action === 'subtract') return
+
+    if (!existProgress) {
+      currentStudent.value.progress.push({
+        date: today,
+        student_id: currentStudent.value.id,
+        id: 0,
+        value: currentStudent.value.roundLength
+      })
+      api.students.saveProgress({
+        newValue: currentStudent.value.roundLength,
+        studentId: currentStudent.value.id,
+        date: today
+      })
+      return
+    }
+    if (action === 'add') {
+      existProgress.value += currentStudent.value.roundLength
+    } else {
+      existProgress.value -= currentStudent.value.roundLength
+    }
+    api.students.saveProgress({
+      newValue: existProgress.value,
+      studentId: currentStudent.value.id,
+      date: today
+    })
   }
   function $reset() {
     students.data = []
@@ -58,6 +94,7 @@ export const useStudentStore = defineStore('studentStore', () => {
     roundLength,
     setStudents,
     updateStudents,
+    saveStudentProgress,
     $reset
   }
 })
