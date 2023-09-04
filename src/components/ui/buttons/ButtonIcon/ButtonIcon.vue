@@ -43,6 +43,7 @@ function setDisabled() {
     ]"
     :to="href"
     :href="href"
+    :target="target"
     ref="button"
     @click="$emit('click', $event)"
   >

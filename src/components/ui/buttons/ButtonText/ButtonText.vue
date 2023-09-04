@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Variant, Size } from '@/types/styles'
 import type { AnchorTarget } from '@/types'
-import { onUpdated, ref } from 'vue'
+import { onMounted, onUpdated, ref } from 'vue'
 import { PreloaderBlock } from '@/components/ui'
 
 type Props = {
@@ -18,14 +18,19 @@ defineEmits<{ (e: 'click'): void }>()
 
 const button = ref<HTMLButtonElement | null>(null)
 
-onUpdated(() => {
+onMounted(setDisabled)
+
+onUpdated(setDisabled)
+
+function setDisabled() {
   if (props.href || !button.value) return
-  if (props.isLoading || props.disabled) {
+
+  if (props.disabled) {
     button.value.setAttribute('disabled', 'true')
   } else {
     button.value.removeAttribute('disabled')
   }
-})
+}
 </script>
 
 <template>

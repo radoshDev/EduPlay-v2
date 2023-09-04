@@ -25,8 +25,9 @@ import {
   FcReadingEbook,
   HiSolidArrowNarrowLeft,
   HiSolidArrowNarrowRight,
+  IoCloseCircleSharp,
   IoLibrarySharp,
-  IoCloseCircleSharp
+  IoReloadSharp
 } from 'oh-vue-icons/icons'
 
 addIcons(
@@ -46,8 +47,9 @@ addIcons(
   FcReadingEbook,
   HiSolidArrowNarrowLeft,
   HiSolidArrowNarrowRight,
+  IoCloseCircleSharp,
   IoLibrarySharp,
-  IoCloseCircleSharp
+  IoReloadSharp
 )
 
 const app = createApp(App)

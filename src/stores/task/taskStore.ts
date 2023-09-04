@@ -21,6 +21,9 @@ export const useTaskStore = defineStore('taskStore', () => {
   const progress = reactive<TaskStudentProgress>({})
 
   const taskType = ref<string | null>(null)
+
+  const isOptionModal = ref(false)
+
   const tasksList = computed(() => {
     if (!tasks.data) return []
     const filteredData = tasks.data.filter(
@@ -73,20 +76,28 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
     const currentTask = progress[studentId]![taskType.value]
 
-    if (currentTask && (currentTask.earned > 0 || currentTask.index > 0)) {
-      currentTask.showResetModal = true
-      return
-    }
-
     if (currentTask) return
 
     progress[studentId]![taskType.value] = {
-      showResetModal: false,
       earned: 0,
       index: 0,
       roundTasks: generateUniqueList(tasksList.value, roundLength.value),
       creature: randomCreature
     }
+  }
+
+  function resetTask() {
+    const randomCreature = creatureStore.getRandomCreature()
+
+    if (!currentTaskRound.value || !randomCreature) return
+
+    currentTaskRound.value.earned = 0
+    currentTaskRound.value.index = 0
+    currentTaskRound.value.roundTasks = generateUniqueList(
+      tasksList.value,
+      roundLength.value
+    )
+    currentTaskRound.value.creature = randomCreature
   }
 
   function nextRound() {
@@ -104,11 +115,13 @@ export const useTaskStore = defineStore('taskStore', () => {
     tasks,
     taskType,
     currentTaskRound,
+    isOptionModal,
     isRoundEnd,
     isBeforeRoundEnd,
     currentTask,
     setTasks,
     initiateTask,
+    resetTask,
     nextRound
   }
 })

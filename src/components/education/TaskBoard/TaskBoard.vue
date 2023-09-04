@@ -1,17 +1,16 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useTaskStore } from '@/stores/task/taskStore'
 import TaskBoardContent from './TaskBoardContent/TaskBoardContent.vue'
 import TaskBoardHeader from './TaskBoardHeader/TaskBoardHeader.vue'
 import TaskBoardNavigation from './TaskBoardNavigation/TaskBoardNavigation.vue'
-import { onMounted, onUpdated } from 'vue'
+import ResetModal from './ResetModal/ResetModal.vue'
+import OptionsModal from './OptionsModal/OptionsModal.vue'
 
 const taskStore = useTaskStore()
 
 onMounted(() => {
   taskStore.initiateTask()
-})
-onUpdated(() => {
-  console.log('---UPDATED!---')
 })
 </script>
 
@@ -20,6 +19,7 @@ onUpdated(() => {
     <TaskBoardHeader />
     <TaskBoardContent />
     <TaskBoardNavigation />
-    <!-- <ResetModal /> -->
+    <ResetModal />
+    <OptionsModal />
   </div>
 </template>

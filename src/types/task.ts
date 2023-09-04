@@ -1,7 +1,6 @@
 import type { Creature, Task } from './db'
 
 export type TaskRound = {
-  showResetModal: boolean
   index: number
   earned: number
   roundTasks: Task[]
