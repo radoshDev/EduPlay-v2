@@ -12,28 +12,42 @@ import {
   BiBoxArrowInLeft,
   BiGithub,
   BiGearFill,
+  BiImageFill,
   BiPlusCircleFill,
   BiCashCoin,
   MdArrowbackiosOutlined,
   MdArrowforwardiosOutlined,
+  MdMorevert,
   FaRegularEdit,
+  FaWikipediaW,
+  FaQuestionCircle,
   FcCalculator,
   FcReadingEbook,
-  IoLibrarySharp
+  HiSolidArrowNarrowLeft,
+  HiSolidArrowNarrowRight,
+  IoLibrarySharp,
+  IoCloseCircleSharp
 } from 'oh-vue-icons/icons'
 
 addIcons(
   BiBoxArrowInLeft,
+  BiCashCoin,
   BiGithub,
   BiGearFill,
+  BiImageFill,
   BiPlusCircleFill,
   MdArrowbackiosOutlined,
   MdArrowforwardiosOutlined,
+  MdMorevert,
   FaRegularEdit,
+  FaWikipediaW,
   FcCalculator,
+  FaQuestionCircle,
   FcReadingEbook,
-  BiCashCoin,
-  IoLibrarySharp
+  HiSolidArrowNarrowLeft,
+  HiSolidArrowNarrowRight,
+  IoLibrarySharp,
+  IoCloseCircleSharp
 )
 
 const app = createApp(App)

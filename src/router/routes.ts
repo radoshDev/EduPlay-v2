@@ -2,7 +2,7 @@ import type { ValueOf } from '@/types'
 import type { RouteName } from '@/utils/constants'
 import type { RouteRecordRaw } from 'vue-router'
 import { requiredAuthGuard, requiredNotAuthGuard } from './routesGuards'
-import { setStudentIdHandler } from './routeHandlers'
+import { setParamsHandler } from './routeHandlers'
 
 export type RouteRecord = Omit<RouteRecordRaw, 'name'> & {
   name: ValueOf<typeof RouteName>
@@ -15,6 +15,8 @@ const UpdateStudentPage = () => import('@/pages/students/UpdateStudentPage.vue')
 const StudentInfoPage = () => import('@/pages/students/StudentInfoPage.vue')
 const EducationMenuPage = () =>
   import('@/pages/education/EducationMenuPage.vue')
+const EducationTaskPage = () =>
+  import('@/pages/education/EducationTaskPage.vue')
 const AccountPage = () => import('@/pages/AccountPage.vue')
 const LoginPage = () => import('@/pages/auth/LoginPage.vue')
 const RegisterPage = () => import('@/pages/auth/RegisterPage.vue')
@@ -45,21 +47,28 @@ const routes: RouteRecord[] = [
     path: '/students/:studentId',
     name: 'student-info',
     component: StudentInfoPage,
-    beforeEnter: setStudentIdHandler,
+    beforeEnter: setParamsHandler,
     meta: { title: 'Дані студента' }
   },
   {
     path: '/students/:studentId/update',
     name: 'student-update',
     component: UpdateStudentPage,
-    beforeEnter: setStudentIdHandler,
+    beforeEnter: setParamsHandler,
     meta: { title: 'Редагування Студента' }
   },
   {
     path: '/education/:studentId',
     name: 'education-menu',
     component: EducationMenuPage,
-    beforeEnter: setStudentIdHandler,
+    beforeEnter: setParamsHandler,
+    meta: { title: 'Список завдань' }
+  },
+  {
+    path: '/education/:studentId/:taskType',
+    name: 'education-task',
+    component: EducationTaskPage,
+    beforeEnter: setParamsHandler,
     meta: { title: 'Завдання' }
   },
   {

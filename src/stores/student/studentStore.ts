@@ -16,6 +16,8 @@ export const useStudentStore = defineStore('studentStore', () => {
     () => students.data?.find((student) => student.id === studentId.value)
   )
 
+  const roundLength = computed(() => currentStudent.value?.roundLength || 5)
+
   async function setStudents(userId: string) {
     try {
       students.isLoading = true
@@ -50,11 +52,12 @@ export const useStudentStore = defineStore('studentStore', () => {
     students.data = []
   }
   return {
-    setStudents,
-    updateStudents,
     students,
     studentId,
     currentStudent,
+    roundLength,
+    setStudents,
+    updateStudents,
     $reset
   }
 })

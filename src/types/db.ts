@@ -8,6 +8,7 @@ export type Json =
 
 export type Student = Database['public']['Tables']['students']['Row']
 export type Creature = Database['public']['Tables']['creatures']['Row']
+export type Task = Database['public']['Tables']['tasks']['Row']
 
 export interface Database {
   public: {
@@ -40,7 +41,7 @@ export interface Database {
         Row: {
           categorySlug: string
           description: string | null
-          mainImage: string | null
+          mainImage: string
           media: string[]
           slug: string
           source: string | null
@@ -136,14 +137,14 @@ export interface Database {
           title: string
         }
         Insert: {
-          imageUrl?: string | null
-          position?: number | null
+          imageUrl?: string
+          position?: number
           slug?: string
           title: string
         }
         Update: {
-          imageUrl?: string | null
-          position?: number | null
+          imageUrl?: string
+          position?: number
           slug?: string
           title?: string
         }
@@ -151,26 +152,26 @@ export interface Database {
       }
       task_subcategories: {
         Row: {
-          difficulty: number | null
+          difficulty: number
           imageUrl: string | null
           parentSlug: string
-          position: number | null
+          position: number
           slug: string
           title: string
         }
         Insert: {
-          difficulty?: number | null
-          imageUrl?: string | null
+          difficulty?: number
+          imageUrl?: string
           parentSlug: string
-          position?: number | null
+          position?: number
           slug?: string
           title?: string
         }
         Update: {
-          difficulty?: number | null
-          imageUrl?: string | null
+          difficulty?: number
+          imageUrl?: string
           parentSlug?: string
-          position?: number | null
+          position?: number
           slug?: string
           title?: string
         }
@@ -186,27 +187,36 @@ export interface Database {
       tasks: {
         Row: {
           id: string
-          parentSlug: string | null
           result: string | null
+          subcategorySlug: string
+          type: string
           value: string
         }
         Insert: {
           id?: string
-          parentSlug?: string | null
-          result?: string | null
+          result?: string
+          subcategorySlug?: string
+          type: string
           value?: string
         }
         Update: {
           id?: string
-          parentSlug?: string | null
           result?: string | null
+          subcategorySlug?: string
+          type?: string
           value?: string
         }
         Relationships: [
           {
-            foreignKeyName: 'tasks_parentSlug_fkey'
-            columns: ['parentSlug']
+            foreignKeyName: 'tasks_subcategorySlug_fkey'
+            columns: ['subcategorySlug']
             referencedRelation: 'task_subcategories'
+            referencedColumns: ['slug']
+          },
+          {
+            foreignKeyName: 'tasks_type_fkey'
+            columns: ['type']
+            referencedRelation: 'task_categories'
             referencedColumns: ['slug']
           }
         ]

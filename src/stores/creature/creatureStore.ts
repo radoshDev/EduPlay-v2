@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import type { Creature } from '@/types/db'
 import type { QueryData } from '@/types'
 import api from '@/api/api'
+import getRandomIndex from '@/helpers/getRandomIndex'
 
 export const useCreatureStore = defineStore('creatureStore', () => {
   const creatures = reactive<QueryData<Creature[] | null>>({
@@ -32,5 +33,10 @@ export const useCreatureStore = defineStore('creatureStore', () => {
       creatures.isLoading = false
     }
   }
-  return { creatures, creaturesImages, setCreatures }
+
+  function getRandomCreature() {
+    if (!creatures.data) return undefined
+    return creatures.data[getRandomIndex(creatures.data.length)]
+  }
+  return { creatures, creaturesImages, setCreatures, getRandomCreature }
 })

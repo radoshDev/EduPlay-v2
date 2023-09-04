@@ -9,6 +9,7 @@ type Props = {
   variant?: Variant
   size?: Size
   isLoading?: boolean
+  disabled?: boolean
   target?: AnchorTarget
 }
 
@@ -19,7 +20,7 @@ const button = ref<HTMLButtonElement | null>(null)
 
 onUpdated(() => {
   if (props.href || !button.value) return
-  if (props.isLoading) {
+  if (props.isLoading || props.disabled) {
     button.value.setAttribute('disabled', 'true')
   } else {
     button.value.removeAttribute('disabled')

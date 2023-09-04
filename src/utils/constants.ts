@@ -11,7 +11,8 @@ export const RouteName = {
   STUDENT_ADD: 'student-add',
   STUDENT_UPDATE: 'student-update',
   STUDENT_INFO: 'student-info',
-  EDUCATION_MENU: 'education-menu'
+  EDUCATION_MENU: 'education-menu',
+  EDUCATION_TASK: 'education-task'
 } as const
 
 export const EARN_TYPES = [

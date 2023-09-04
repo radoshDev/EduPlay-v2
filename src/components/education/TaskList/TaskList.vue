@@ -18,7 +18,7 @@ const { studentId } = storeToRefs(useStudentStore())
     <CategoryCard
       v-for="item in EARN_TYPES"
       :key="item.type"
-      :href="`${studentId}/${item.type}`"
+      :href="`/education/${studentId}/${item.type}`"
       :title="item.title"
       :icon-name="item.icon"
       :fill="item.fill"
