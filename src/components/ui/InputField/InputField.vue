@@ -46,5 +46,3 @@ const inputValue = computed({
     <div v-if="error" className="mt-1 text-error">{{ error }}</div>
   </div>
 </template>
-
-<style scoped lang="scss"></style>

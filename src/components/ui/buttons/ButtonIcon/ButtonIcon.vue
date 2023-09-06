@@ -34,7 +34,7 @@ function setDisabled() {
   <component
     :is="!href ? 'button' : href.startsWith('http') ? 'a' : 'router-link'"
     :class="[
-      'btn',
+      'btn border-none',
       `text-${color}`,
       `btn-${size || 'sm'}`,
       'bg-transparent',
@@ -50,5 +50,3 @@ function setDisabled() {
     <v-icon :name="icon.name" :fill="icon.fill" :scale="icon.scale" />
   </component>
 </template>
-
-<style scoped lang="scss"></style>

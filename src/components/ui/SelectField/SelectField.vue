@@ -4,12 +4,12 @@ import { computed } from 'vue'
 type Props = {
   label: string
   options: { value: string | number; label: string }[]
-  modelValue?: number
+  modelValue?: number | string
   error?: string
 }
 const props = defineProps<Props>()
 const emit = defineEmits<{
-  (e: 'update:modelValue', val: number | undefined): void
+  (e: 'update:modelValue', val: number | string | undefined): void
 }>()
 
 const selectedValue = computed({
@@ -42,5 +42,3 @@ const selectedValue = computed({
     <div v-if="error" class="mt-1 text-error">{{ error }}</div>
   </div>
 </template>
-
-<style scoped lang="scss"></style>

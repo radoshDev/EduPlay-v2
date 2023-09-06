@@ -5,5 +5,3 @@ import { TaskBoard } from '@/components/education'
 <template>
   <TaskBoard />
 </template>
-
-<style scoped lang="scss"></style>

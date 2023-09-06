@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PageLayout from '@/components/layouts/PageLayout.vue'
+import { ProgressGraph } from '@/components/students'
 import { PageTitle } from '@/components/ui'
 import { ButtonLogout, ButtonText } from '@/components/ui/buttons'
 import { useUserStore } from '@/stores/user/userStore'
@@ -29,6 +30,9 @@ const { user } = useUserStore()
         <ButtonText size="sm" variant="warning" href="/library">
           Бібліотека
         </ButtonText>
+      </div>
+      <div class="w-full mt-6">
+        <ProgressGraph />
       </div>
     </div>
   </PageLayout>

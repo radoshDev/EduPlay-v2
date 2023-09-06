@@ -50,5 +50,3 @@ function setDisabled() {
     <slot v-else />
   </component>
 </template>
-
-<style scoped lang="scss"></style>

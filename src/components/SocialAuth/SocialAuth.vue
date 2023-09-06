@@ -5,5 +5,3 @@ import GitHubButton from './GitHub/GitHubButton.vue'
 <template>
   <GitHubButton />
 </template>
-
-<style scoped lang="scss"></style>

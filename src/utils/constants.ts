@@ -65,3 +65,9 @@ export const VARIANT_COLORS: Variant[] = [
   'success',
   'warning'
 ]
+
+export const GRAPH_PERIOD_OPTIONS = [
+  { label: 'Тиждень', value: 'week' },
+  { label: 'Місяць', value: 'month' },
+  { label: 'Рік', value: 'year' }
+]

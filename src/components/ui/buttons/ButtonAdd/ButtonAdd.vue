@@ -14,6 +14,7 @@ defineEmits<{ (e: 'click'): void }>()
     @click="$emit('click')"
     :icon="{ name: 'bi-plus-circle-fill', scale: 2 }"
     color="success"
+    size="md"
     round
     :href="href"
   />
