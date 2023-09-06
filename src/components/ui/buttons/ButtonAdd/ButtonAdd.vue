@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { ButtonIcon } from '@/components/ui/buttons'
+import { useUserStore } from '@/stores/user/userStore'
+import { storeToRefs } from 'pinia'
 
-defineProps<{ href?: string }>()
+const { user } = storeToRefs(useUserStore())
+defineProps<{ href?: string; private?: boolean }>()
 defineEmits<{ (e: 'click'): void }>()
 </script>
 
 <template>
   <ButtonIcon
+    v-if="!(private && !user?.isAdmin)"
     @click="$emit('click')"
     :icon="{ name: 'bi-plus-circle-fill', scale: 1.5 }"
     color="success"
@@ -14,5 +18,3 @@ defineEmits<{ (e: 'click'): void }>()
     :href="href"
   />
 </template>
-
-<style scoped lang="scss"></style>

@@ -2,14 +2,14 @@ import registerHandler from './handlers/registerHandler'
 import logoutHandler from './handlers/logoutHandler'
 import students from './handlers/students'
 import creatures from './handlers/creatures'
-import tasks from './handlers/tasks'
+import library from './handlers/library'
 
 const api = {
   register: registerHandler,
   logout: logoutHandler,
   students,
   creatures,
-  tasks
+  library
 }
 
 export default api

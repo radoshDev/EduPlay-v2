@@ -7,3 +7,9 @@ export type QueryData<T> = {
   isLoading: boolean
   error: string
 }
+
+export type Category = {
+  title: string
+  slug: string
+  imageUrl: string | null
+}

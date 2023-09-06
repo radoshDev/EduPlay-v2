@@ -3,7 +3,7 @@ type Props = {
   title: string
   iconName?: string
   fill?: string
-  imageSrc?: string
+  imageSrc?: string | null
   href?: string
 }
 

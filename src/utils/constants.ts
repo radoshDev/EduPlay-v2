@@ -12,7 +12,15 @@ export const RouteName = {
   STUDENT_UPDATE: 'student-update',
   STUDENT_INFO: 'student-info',
   EDUCATION_MENU: 'education-menu',
-  EDUCATION_TASK: 'education-task'
+  EDUCATION_TASK: 'education-task',
+  LIBRARY_CATEGORIES: 'library-categories',
+  LIBRARY_CATEGORIES_NEW: 'library-categories-new',
+  LIBRARY_SUBCATEGORIES: 'library-subcategories',
+  LIBRARY_SUBCATEGORIES_NEW: 'library-subcategories-new',
+  LIBRARY_TASKS: 'library-tasks',
+  LIBRARY_TASKS_NEW: 'library-tasks-new',
+  LIBRARY_A_TASK: 'library-a-task',
+  LIBRARY_A_TASK_EDIT: 'library-a-task-edit'
 } as const
 
 export const EARN_TYPES = [

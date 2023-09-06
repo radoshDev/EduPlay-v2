@@ -1,22 +1,16 @@
-import api from '@/api/api'
-import type { QueryData } from '@/types'
-import type { Task } from '@/types/db'
 import type { TaskStudentProgress } from '@/types/task'
 import { defineStore, storeToRefs } from 'pinia'
 import { computed, reactive, ref } from 'vue'
 import { useCreatureStore } from '../creature/creatureStore'
 import { useStudentStore } from '../student/studentStore'
 import generateUniqueList from '@/helpers/generateUniqueList'
+import useLibraryStore from '../library/libraryStore'
+import type { Task } from '@/types/db'
 
 export const useTaskStore = defineStore('taskStore', () => {
   const creatureStore = useCreatureStore()
   const { currentStudent, roundLength } = storeToRefs(useStudentStore())
-
-  const tasks = reactive<QueryData<Task[] | null>>({
-    data: null,
-    isLoading: false,
-    error: ''
-  })
+  const { tasks, categories } = storeToRefs(useLibraryStore())
 
   const progress = reactive<TaskStudentProgress>({})
 
@@ -25,12 +19,24 @@ export const useTaskStore = defineStore('taskStore', () => {
   const isOptionModal = ref(false)
 
   const tasksList = computed(() => {
-    if (!tasks.data) return []
-    const filteredData = tasks.data.filter(
-      (task) => task.type === taskType.value
+    if (!tasks.value.data) return []
+
+    if (taskType.value === 'coins') return tasks.value.data
+
+    let filterCb: (task: Task) => boolean
+    const isCategoryType = categories.value.data?.some(
+      (category) => category.slug === taskType.value
     )
-    return filteredData.length > 0 ? filteredData : tasks.data
+    if (isCategoryType) {
+      filterCb = (task) => task.type === taskType.value
+    } else {
+      filterCb = (task) => task.subcategorySlug === taskType.value
+    }
+
+    const filteredData = tasks.value.data.filter(filterCb)
+    return filteredData.length > 0 ? filteredData : tasks.value.data
   })
+
   const currentTaskRound = computed(() => {
     const studentId = currentStudent.value?.id
     if (!studentId || !taskType.value) return undefined
@@ -51,25 +57,12 @@ export const useTaskStore = defineStore('taskStore', () => {
     return currentTaskRound.value.roundTasks[currentTaskRound.value.index]
   })
 
-  async function setTasks() {
-    try {
-      tasks.isLoading = true
-      tasks.error = ''
-      const data = await api.tasks.getTasks()
-      tasks.data = data
-    } catch (_error) {
-      const error = _error as Error
-      tasks.error = error.message || 'Unhandled tasks error'
-    } finally {
-      tasks.isLoading = false
-    }
-  }
-
   function initiateTask() {
     const studentId = currentStudent.value?.id
     const randomCreature = creatureStore.getRandomCreature()
 
-    if (!studentId || !randomCreature || !taskType.value || !tasks.data) return
+    if (!studentId || !randomCreature || !taskType.value || !tasks.value.data)
+      return
 
     if (!progress[studentId]) {
       progress[studentId] = {}
@@ -112,14 +105,12 @@ export const useTaskStore = defineStore('taskStore', () => {
     )
   }
   return {
-    tasks,
     taskType,
     currentTaskRound,
     isOptionModal,
     isRoundEnd,
     isBeforeRoundEnd,
     currentTask,
-    setTasks,
     initiateTask,
     resetTask,
     nextRound

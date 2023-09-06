@@ -27,7 +27,8 @@ import {
   HiSolidArrowNarrowRight,
   IoCloseCircleSharp,
   IoLibrarySharp,
-  IoReloadSharp
+  IoReloadSharp,
+  IoRocketSharp
 } from 'oh-vue-icons/icons'
 
 addIcons(
@@ -49,7 +50,8 @@ addIcons(
   HiSolidArrowNarrowRight,
   IoCloseCircleSharp,
   IoLibrarySharp,
-  IoReloadSharp
+  IoReloadSharp,
+  IoRocketSharp
 )
 
 const app = createApp(App)

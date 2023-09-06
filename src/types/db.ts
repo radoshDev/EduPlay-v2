@@ -6,12 +6,15 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export type Student = Database['public']['Tables']['students']['Row']
-export type StudentProgress =
-  Database['public']['Tables']['students_progress']['Row']
+type Tables = Database['public']['Tables']
+
+export type Student = Tables['students']['Row']
+export type StudentProgress = Tables['students_progress']['Row']
 export type StudentWithProgress = Student & { progress: StudentProgress[] }
-export type Creature = Database['public']['Tables']['creatures']['Row']
-export type Task = Database['public']['Tables']['tasks']['Row']
+export type Creature = Tables['creatures']['Row']
+export type TaskCategory = Tables['task_categories']['Row']
+export type TaskSubcategory = Tables['task_subcategories']['Row']
+export type Task = Tables['tasks']['Row']
 
 export interface Database {
   public: {

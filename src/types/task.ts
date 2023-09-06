@@ -1,4 +1,4 @@
-import type { Creature, Task } from './db'
+import type { Creature, Task, TaskCategory, TaskSubcategory } from './db'
 
 export type TaskRound = {
   index: number
@@ -10,3 +10,7 @@ export type TaskRound = {
 export type TaskStudentProgress = Partial<
   Record<string, Record<string, TaskRound>>
 >
+
+export type TaskCategoryTree = TaskCategory & {
+  subcategories: TaskSubcategory[]
+}

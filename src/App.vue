@@ -5,12 +5,12 @@ import { supabase } from './lib/supabaseClient'
 import { useUserStore } from '@/stores/user/userStore'
 import { useStudentStore } from '@/stores/student/studentStore'
 import { useCreatureStore } from './stores/creature/creatureStore'
-import { useTaskStore } from './stores/task/taskStore'
+import useLibraryStore from './stores/library/libraryStore'
 
 const userStore = useUserStore()
 const studentStore = useStudentStore()
 const creatureStore = useCreatureStore()
-const taskStore = useTaskStore()
+const libraryStore = useLibraryStore()
 
 onMounted(() => {
   supabase.auth.onAuthStateChange((event, session) => {
@@ -37,9 +37,16 @@ onMounted(() => {
       console.log('creatures', creatureStore.creatures)
       creatureStore.setCreatures()
     }
-    if (taskStore.tasks.data === null && !taskStore.tasks.isLoading) {
-      console.log('creatures', taskStore.tasks)
-      taskStore.setTasks()
+    if (libraryStore.tasks.data === null && !libraryStore.tasks.isLoading) {
+      console.log('creatures', libraryStore.tasks)
+      libraryStore.setTasks()
+    }
+    if (
+      libraryStore.categories.data === null &&
+      !libraryStore.categories.isLoading
+    ) {
+      console.log('creatures', libraryStore.categories)
+      libraryStore.setCategories()
     }
   })
 })
