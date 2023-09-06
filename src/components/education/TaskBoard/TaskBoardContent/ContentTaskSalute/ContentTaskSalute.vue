@@ -29,7 +29,7 @@ const creature = computed(() => currentTaskRound.value?.creature)
 
     <ButtonIcon
       v-if="currentStudent"
-      :icon="{ name: 'fa-question-circle' }"
+      :icon="{ name: 'fa-question-circle', scale: 1.5 }"
       :href="`/creatures/${creature.categorySlug}/${creature.slug}`"
       color="warning"
     />

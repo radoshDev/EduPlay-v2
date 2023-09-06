@@ -8,19 +8,19 @@ const { currentTask } = storeToRefs(useTaskStore())
 <template>
   <div
     v-if="currentTask && !currentTask.result"
-    className="flex justify-center gap-3"
+    className="flex justify-center gap-3 mt-4"
   >
     <ButtonIcon
       :href="`https://uk.wiktionary.org/wiki/${currentTask.value}`"
       target="_blank"
-      :icon="{ name: 'fa-wikipedia-w' }"
+      :icon="{ name: 'fa-wikipedia-w', scale: 1.5 }"
       color="warning"
       round
     />
     <ButtonIcon
       :href="`https://www.google.com/search?q=${currentTask.value}&tbm=isch`"
       target="_blank"
-      :icon="{ name: 'bi-image-fill' }"
+      :icon="{ name: 'bi-image-fill', scale: 1.5 }"
       color="success"
       round
     />

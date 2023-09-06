@@ -12,7 +12,7 @@ defineEmits<{ (e: 'click'): void }>()
   <ButtonIcon
     v-if="!(private && !user?.isAdmin)"
     @click="$emit('click')"
-    :icon="{ name: 'bi-plus-circle-fill', scale: 1.5 }"
+    :icon="{ name: 'bi-plus-circle-fill', scale: 2 }"
     color="success"
     round
     :href="href"

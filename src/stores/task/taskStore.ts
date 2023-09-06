@@ -28,7 +28,7 @@ export const useTaskStore = defineStore('taskStore', () => {
 
     const dataFilteredByDifficulty = tasks.value.data.filter((task) => {
       if (!task.subcategory?.difficulty) return true
-      return task.subcategory.difficulty === studentDifficulty
+      return task.subcategory.difficulty <= studentDifficulty
     })
 
     if (taskType.value === 'coins') return dataFilteredByDifficulty
