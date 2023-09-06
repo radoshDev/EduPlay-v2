@@ -15,5 +15,3 @@ async function githubSignIn() {
     Github
   </ButtonText>
 </template>
-
-<style scoped lang="scss"></style>

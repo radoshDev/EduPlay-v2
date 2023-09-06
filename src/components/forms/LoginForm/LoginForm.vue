@@ -4,11 +4,11 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { LoginSchema } from '@/schemas/AuthSchema'
 import { InputField } from '@/components/ui'
 import { ButtonText } from '@/components/ui/buttons'
-import { supabase } from '@/lib/supabaseClient'
 import { useRouter } from 'vue-router'
 import { RouteName } from '@/utils/constants'
 import { ref } from 'vue'
 import { useToast } from 'vue-toast-notification'
+import api from '@/api/api'
 
 const isLoading = ref(false)
 const $toast = useToast({ position: 'top' })
@@ -22,15 +22,13 @@ const pwd = defineComponentBinds('password')
 const onSubmit = handleSubmit(async (data) => {
   try {
     isLoading.value = true
-    await supabase.auth.signInWithPassword({
-      email: data.email,
-      password: data.password
-    })
+
+    await api.login(data)
 
     router.push(RouteName.STUDENTS)
-  } catch (error) {
-    console.error(error)
-    $toast.error('Something went wrong. Try to reload page')
+  } catch (_error) {
+    const error = _error as Error
+    $toast.error(error.message || 'Something went wrong. Try to reload page')
   } finally {
     isLoading.value = false
   }
