@@ -5,7 +5,7 @@ import { useStudentStore } from '@/stores/student/studentStore'
 import { useTaskStore } from '@/stores/task/taskStore'
 import { storeToRefs } from 'pinia'
 
-const { currentStudent } = storeToRefs(useStudentStore())
+const { currentStudent, roundLength } = storeToRefs(useStudentStore())
 const { currentTaskRound, isOptionModal } = storeToRefs(useTaskStore())
 </script>
 
@@ -32,7 +32,7 @@ const { currentTaskRound, isOptionModal } = storeToRefs(useTaskStore())
     <progress
       class="progress h-4 w-full"
       :value="currentTaskRound.index"
-      :max="currentStudent?.roundLength"
+      :max="roundLength"
     ></progress>
   </div>
 </template>

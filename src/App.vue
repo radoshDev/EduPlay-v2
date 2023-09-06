@@ -15,20 +15,6 @@ const libraryStore = useLibraryStore()
 onMounted(() => {
   supabase.auth.onAuthStateChange((event, session) => {
     console.log({ user: session?.user, event })
-    if (!session) return
-
-    if (event === 'SIGNED_IN') {
-      console.log('currentUser', userStore.user)
-      userStore.setCurrentUser(session.user)
-    }
-
-    if (
-      studentStore.students.data === null &&
-      !studentStore.students.isLoading
-    ) {
-      console.log('students', studentStore.students)
-      studentStore.setStudents(session.user.id)
-    }
 
     if (
       creatureStore.creatures.data === null &&
@@ -47,6 +33,21 @@ onMounted(() => {
     ) {
       console.log('creatures', libraryStore.categories)
       libraryStore.setCategories()
+    }
+
+    if (!session) return
+
+    if (event === 'SIGNED_IN') {
+      console.log('currentUser', userStore.user)
+      userStore.setCurrentUser(session.user)
+    }
+
+    if (
+      studentStore.students.data === null &&
+      !studentStore.students.isLoading
+    ) {
+      console.log('students', studentStore.students)
+      studentStore.setStudents(session.user.id)
     }
   })
 })

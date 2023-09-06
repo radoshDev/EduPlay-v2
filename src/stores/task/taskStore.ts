@@ -9,7 +9,7 @@ import type { Task } from '@/types/db'
 
 export const useTaskStore = defineStore('taskStore', () => {
   const creatureStore = useCreatureStore()
-  const { currentStudent, roundLength } = storeToRefs(useStudentStore())
+  const { studentId, roundLength } = storeToRefs(useStudentStore())
   const { tasks, categories } = storeToRefs(useLibraryStore())
 
   const progress = reactive<TaskStudentProgress>({})
@@ -38,17 +38,16 @@ export const useTaskStore = defineStore('taskStore', () => {
   })
 
   const currentTaskRound = computed(() => {
-    const studentId = currentStudent.value?.id
-    if (!studentId || !taskType.value) return undefined
-    return progress[studentId]?.[taskType.value]
+    if (!studentId.value || !taskType.value) return undefined
+    return progress[studentId.value]?.[taskType.value]
   })
 
   const isRoundEnd = computed(() => {
-    if (!currentStudent.value || !currentTaskRound.value) return false
+    if (!currentTaskRound.value) return false
     return currentTaskRound.value.index === roundLength.value
   })
   const isBeforeRoundEnd = computed(() => {
-    if (!currentStudent.value || !currentTaskRound.value) return false
+    if (!currentTaskRound.value) return false
     return currentTaskRound.value.index === roundLength.value - 1
   })
 
@@ -58,20 +57,24 @@ export const useTaskStore = defineStore('taskStore', () => {
   })
 
   function initiateTask() {
-    const studentId = currentStudent.value?.id
     const randomCreature = creatureStore.getRandomCreature()
 
-    if (!studentId || !randomCreature || !taskType.value || !tasks.value.data)
+    if (
+      !studentId.value ||
+      !randomCreature ||
+      !taskType.value ||
+      !tasks.value.data
+    )
       return
 
-    if (!progress[studentId]) {
-      progress[studentId] = {}
+    if (!progress[studentId.value]) {
+      progress[studentId.value] = {}
     }
-    const currentTask = progress[studentId]![taskType.value]
+    const currentTask = progress[studentId.value]![taskType.value]
 
     if (currentTask) return
 
-    progress[studentId]![taskType.value] = {
+    progress[studentId.value]![taskType.value] = {
       earned: 0,
       index: 0,
       roundTasks: generateUniqueList(tasksList.value, roundLength.value),
