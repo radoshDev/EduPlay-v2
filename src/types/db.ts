@@ -15,6 +15,9 @@ export type Creature = Tables['creatures']['Row']
 export type TaskCategory = Tables['task_categories']['Row']
 export type TaskSubcategory = Tables['task_subcategories']['Row']
 export type Task = Tables['tasks']['Row']
+export type TaskWithDifficulty = Task & {
+  subcategory: Pick<TaskSubcategory, 'difficulty'> | null
+}
 
 export interface Database {
   public: {

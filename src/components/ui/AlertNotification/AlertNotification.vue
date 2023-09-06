@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import type { Variant } from '@/types/styles'
+import type { Variant, Size } from '@/types/styles'
 
 type Props = {
   variant: Variant
   message: string
+  textSize?: Size
 }
 
 defineProps<Props>()
@@ -11,6 +12,6 @@ defineProps<Props>()
 
 <template>
   <div :class="`alert alert-${variant}`">
-    <span>{{ message }}</span>
+    <span :class="`text-${textSize || 'md'}`">{{ message }}</span>
   </div>
 </template>

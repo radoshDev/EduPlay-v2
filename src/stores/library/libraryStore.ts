@@ -1,6 +1,6 @@
 import api from '@/api/api'
 import type { QueryData } from '@/types'
-import type { Task } from '@/types/db'
+import type { TaskWithDifficulty } from '@/types/db'
 import type { TaskCategoryTree } from '@/types/task'
 import { defineStore } from 'pinia'
 import { computed, reactive, ref } from 'vue'
@@ -12,7 +12,7 @@ type LibraryParams = {
 }
 
 const useLibraryStore = defineStore('libraryStore', () => {
-  const tasks = reactive<QueryData<Task[] | null>>({
+  const tasks = reactive<QueryData<TaskWithDifficulty[] | null>>({
     data: null,
     isLoading: false,
     error: ''

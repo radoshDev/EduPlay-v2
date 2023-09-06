@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { useTaskStore } from '@/stores/task/taskStore'
 import calcFontSize from '@/helpers/calcFontSize'
+import { AlertNotification } from '@/components/ui'
 
 const { currentTask } = storeToRefs(useTaskStore())
 </script>
@@ -14,4 +15,10 @@ const { currentTask } = storeToRefs(useTaskStore())
   >
     {{ currentTask.value }}
   </div>
+  <AlertNotification
+    v-else
+    variant="info"
+    message="Немає завдань для вибраної складності"
+    text-size="lg"
+  />
 </template>

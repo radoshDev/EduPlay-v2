@@ -63,7 +63,12 @@ function handlePlaySound() {
     >
       <DatabaseAddIcon />
     </ButtonText>
-    <ButtonText v-else variant="primary" @click="handleNext">
+    <ButtonText
+      v-else
+      variant="primary"
+      @click="handleNext"
+      :disabled="currentTaskRound.roundTasks.length === 0"
+    >
       <v-icon name="hi-solid-arrow-narrow-right" scale="2.5" />
     </ButtonText>
     <div class="hidden">

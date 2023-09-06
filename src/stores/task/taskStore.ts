@@ -5,11 +5,13 @@ import { useCreatureStore } from '../creature/creatureStore'
 import { useStudentStore } from '../student/studentStore'
 import generateUniqueList from '@/helpers/generateUniqueList'
 import useLibraryStore from '../library/libraryStore'
-import type { Task } from '@/types/db'
+import type { TaskWithDifficulty } from '@/types/db'
 
 export const useTaskStore = defineStore('taskStore', () => {
   const creatureStore = useCreatureStore()
-  const { studentId, roundLength } = storeToRefs(useStudentStore())
+  const { studentId, roundLength, currentStudent } = storeToRefs(
+    useStudentStore()
+  )
   const { tasks, categories } = storeToRefs(useLibraryStore())
 
   const progress = reactive<TaskStudentProgress>({})
@@ -20,21 +22,32 @@ export const useTaskStore = defineStore('taskStore', () => {
 
   const tasksList = computed(() => {
     if (!tasks.value.data) return []
+    if (!currentStudent.value) return tasks.value.data
 
-    if (taskType.value === 'coins') return tasks.value.data
+    const studentDifficulty = currentStudent.value.difficulty
 
-    let filterCb: (task: Task) => boolean
+    const dataFilteredByDifficulty = tasks.value.data.filter((task) => {
+      if (!task.subcategory?.difficulty) return true
+      return task.subcategory.difficulty === studentDifficulty
+    })
+
+    if (taskType.value === 'coins') return dataFilteredByDifficulty
+
+    let resultData: TaskWithDifficulty[]
     const isCategoryType = categories.value.data?.some(
       (category) => category.slug === taskType.value
     )
     if (isCategoryType) {
-      filterCb = (task) => task.type === taskType.value
+      resultData = dataFilteredByDifficulty.filter(
+        (task) => task.type === taskType.value
+      )
     } else {
-      filterCb = (task) => task.subcategorySlug === taskType.value
+      resultData = tasks.value.data.filter(
+        (task) => task.subcategorySlug === taskType.value
+      )
     }
 
-    const filteredData = tasks.value.data.filter(filterCb)
-    return filteredData.length > 0 ? filteredData : tasks.value.data
+    return resultData
   })
 
   const currentTaskRound = computed(() => {
