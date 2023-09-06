@@ -17,5 +17,9 @@ module.exports = {
     'w-[60px]',
     'w-[80px]',
     'w-[100px]'
-  ]
+  ],
+  daisyui: {
+    themes: ['corporate', 'night'],
+    darkTheme: 'night'
+  }
 }

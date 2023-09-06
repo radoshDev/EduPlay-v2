@@ -1,20 +1,22 @@
 import getRandomIndex from './getRandomIndex'
 
 const generateUniqueList = <T>(list: T[], length: number): T[] => {
-  list = [...new Set(list)]
+  if (list.length === 0) return []
 
-  const result: Set<T> = new Set()
+  const result: T[] = []
 
-  while (result.size !== length) {
+  while (result.length !== length) {
     const randomIndex = getRandomIndex(list.length)
     const item = list[randomIndex]
 
-    if (list.length > length && result.has(item)) continue
+    if (list.length > length && result.indexOf(item) >= 0) continue
 
-    result.add(item)
+    result.push(item)
   }
 
-  return Array.from(result)
+  return result
 }
+
+generateUniqueList([1, 2, 3], 2)
 
 export default generateUniqueList

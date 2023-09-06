@@ -20,7 +20,7 @@ const subcategories = computed(() => {
 <template>
   <PageLayout v-if="currentCategory">
     <template #title>
-      <PageTitle :title="currentCategory.title" back-href=".">
+      <PageTitle :title="currentCategory.title" :back-href="`/library`">
         <template #right-action>
           <ButtonEducation :type="currentCategory.slug" />
         </template>
