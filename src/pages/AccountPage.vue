@@ -3,8 +3,17 @@ import PageLayout from '@/components/layouts/PageLayout.vue'
 import { ProgressGraph } from '@/components/students'
 import { PageTitle } from '@/components/ui'
 import { ButtonLogout, ButtonText } from '@/components/ui/buttons'
+import { useStudentStore } from '@/stores/student/studentStore'
 import { useUserStore } from '@/stores/user/userStore'
-const { user } = useUserStore()
+import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+const { user } = storeToRefs(useUserStore())
+const { students } = storeToRefs(useStudentStore())
+
+const showProgress = computed(() => {
+  if (!students.value.data?.length) return false
+  return students.value.data.some((student) => student.progress.length > 0)
+})
 </script>
 
 <template>
@@ -31,7 +40,7 @@ const { user } = useUserStore()
           Бібліотека
         </ButtonText>
       </div>
-      <div class="w-full mt-6">
+      <div v-if="showProgress" class="w-full mt-6">
         <ProgressGraph />
       </div>
     </div>
