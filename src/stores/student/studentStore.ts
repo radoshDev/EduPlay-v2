@@ -85,7 +85,7 @@ export const useStudentStore = defineStore('studentStore', () => {
     })
   }
   function $reset() {
-    students.data = []
+    students.data = null
   }
   return {
     students,
