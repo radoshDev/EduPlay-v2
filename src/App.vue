@@ -13,26 +13,16 @@ const creatureStore = useCreatureStore()
 const libraryStore = useLibraryStore()
 
 onMounted(() => {
+  creatureStore.setCreatures()
+  libraryStore.setTasks()
+  libraryStore.setCategories()
+
   supabase.auth.onAuthStateChange((event, session) => {
-    if (
-      creatureStore.creatures.data === null &&
-      !creatureStore.creatures.isLoading
-    ) {
-      creatureStore.setCreatures()
-    }
-    if (libraryStore.tasks.data === null && !libraryStore.tasks.isLoading) {
-      libraryStore.setTasks()
-    }
-    if (
-      libraryStore.categories.data === null &&
-      !libraryStore.categories.isLoading
-    ) {
-      libraryStore.setCategories()
-    }
+    console.log({ event, session })
 
     if (!session) return
 
-    if (event === 'SIGNED_IN') {
+    if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
       userStore.setCurrentUser(session.user)
     }
 
