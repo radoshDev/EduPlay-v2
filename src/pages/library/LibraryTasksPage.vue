@@ -3,10 +3,9 @@ import PageLayout from '@/components/layouts/PageLayout.vue'
 import { TasksList } from '@/components/library'
 import { PageTitle } from '@/components/ui'
 import { ButtonAdd, ButtonEducation } from '@/components/ui/buttons'
-import useLibraryStore from '@/stores/library/libraryStore'
-import { storeToRefs } from 'pinia'
+import { useLibraryStoreValues } from '@/stores/library/libraryStore'
 
-const { currentSubcategory } = storeToRefs(useLibraryStore())
+const { currentSubcategory } = useLibraryStoreValues()
 </script>
 
 <template>
@@ -14,7 +13,7 @@ const { currentSubcategory } = storeToRefs(useLibraryStore())
     <template #title>
       <PageTitle :title="currentSubcategory.title" back-href=".">
         <template #right-action>
-          <ButtonEducation :type="currentSubcategory.slug" />
+          <ButtonEducation :task-type="currentSubcategory.slug" />
         </template>
       </PageTitle>
     </template>

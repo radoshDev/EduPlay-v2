@@ -17,6 +17,7 @@
     "@vee-validate/zod": "^4.11.3",
     "chart.js": "^4.4.0",
     "date-fns": "^2.30.0",
+    "nanoid": "^4.0.2",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.1.6",
     "vee-validate": "^4.11.3",

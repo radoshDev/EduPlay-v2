@@ -7,157 +7,175 @@ export type RouteRecord = Omit<RouteRecordRaw, 'name'> & {
   name: ValueOf<typeof RouteName>
 }
 
-const HomePage = () => import('@/pages/HomePage.vue')
-const StudentsPage = () => import('@/pages/students/StudentsPage.vue')
-const AddStudentPage = () => import('@/pages/students/AddStudentPage.vue')
-const UpdateStudentPage = () => import('@/pages/students/UpdateStudentPage.vue')
-const StudentInfoPage = () => import('@/pages/students/StudentInfoPage.vue')
-const EducationMenuPage = () =>
-  import('@/pages/education/EducationMenuPage.vue')
-const EducationTaskPage = () =>
-  import('@/pages/education/EducationTaskPage.vue')
-const LibraryCategoriesPage = () =>
-  import('@/pages/library/LibraryCategoriesPage.vue')
-const LibraryCategoriesNewPage = () =>
-  import('@/pages/library/LibraryCategoriesNewPage.vue')
-const LibrarySubcategoriesPage = () =>
-  import('@/pages/library/LibrarySubcategoriesPage.vue')
-const LibrarySubcategoriesNewPage = () =>
-  import('@/pages/library/LibrarySubcategoriesNewPage.vue')
-const LibraryTasksPage = () => import('@/pages/library/LibraryTasksPage.vue')
-const LibraryTaskPage = () => import('@/pages/library/LibraryTaskPage.vue')
-const LibraryTasksNewPage = () =>
-  import('@/pages/library/LibraryTasksNewPage.vue')
-const LibraryTaskEditPage = () =>
-  import('@/pages/library/LibraryTaskEditPage.vue')
-const AccountPage = () => import('@/pages/AccountPage.vue')
-const LoginPage = () => import('@/pages/auth/LoginPage.vue')
-const RegisterPage = () => import('@/pages/auth/RegisterPage.vue')
-const NotFoundPage = () => import('@/pages/NotFoundPage.vue')
-
 const routes: RouteRecord[] = [
   {
     path: '/',
     name: 'home',
-    component: HomePage,
+    component: () => import('@/pages/HomePage.vue'),
     meta: { title: 'Головна' }
   },
   {
     path: '/students',
     name: 'students',
-    component: StudentsPage,
+    component: () => import('@/pages/students/StudentsPage.vue'),
     meta: { title: 'Студенти' }
   },
   {
     path: '/students/add',
     name: 'student-add',
-    component: AddStudentPage,
+    component: () => import('@/pages/students/AddStudentPage.vue'),
     meta: { title: 'Новий студент' }
   },
   {
     path: '/students/:studentId',
     name: 'student-info',
-    component: StudentInfoPage,
+    component: () => import('@/pages/students/StudentInfoPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Дані студента' }
   },
   {
     path: '/students/:studentId/update',
     name: 'student-update',
-    component: UpdateStudentPage,
+    component: () => import('@/pages/students/UpdateStudentPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Редагування Студента' }
   },
   {
     path: '/education/:studentId',
     name: 'education-menu',
-    component: EducationMenuPage,
+    component: () => import('@/pages/education/EducationMenuPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Список завдань' }
   },
   {
     path: '/education/:studentId/:taskType',
     name: 'education-task',
-    component: EducationTaskPage,
+    component: () => import('@/pages/education/EducationTaskPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Завдання' }
   },
   {
     path: '/library',
     name: 'library-categories',
-    component: LibraryCategoriesPage,
+    component: () => import('@/pages/library/LibraryCategoriesPage.vue'),
     meta: { title: 'Категорії' }
   },
   {
     path: '/library/new',
     name: 'library-categories-new',
-    component: LibraryCategoriesNewPage,
+    component: () => import('@/pages/library/LibraryCategoriesNewPage.vue'),
     meta: { title: 'Нова категорія' }
   },
   {
     path: '/library/:category',
     name: 'library-subcategories',
-    component: LibrarySubcategoriesPage,
+    component: () => import('@/pages/library/LibrarySubcategoriesPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Підкатегорії' }
   },
   {
     path: '/library/:category/new',
     name: 'library-subcategories-new',
-    component: LibrarySubcategoriesNewPage,
+    component: () => import('@/pages/library/LibrarySubcategoriesNewPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Нова підкатегорія' }
   },
   {
     path: '/library/:category/:subcategory',
     name: 'library-tasks',
-    component: LibraryTasksPage,
+    component: () => import('@/pages/library/LibraryTasksPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Завдання' }
   },
   {
     path: '/library/:category/:subcategory/new',
     name: 'library-tasks-new',
-    component: LibraryTasksNewPage,
+    component: () => import('@/pages/library/LibraryTasksNewPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Нове завдання' }
   },
   {
     path: '/library/:category/:subcategory/:taskId',
     name: 'library-a-task',
-    component: LibraryTaskPage,
+    component: () => import('@/pages/library/LibraryTaskPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Завдання' }
   },
   {
     path: '/library/:category/:subcategory/:taskId/edit',
     name: 'library-a-task-edit',
-    component: LibraryTaskEditPage,
+    component: () => import('@/pages/library/LibraryTaskEditPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Редагування завдання' }
   },
   {
+    path: '/creatures',
+    name: 'creature-categories',
+    component: () => import('@/pages/creatures/CreaturesCategoriesPage.vue'),
+    meta: { title: 'Категорії істот' }
+  },
+  {
+    path: '/creatures/new',
+    name: 'creature-category-new',
+    component: () => import('@/pages/creatures/CreaturesCategoryNewPage.vue'),
+    meta: { title: 'Нова категорія' }
+  },
+  {
+    path: '/creatures/edit',
+    name: 'creature-category-edit',
+    component: () => import('@/pages/creatures/CreaturesCategoryEditPage.vue'),
+    meta: { title: 'Редагування категорії' }
+  },
+  {
+    path: '/creatures/:categorySlug',
+    name: 'creature-list',
+    component: () => import('@/pages/creatures/CreaturesListPage.vue'),
+    beforeEnter: setParamsHandler,
+    meta: { title: 'Список істот' }
+  },
+  {
+    path: '/creatures/:categorySlug/:creatureSlug',
+    name: 'creature',
+    component: () => import('@/pages/creatures/CreaturePage.vue'),
+    beforeEnter: setParamsHandler,
+    meta: { title: 'Деталі про істоту' }
+  },
+  {
+    path: '/creatures/:categorySlug/new',
+    name: 'creature-new',
+    component: () => import('@/pages/creatures/CreatureNewPage.vue'),
+    beforeEnter: setParamsHandler,
+    meta: { title: 'Нова істота' }
+  },
+  {
+    path: '/creatures/:categorySlug/:creatureSlug/edit',
+    name: 'creature-edit',
+    component: () => import('@/pages/creatures/CreatureEditPage.vue'),
+    beforeEnter: setParamsHandler,
+    meta: { title: 'Редагування істоти' }
+  },
+  {
     path: '/account',
     name: 'account',
-    component: AccountPage,
+    component: () => import('@/pages/AccountPage.vue'),
     meta: { title: 'Обліковий запис' }
   },
   {
     path: '/login',
     name: 'login',
-    component: LoginPage,
+    component: () => import('@/pages/auth/LoginPage.vue'),
     meta: { title: 'Логін' }
   },
   {
     path: '/register',
     name: 'register',
-    component: RegisterPage,
+    component: () => import('@/pages/auth/RegisterPage.vue'),
     meta: { title: 'Реєстрація' }
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
-    component: NotFoundPage,
+    component: () => import('@/pages/NotFoundPage.vue'),
     meta: { title: '404' }
   }
 ]

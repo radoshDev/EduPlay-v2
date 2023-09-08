@@ -2,9 +2,7 @@
 import { computed, ref } from 'vue'
 import breakArrayBySize from '@/helpers/breakArrayBySize'
 import { ButtonIcon } from '@/components/ui/buttons'
-import { useCreatureStore } from '@/stores/creature/creatureStore'
-import AlertNotification from '@/components/ui/AlertNotification/AlertNotification.vue'
-import { PreloaderBlock } from '@/components/ui'
+import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 
 type Props = {
   label: string
@@ -14,8 +12,8 @@ type Props = {
 const props = defineProps<Props>()
 defineEmits<{ (e: 'update:modelValue', newValue: string): void }>()
 
-const { creaturesImages, creatures } = useCreatureStore()
-const slides = computed(() => breakArrayBySize(creaturesImages, 8))
+const { creaturesImages } = useCreatureStoreValues()
+const slides = computed(() => breakArrayBySize(creaturesImages.value, 8))
 const index = ref(getDefaultIndex())
 
 function getDefaultIndex() {
@@ -57,33 +55,25 @@ function handleChangeSlide(e: Event, type: 'next' | 'prev') {
       />
 
       <div class="flex h-[132px] w-full flex-wrap gap-2 p-3">
-        <PreloaderBlock v-if="creatures.isLoading" size="lg" />
-        <AlertNotification
-          v-else-if="creatures.error"
-          :message="creatures.error"
-          variant="error"
-        />
-        <template v-else>
-          <div
-            v-for="imageUrl in slides[index]"
-            :key="imageUrl"
-            role="button"
-            :class="[
-              'h-[50px] w-[50px]',
-              'overflow-hidden rounded-full border-2 p-[3px] shadow-md',
-              { 'border-emerald-500': modelValue === imageUrl }
-            ]"
-            @click="$emit('update:modelValue', imageUrl)"
-          >
-            <img
-              class="h-full w-full object-contain"
-              :src="imageUrl"
-              alt="creatures"
-              :width="50"
-              :height="50"
-            />
-          </div>
-        </template>
+        <div
+          v-for="imageUrl in slides[index]"
+          :key="imageUrl"
+          role="button"
+          :class="[
+            'h-[50px] w-[50px]',
+            'overflow-hidden rounded-full border-2 p-[3px] shadow-md',
+            { 'border-emerald-500': modelValue === imageUrl }
+          ]"
+          @click="$emit('update:modelValue', imageUrl)"
+        >
+          <img
+            class="h-full w-full object-contain"
+            :src="imageUrl"
+            alt="creatures"
+            :width="50"
+            :height="50"
+          />
+        </div>
       </div>
       <ButtonIcon
         @click="(e) => handleChangeSlide(e, 'next')"

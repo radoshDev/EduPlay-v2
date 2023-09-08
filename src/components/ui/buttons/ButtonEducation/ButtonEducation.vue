@@ -6,12 +6,14 @@ import { ButtonIcon } from '..'
 
 const { currentStudent } = storeToRefs(useStudentStore())
 
-const props = defineProps<{ type: string }>()
+const props = defineProps<{ taskType?: string }>()
 const href = computed(() => {
   if (!currentStudent.value?.id) {
     return '/students'
+  } else if (!props.taskType) {
+    return `/education/${currentStudent.value.id}`
   } else {
-    return `/education/${currentStudent.value.id}/${props.type}`
+    return `/education/${currentStudent.value.id}/${props.taskType}`
   }
 })
 </script>

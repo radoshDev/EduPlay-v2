@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
 import type { User as SBUser } from '@supabase/supabase-js'
 import type { User } from '@/types/user'
 
@@ -21,3 +21,5 @@ export const useUserStore = defineStore('userStore', () => {
   }
   return { setCurrentUser, user, $reset }
 })
+
+export const useUserStoreValues = () => storeToRefs(useUserStore())

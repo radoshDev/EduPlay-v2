@@ -1,5 +1,5 @@
 import { computed, reactive, ref } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
 import format from 'date-fns/format'
 import type { StudentWithProgress, Student } from '@/types/db'
 import type { QueryData } from '@/types'
@@ -98,3 +98,5 @@ export const useStudentStore = defineStore('studentStore', () => {
     $reset
   }
 })
+
+export const useStudentStoreValues = () => storeToRefs(useStudentStore())

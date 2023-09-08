@@ -1,17 +1,17 @@
+import { computed, reactive } from 'vue'
+import { defineStore, storeToRefs } from 'pinia'
 import api from '@/api/api'
 import type { QueryData } from '@/types'
 import type { TaskWithDifficulty } from '@/types/db'
 import type { TaskCategoryTree } from '@/types/task'
-import { defineStore } from 'pinia'
-import { computed, reactive, ref } from 'vue'
 
 type LibraryParams = {
   category?: string
   subcategory?: string
-  taskId?: string
+  task?: string
 }
 
-const useLibraryStore = defineStore('libraryStore', () => {
+export const useLibraryStore = defineStore('libraryStore', () => {
   const tasks = reactive<QueryData<TaskWithDifficulty[] | null>>({
     data: null,
     isLoading: false,
@@ -24,21 +24,21 @@ const useLibraryStore = defineStore('libraryStore', () => {
     error: ''
   })
 
-  const categorySlug = ref<string | null>(null)
-  const subcategorySlug = ref<string | null>(null)
-  const taskSlug = ref<string | null>(null)
+  const slug = reactive({
+    category: null as string | null,
+    subcategory: null as string | null,
+    task: null as string | null
+  })
 
   const currentCategory = computed(() => {
-    return categories.data?.find(
-      (category) => category.slug === categorySlug.value
-    )
+    return categories.data?.find((category) => category.slug === slug.category)
   })
 
   const currentSubcategory = computed(() => {
     if (!currentCategory.value) return undefined
 
     const subcategory = currentCategory.value.subcategories.find(
-      (subcategory) => subcategory.slug === subcategorySlug.value
+      (subcategory) => subcategory.slug === slug.subcategory
     )
 
     if (!subcategory) return undefined
@@ -77,14 +77,14 @@ const useLibraryStore = defineStore('libraryStore', () => {
     }
   }
 
-  function setPageParams({ category, subcategory, taskId }: LibraryParams) {
-    if (category && category !== categorySlug.value)
-      categorySlug.value = category
-
-    if (subcategory && subcategory !== subcategorySlug.value)
-      subcategorySlug.value = subcategory
-
-    if (taskId && taskId !== taskSlug.value) taskSlug.value = taskId
+  function setPageParams(params: LibraryParams) {
+    for (const property in params) {
+      const key = property as keyof LibraryParams
+      const value = params[key]
+      if (value && value !== slug[key]) {
+        slug[key] = value
+      }
+    }
   }
 
   return {
@@ -98,4 +98,4 @@ const useLibraryStore = defineStore('libraryStore', () => {
   }
 })
 
-export default useLibraryStore
+export const useLibraryStoreValues = () => storeToRefs(useLibraryStore())

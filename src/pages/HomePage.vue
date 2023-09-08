@@ -2,8 +2,9 @@
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import PageTitle from '@/components/ui/PageTitle/PageTitle.vue'
 import ButtonText from '@/components/ui/buttons/ButtonText/ButtonText.vue'
-import { useUserStore } from '@/stores/user/userStore'
-const { user } = useUserStore()
+import { useUserStoreValues } from '@/stores/user/userStore'
+
+const { user } = useUserStoreValues()
 </script>
 
 <template>

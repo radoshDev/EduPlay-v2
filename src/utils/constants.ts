@@ -20,7 +20,14 @@ export const RouteName = {
   LIBRARY_TASKS: 'library-tasks',
   LIBRARY_TASKS_NEW: 'library-tasks-new',
   LIBRARY_A_TASK: 'library-a-task',
-  LIBRARY_A_TASK_EDIT: 'library-a-task-edit'
+  LIBRARY_A_TASK_EDIT: 'library-a-task-edit',
+  CREATURE_CATEGORIES: 'creature-categories',
+  CREATURE_CATEGORY_NEW: 'creature-category-new',
+  CREATURE_CATEGORY_EDIT: 'creature-category-edit',
+  CREATURE_LIST: 'creature-list',
+  CREATURE: 'creature',
+  CREATURE_NEW: 'creature-new',
+  CREATURE_EDIT: 'creature-edit'
 } as const
 
 export const EARN_TYPES = [

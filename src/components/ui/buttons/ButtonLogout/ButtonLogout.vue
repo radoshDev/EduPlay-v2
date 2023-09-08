@@ -24,8 +24,6 @@ async function handleLogout() {
     studentsStore.$reset()
     router.push({ name: RouteName.LOGIN })
   } catch (_error) {
-    console.log({ _error })
-
     const error = _error as Error
     $toast.error(error.message || 'Problem to logout')
   } finally {

@@ -1,45 +1,36 @@
-import { ZodType, z } from "zod"
-import { ImageFileSchema, validateImage } from "./RootSchema"
+import { ZodType, z } from 'zod'
+import { ImageFileSchema, validateImage } from './RootSchema'
 
 const CreatureCategorySchema = z.object({
-	title: z.string().min(3),
-	description: z.string().optional(),
-	sourceLink: z.string().optional(),
-	imageUrl: z.string().optional(),
+  title: z.string().min(3),
+  description: z.string().optional(),
+  sourceLink: z.string().optional(),
+  imageUrl: z.string().optional()
 })
 
 export const CreatureCategoryFormSchema = CreatureCategorySchema.extend({
-	imageFile: z.any().optional() as ZodType<FileList | undefined>,
+  imageFile: z.any().optional() as ZodType<FileList | undefined>
 }).superRefine(validateImage)
 
 export const CreatureCategoryInputSchema = CreatureCategorySchema.extend({
-	imageFile: ImageFileSchema,
-}).refine(data => data.imageUrl || data.imageFile, "Either file or image URL")
+  imageFile: ImageFileSchema
+}).refine((data) => data.imageUrl || data.imageFile, 'Either file or image URL')
 
 export const CreatureGetSchema = z.object({
-	id: z.string(),
+  id: z.string()
 })
 
 export const CreatureCategoryGetSchema = z.object({ slug: z.string() })
 
-const CreatureSchema = z.object({
-	name: z.string().min(2),
-	id: z.string().optional(),
-	source: z.string().optional(),
-	description: z.string().optional(),
-	imageUrl: z.string().optional(),
-	media: z.array(z.string()).optional(),
+export const CreatureSchema = z.object({
+  title: z.string().min(2),
+  id: z.string().optional(),
+  source: z.string().optional(),
+  description: z.string().optional(),
+  imageUrl: z.string().optional(),
+  media: z.array(z.string()).optional(),
+  categorySlug: z.string()
 })
 
-export const CreatureFormSchema = CreatureSchema.extend({
-	imageFile: z.any().optional() as ZodType<FileList | undefined>,
-}).superRefine(validateImage)
-
-export const CreatureInputSchema = CreatureSchema.extend({
-	imageFile: ImageFileSchema,
-	categorySlug: z.string(),
-}).refine(data => data.imageUrl || data.imageFile, "Either file or image URL")
-
 export type CreatureCategoryForm = z.infer<typeof CreatureCategoryFormSchema>
-export type CreatureForm = z.infer<typeof CreatureFormSchema>
-export type CreatureInput = z.infer<typeof CreatureInputSchema>
+export type CreatureInput = z.infer<typeof CreatureSchema>

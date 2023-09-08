@@ -5,13 +5,13 @@ import { storeToRefs } from 'pinia'
 
 const { user } = storeToRefs(useUserStore())
 defineProps<{ href?: string; private?: boolean }>()
-defineEmits<{ (e: 'click'): void }>()
+defineEmits<{ (e: 'click', event: Event): void }>()
 </script>
 
 <template>
   <ButtonIcon
     v-if="!(private && !user?.isAdmin)"
-    @click="$emit('click')"
+    @click="(e) => $emit('click', e)"
     :icon="{ name: 'bi-plus-circle-fill', scale: 2 }"
     color="success"
     size="md"

@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import useLibraryStore from '@/stores/library/libraryStore'
+import { useLibraryStoreValues } from '@/stores/library/libraryStore'
+import { useUserStoreValues } from '@/stores/user/userStore'
 import TaskItem from '../TaskItem/TaskItem.vue'
 import { AlertNotification } from '@/components/ui'
-import { useUserStore } from '@/stores/user/userStore'
 
-const { currentSubcategory } = storeToRefs(useLibraryStore())
-const { user } = storeToRefs(useUserStore())
+const { currentSubcategory } = useLibraryStoreValues()
+const { user } = useUserStoreValues()
 </script>
 
 <template>

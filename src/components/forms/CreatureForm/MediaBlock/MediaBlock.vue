@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { reactive } from 'vue'
 import { nanoid } from 'nanoid'
 import { ButtonAdd, ButtonIcon } from '@/components/ui/buttons'
 import { InputField } from '@/components/ui'
+import { useToast } from 'vue-toast-notification'
 
 type Props = {
   mainImage?: string
@@ -14,6 +15,7 @@ const emit = defineEmits<{
   (e: 'mainImage', val?: string): void
   (e: 'media', media?: string[]): void
 }>()
+const $toast = useToast({ position: 'top' })
 const mediaInputs = reactive(
   props.media?.map((value) => ({ id: nanoid(5), value })) || []
 )
@@ -37,7 +39,6 @@ function handleAddMoreMedia(e: Event) {
 function handleRemoveMedia(e: Event, id: string) {
   e.preventDefault()
   const indexEl = mediaInputs.findIndex((input) => input.id === id)
-  console.log({ indexEl })
 
   mediaInputs.splice(indexEl, 1)
   emit(
@@ -45,26 +46,37 @@ function handleRemoveMedia(e: Event, id: string) {
     mediaInputs.map((m) => m.value)
   )
 }
+function handleSetMainImage(e: Event, id: string) {
+  e.preventDefault()
+  const newMainImage = mediaInputs.find((el) => el.id === id)?.value
+
+  if (!newMainImage || !props.mainImage) return
+
+  handleMediaChange(id, props.mainImage)
+  emit('mainImage', newMainImage)
+  $toast.success('Main image switched!')
+}
 </script>
 
 <template>
-  <div
-    className="rounded-md bg-transparent border-gray-500 border p-1 text-center"
-  >
+  <div class="rounded-md bg-transparent border-info border p-1 text-center">
     <div className="text-xl font-bold">Галерея</div>
+
     <div
       v-for="(input, i) in mediaInputs"
       :key="input.id"
       className="flex items-end gap-1"
     >
       <ButtonIcon
+        v-if="mainImage"
+        @click="(e) => handleSetMainImage(e, input.id)"
         :icon="{ name: 'hi-switch-horizontal' }"
         size="xs"
         class="mb-7"
         color="primary"
       />
       <InputField
-        :label="`Media ${i + 1}`"
+        :label="`#${i + 1}`"
         :modelValue="input.value"
         @input="(val) => handleMediaChange(input.id, val)"
       />

@@ -18,6 +18,7 @@ import {
   MdArrowbackiosOutlined,
   MdArrowforwardiosOutlined,
   MdMorevert,
+  MdRemovecircle,
   FaRegularEdit,
   FaWikipediaW,
   FaQuestionCircle,
@@ -25,8 +26,10 @@ import {
   FcReadingEbook,
   HiSolidArrowNarrowLeft,
   HiSolidArrowNarrowRight,
+  HiSwitchHorizontal,
   IoCloseCircleSharp,
   IoLibrarySharp,
+  IoLinkSharp,
   IoReloadSharp,
   IoRocketSharp
 } from 'oh-vue-icons/icons'
@@ -41,6 +44,7 @@ addIcons(
   MdArrowbackiosOutlined,
   MdArrowforwardiosOutlined,
   MdMorevert,
+  MdRemovecircle,
   FaRegularEdit,
   FaWikipediaW,
   FcCalculator,
@@ -48,8 +52,10 @@ addIcons(
   FcReadingEbook,
   HiSolidArrowNarrowLeft,
   HiSolidArrowNarrowRight,
+  HiSwitchHorizontal,
   IoCloseCircleSharp,
   IoLibrarySharp,
+  IoLinkSharp,
   IoReloadSharp,
   IoRocketSharp
 )

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { FormControl } from '..'
 
 type Props = {
   label: string
@@ -23,10 +24,7 @@ const selectedValue = computed({
 </script>
 
 <template>
-  <div class="form-control w-full max-w-xs mb-4">
-    <label class="label">
-      <span class="label-text">{{ label }}</span>
-    </label>
+  <FormControl class="max-w-xs" :label="label" :error="error">
     <select
       class="select-bordered select-info rounded-full select"
       v-model="selectedValue"
@@ -39,6 +37,5 @@ const selectedValue = computed({
         {{ option.label }}
       </option>
     </select>
-    <div v-if="error" class="mt-1 text-error">{{ error }}</div>
-  </div>
+  </FormControl>
 </template>

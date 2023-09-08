@@ -1,4 +1,5 @@
-import useLibraryStore from '@/stores/library/libraryStore'
+import { useCreatureStore } from '@/stores/creature/creatureStore'
+import { useLibraryStore } from '@/stores/library/libraryStore'
 import { useStudentStore } from '@/stores/student/studentStore'
 import { useTaskStore } from '@/stores/task/taskStore'
 import type { NavigationGuard } from 'vue-router'
@@ -25,13 +26,21 @@ export const setParamsHandler: NavigationGuard = (to, from, next) => {
   const category = to.params.category as string | undefined
   const subcategory = to.params.subcategory as string | undefined
   const taskId = to.params.taskId as string | undefined
+  const categorySlug = to.params.categorySlug as string | undefined
+  const creatureSlug = to.params.creatureSlug as string | undefined
 
   if (studentId) setStudentId(studentId)
   if (taskType) setTaskType(taskType)
   if (category || subcategory || taskId) {
     const libraryStore = useLibraryStore()
-    libraryStore.setPageParams({ category, subcategory, taskId })
+    libraryStore.setPageParams({ category, subcategory, task: taskId })
   }
-
+  if (categorySlug || creatureSlug) {
+    const creatureStore = useCreatureStore()
+    creatureStore.setPageParams({
+      category: categorySlug,
+      creature: creatureSlug
+    })
+  }
   next()
 }

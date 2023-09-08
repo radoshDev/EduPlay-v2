@@ -4,8 +4,8 @@ import { RouterView } from 'vue-router'
 import { supabase } from './lib/supabaseClient'
 import { useUserStore } from '@/stores/user/userStore'
 import { useStudentStore } from '@/stores/student/studentStore'
-import { useCreatureStore } from './stores/creature/creatureStore'
-import useLibraryStore from './stores/library/libraryStore'
+import { useCreatureStore } from '@/stores/creature/creatureStore'
+import { useLibraryStore } from '@/stores/library/libraryStore'
 
 const userStore = useUserStore()
 const studentStore = useStudentStore()

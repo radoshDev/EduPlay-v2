@@ -4,17 +4,15 @@ import { FormControl } from '..'
 
 type Props = {
   label: string
-  type?: 'email' | 'number' | 'password'
-  modelValue?: string | number
-  disabled?: boolean
+  modelValue?: string
   error?: string
+  rows?: number
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<{
-  (e: 'update:modelValue', val?: string | number): void
+  (e: 'update:modelValue', val?: string): void
   (e: 'blur'): void
-  (e: 'input', val: string): void
 }>()
 
 const inputValue = computed({
@@ -22,12 +20,6 @@ const inputValue = computed({
     return props.modelValue
   },
   set(newValue) {
-    if (newValue && props.type === 'number') {
-      newValue = +newValue
-    }
-
-    if (typeof newValue === 'string') emit('input', newValue)
-
     emit('update:modelValue', newValue)
   }
 })
@@ -35,16 +27,13 @@ const inputValue = computed({
 
 <template>
   <FormControl :label="label" :error="error">
-    <input
+    <textarea
       v-model="inputValue"
-      :type="type || 'text'"
-      :disabled="disabled"
+      :rows="rows"
       @blur="$emit('blur')"
       :class="[
-        'input-bordered input-info input w-full rounded-full',
-        {
-          ['input-error']: !!error
-        }
+        'textarea-bordered textarea-info textarea h-24 resize-none',
+        { 'textarea-error': !!error }
       ]"
     />
   </FormControl>

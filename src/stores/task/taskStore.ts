@@ -1,18 +1,16 @@
 import type { TaskStudentProgress } from '@/types/task'
-import { defineStore, storeToRefs } from 'pinia'
+import { defineStore } from 'pinia'
 import { computed, reactive, ref } from 'vue'
 import { useCreatureStore } from '../creature/creatureStore'
-import { useStudentStore } from '../student/studentStore'
+import { useStudentStoreValues } from '../student/studentStore'
+import { useLibraryStoreValues } from '../library/libraryStore'
 import generateUniqueList from '@/helpers/generateUniqueList'
-import useLibraryStore from '../library/libraryStore'
 import type { TaskWithDifficulty } from '@/types/db'
 
 export const useTaskStore = defineStore('taskStore', () => {
-  const creatureStore = useCreatureStore()
-  const { studentId, roundLength, currentStudent } = storeToRefs(
-    useStudentStore()
-  )
-  const { tasks, categories } = storeToRefs(useLibraryStore())
+  const { getRandomCreature } = useCreatureStore()
+  const { studentId, roundLength, currentStudent } = useStudentStoreValues()
+  const { tasks, categories } = useLibraryStoreValues()
 
   const progress = reactive<TaskStudentProgress>({})
 
@@ -70,7 +68,7 @@ export const useTaskStore = defineStore('taskStore', () => {
   })
 
   function initiateTask() {
-    const randomCreature = creatureStore.getRandomCreature()
+    const randomCreature = getRandomCreature()
 
     if (
       !studentId.value ||
@@ -96,7 +94,7 @@ export const useTaskStore = defineStore('taskStore', () => {
   }
 
   function resetTask() {
-    const randomCreature = creatureStore.getRandomCreature()
+    const randomCreature = getRandomCreature()
 
     if (!currentTaskRound.value || !randomCreature) return
 
@@ -110,7 +108,7 @@ export const useTaskStore = defineStore('taskStore', () => {
   }
 
   function nextRound() {
-    const randomCreature = creatureStore.getRandomCreature()
+    const randomCreature = getRandomCreature()
     if (!currentTaskRound.value || !randomCreature) return
 
     currentTaskRound.value.index = 0
