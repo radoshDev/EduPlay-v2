@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { ButtonIcon } from '@/components/ui/buttons'
-import { useStudentStore } from '@/stores/student/studentStore'
-import { useTaskStore } from '@/stores/task/taskStore'
-import { storeToRefs } from 'pinia'
+import { useStudentStoreValues } from '@/stores/student/studentStore'
+import { useTaskStoreValues } from '@/stores/task/taskStore'
 import { computed } from 'vue'
-const { currentStudent } = storeToRefs(useStudentStore())
-const { currentTaskRound, isRoundEnd } = storeToRefs(useTaskStore())
+const { currentStudent } = useStudentStoreValues()
+const { currentTaskRound, isRoundEnd, taskType } = useTaskStoreValues()
 const creature = computed(() => currentTaskRound.value?.creature)
+const cbQuery = computed(() =>
+  encodeURI(`/education/${currentStudent.value?.id}/${taskType.value}`)
+)
 </script>
 
 <template>
@@ -30,7 +32,7 @@ const creature = computed(() => currentTaskRound.value?.creature)
     <ButtonIcon
       v-if="currentStudent"
       :icon="{ name: 'fa-question-circle', scale: 1.5 }"
-      :href="`/creatures/${creature.categorySlug}/${creature.slug}`"
+      :href="`/creatures/${creature.categorySlug}/${creature.slug}?cb=${cbQuery}`"
       color="warning"
     />
   </div>

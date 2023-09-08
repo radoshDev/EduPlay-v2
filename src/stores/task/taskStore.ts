@@ -1,5 +1,5 @@
 import type { TaskStudentProgress } from '@/types/task'
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
 import { computed, reactive, ref } from 'vue'
 import { useCreatureStore } from '../creature/creatureStore'
 import { useStudentStoreValues } from '../student/studentStore'
@@ -130,3 +130,5 @@ export const useTaskStore = defineStore('taskStore', () => {
     nextRound
   }
 })
+
+export const useTaskStoreValues = () => storeToRefs(useTaskStore())

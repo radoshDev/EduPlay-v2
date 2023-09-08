@@ -4,14 +4,19 @@ import PageLayout from '@/components/layouts/PageLayout.vue'
 import { AlertNotification, PageTitle } from '@/components/ui'
 import { ButtonEdit } from '@/components/ui/buttons'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
+import { useRoute } from 'vue-router'
 
 const { currentCreature: creature } = useCreatureStoreValues()
+const { query } = useRoute()
 </script>
 
 <template>
   <PageLayout v-if="creature">
     <template #title>
-      <PageTitle :title="creature.title" back-href=".">
+      <PageTitle
+        :title="creature.title"
+        :back-href="(query.cb as string) || '.'"
+      >
         <template #right-action>
           <ButtonEdit :href="`${creature.slug}/edit`" />
         </template>
