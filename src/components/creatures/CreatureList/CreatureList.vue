@@ -26,6 +26,7 @@ const { currentCategory } = useCreatureStoreValues()
         :key="creature.slug"
         :title="creature.title"
         :imageSrc="creature.mainImage"
+        :href="`/creatures/${creature.categorySlug}/${creature.slug}`"
       />
     </template>
   </div>

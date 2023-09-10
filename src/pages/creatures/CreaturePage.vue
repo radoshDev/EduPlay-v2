@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 import { CreatureInfo } from '@/components/creatures'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { AlertNotification, PageTitle } from '@/components/ui'
 import { ButtonEdit } from '@/components/ui/buttons'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
-import { useRoute } from 'vue-router'
 
 const { currentCreature: creature } = useCreatureStoreValues()
+const categoryPath = computed(
+  () => `/creatures/${creature.value?.categorySlug}`
+)
 const { query } = useRoute()
 </script>
 
@@ -15,10 +19,10 @@ const { query } = useRoute()
     <template #title>
       <PageTitle
         :title="creature.title"
-        :back-href="(query.cb as string) || '.'"
+        :back-href="(query.cb as string) || categoryPath"
       >
         <template #right-action>
-          <ButtonEdit :href="`${creature.slug}/edit`" />
+          <ButtonEdit :href="`${categoryPath}/${creature.slug}/edit`" />
         </template>
       </PageTitle>
     </template>

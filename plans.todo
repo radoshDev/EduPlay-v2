@@ -1,5 +1,6 @@
 - Create pages for creatures (preview, add, edit), add delete functionality
 - Create pages for library(add, edit), add delete functionality
+- add images fallback
 - Add ability to set default student (use localStorage)
 - Add functionality to switch between students in selected task (add to option popup)
 - refactor graph components

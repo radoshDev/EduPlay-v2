@@ -80,6 +80,23 @@ export const useCreatureStore = defineStore('creatureStore', () => {
       }
     }
   }
+
+  function updateCreature(creature: Creature): void {
+    if (!currentCategory.value) return
+    const existCreature = currentCategory.value.creatures.find(
+      (item) => item.slug === creature.slug
+    )
+    if (!existCreature) {
+      currentCategory.value.creatures.push(creature)
+      return
+    }
+
+    existCreature.title = creature.title
+    existCreature.description = creature.description
+    existCreature.mainImage = creature.mainImage
+    existCreature.media = creature.media
+    existCreature.source = creature.source
+  }
   return {
     slug,
     creatureCategories,
@@ -89,6 +106,7 @@ export const useCreatureStore = defineStore('creatureStore', () => {
     currentCreature,
     setCreatures,
     getRandomCreature,
+    updateCreature,
     setPageParams
   }
 })

@@ -8,11 +8,16 @@ const getCreaturesHandler = async (): Promise<CategoryWithCreatures[]> => {
       '*, creatures(slug, title, categorySlug, description, source, mainImage, media)'
     )
     .order('slug')
-  if (res.error)
+  if (res.error) {
     throw new Error(
       res.error.message || 'Something wrong with getting creatures'
     )
-  return res.data
+  }
+
+  return res.data.map((category) => {
+    category.creatures.sort((a, b) => (a.title > b.title ? 0 : -1))
+    return category
+  })
 }
 
 export default getCreaturesHandler

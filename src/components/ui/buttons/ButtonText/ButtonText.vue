@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Variant, Size } from '@/types/styles'
 import type { AnchorTarget } from '@/types'
-import { onMounted, onUpdated, ref } from 'vue'
+import { computed, onMounted, onUpdated, ref } from 'vue'
 import { PreloaderBlock } from '@/components/ui'
 
 type Props = {
@@ -17,6 +17,7 @@ const props = defineProps<Props>()
 defineEmits<{ (e: 'click'): void }>()
 
 const button = ref<HTMLButtonElement | null>(null)
+const isAnchorTag = computed(() => props.href?.startsWith('http'))
 
 onMounted(setDisabled)
 
@@ -41,9 +42,10 @@ function setDisabled() {
       'btn normal-case rounded-full',
       { [`btn-${variant}`]: !!variant, [`btn-${size}`]: !!size }
     ]"
-    :to="href"
-    :href="href"
+    :to="isAnchorTag ? undefined : href"
+    :href="isAnchorTag ? href : undefined"
     ref="button"
+    :target="target"
     @click="$emit('click')"
   >
     <PreloaderBlock v-if="isLoading" size="sm" />

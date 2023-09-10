@@ -63,7 +63,7 @@ export interface Database {
           description?: string
           mainImage?: string
           media?: string[]
-          slug?: string
+          slug: string
           source?: string
           title: string
         }
@@ -72,7 +72,7 @@ export interface Database {
           description?: string
           mainImage?: string
           media?: string[]
-          slug?: string
+          slug: string
           source?: string
           title?: string
         }

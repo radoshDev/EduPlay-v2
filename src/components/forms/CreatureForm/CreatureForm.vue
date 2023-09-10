@@ -4,13 +4,15 @@ import { computed, ref } from 'vue'
 import { useToast } from 'vue-toast-notification'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useRouter } from 'vue-router'
-import { CreatureSchema } from '@/schemas/CreatureSchema'
+import slugify from 'slugify'
+import { CreatureFormSchema } from '@/schemas/CreatureSchema'
 import api from '@/api/api'
 import type { CreatureInput } from '@/schemas/CreatureSchema'
 import type { AtLeast } from '@/types'
 import { ButtonText } from '@/components/ui/buttons'
 import { InputField, TextAreaField } from '@/components/ui'
 import MediaBlock from './MediaBlock/MediaBlock.vue'
+import { useCreatureStore } from '@/stores/creature/creatureStore'
 
 type Props = {
   action: Extract<keyof typeof api.creatures, 'updateCreature' | 'addCreature'>
@@ -18,13 +20,14 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+const { updateCreature } = useCreatureStore()
 const isAdding = computed(() => props.action === 'addCreature')
 const isLoading = ref(false)
 const $toast = useToast({ position: 'top' })
 const router = useRouter()
 const { errors, defineComponentBinds, handleSubmit, values, setValues } =
   useForm({
-    validationSchema: toTypedSchema(CreatureSchema),
+    validationSchema: toTypedSchema(CreatureFormSchema),
     initialValues: props.defaultValues
   })
 
@@ -32,16 +35,19 @@ const title = defineComponentBinds('title')
 const source = defineComponentBinds('source')
 const description = defineComponentBinds('description')
 const categorySlug = defineComponentBinds('categorySlug')
-const imageUrl = defineComponentBinds('imageUrl')
+const mainImage = defineComponentBinds('mainImage')
 
 const onSubmit = handleSubmit(async (data) => {
   try {
     isLoading.value = true
-    console.log({ data })
+    const slug =
+      data.slug ||
+      slugify(`${data.title} ${data.categorySlug}`, { lower: true })
+    const newCreature = await api.creatures[props.action]({ ...data, slug })
 
-    // const newCreature = await api.creatures[props.action](data)
-
-    // router.push('.')
+    updateCreature(newCreature)
+    $toast.success(`${data.title} ${isAdding.value ? 'додано' : 'змінено'}!`)
+    router.push('.')
   } catch (_error) {
     const error = _error as Error
     $toast.error(error.message || 'Something went wrong. Try to reload page')
@@ -68,20 +74,14 @@ const onSubmit = handleSubmit(async (data) => {
         :error="errors.categorySlug"
       />
       <InputField
-        v-bind="imageUrl"
+        v-bind="mainImage"
         label="Головне зображення"
-        :error="errors.imageUrl"
+        :error="errors.mainImage"
       />
       <MediaBlock
         :media="values.media"
-        :main-image="values.imageUrl"
-        @main-image="
-          (image) => {
-            console.log({ image })
-
-            setValues({ imageUrl: image })
-          }
-        "
+        :main-image="values.mainImage"
+        @main-image="(image) => setValues({ mainImage: image })"
         @media="(val) => setValues({ media: val })"
       />
     </div>
