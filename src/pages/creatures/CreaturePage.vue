@@ -8,25 +8,28 @@ import { ButtonEdit } from '@/components/ui/buttons'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 
 const { currentCreature: creature } = useCreatureStoreValues()
-const categoryPath = computed(
-  () => `/creatures/${creature.value?.categorySlug}`
-)
+const categoryPath = computed(() => {
+  if (!creature.value) return '/creatures'
+  return `/creatures/${creature.value.categorySlug}`
+})
 const { query } = useRoute()
 </script>
 
 <template>
-  <PageLayout v-if="creature">
+  <PageLayout>
     <template #title>
       <PageTitle
-        :title="creature.title"
+        :title="creature?.title || 'Істота'"
         :back-href="(query.cb as string) || categoryPath"
       >
-        <template #right-action>
+        <template #right-action v-if="creature">
           <ButtonEdit :href="`${categoryPath}/${creature.slug}/edit`" />
         </template>
       </PageTitle>
     </template>
-    <CreatureInfo :creature="creature" />
+    <CreatureInfo v-if="creature" :creature="creature" />
+    <div v-else>
+      <AlertNotification variant="error" message="Істоту не знайдено" />
+    </div>
   </PageLayout>
-  <AlertNotification v-else variant="error" message="Істоту не знайдено" />
 </template>

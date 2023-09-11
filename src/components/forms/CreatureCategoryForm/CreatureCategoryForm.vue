@@ -7,13 +7,15 @@ import { toTypedSchema } from '@vee-validate/zod'
 import slugify from 'slugify'
 import { useCreatureStore } from '@/stores/creature/creatureStore'
 import api from '@/api/api'
-import { CreatureCategoryFormSchema } from '@/schemas/CreatureSchema'
-import type { CreatureCategory } from '@/types/db'
+import {
+  CreatureCategoryFormSchema,
+  type CreatureCategoryInput
+} from '@/schemas/CreatureSchema'
 import { FormControl, InputField, TextAreaField } from '@/components/ui/inputs'
 
 type Props = {
   action: Extract<keyof typeof api.creatures, 'updateCategory' | 'addCategory'>
-  defaultValues?: Partial<CreatureCategory>
+  defaultValues?: Partial<CreatureCategoryInput>
 }
 
 const { updateCategory } = useCreatureStore()

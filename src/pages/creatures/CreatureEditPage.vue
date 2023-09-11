@@ -2,27 +2,31 @@
 import { CreatureDeleteButton } from '@/components/creatures'
 import { CreatureForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { PageTitle } from '@/components/ui'
+import { AlertNotification, PageTitle } from '@/components/ui'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 import { computed } from 'vue'
 
 const { currentCreature: creature } = useCreatureStoreValues()
 const backPath = computed(() => {
-  if (!creature.value) return
+  if (!creature.value) return '/creatures'
   return `/creatures/${creature.value.categorySlug}/${creature.value.slug}`
 })
 </script>
 
 <template>
-  <PageLayout v-if="creature">
+  <PageLayout>
     <template #title>
-      <PageTitle title="Edit Creature" :back-href="backPath">
-        <template #right-action>
+      <PageTitle
+        :title="`Редагування ${creature?.title || 'істоти'}`"
+        :back-href="backPath"
+      >
+        <template #right-action v-if="creature">
           <CreatureDeleteButton :creature="creature" />
         </template>
       </PageTitle>
     </template>
     <CreatureForm
+      v-if="creature"
       action="updateCreature"
       :defaultValues="{
         ...creature,
@@ -30,5 +34,11 @@ const backPath = computed(() => {
         source: creature.source || undefined
       }"
     />
+    <div v-else>
+      <AlertNotification
+        variant="error"
+        message="Істоту для редагування не знайдено"
+      />
+    </div>
   </PageLayout>
 </template>

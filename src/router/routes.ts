@@ -121,9 +121,10 @@ const routes: RouteRecord[] = [
     meta: { title: 'Нова категорія' }
   },
   {
-    path: '/creatures/edit',
+    path: '/creatures/:categorySlug/edit',
     name: 'creature-category-edit',
     component: () => import('@/pages/creatures/CreaturesCategoryEditPage.vue'),
+    beforeEnter: setParamsHandler,
     meta: { title: 'Редагування категорії' }
   },
   {
