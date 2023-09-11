@@ -17,7 +17,7 @@ const { creatureCategories } = useCreatureStoreValues()
         </template>
       </PageTitle>
     </template>
-    <div className="flex w-full max-w-md flex-col">
+    <div className="flex w-full max-w-md flex-col items-center">
       <CategoryList
         :list="creatureCategories.data"
         :is-loading="creatureCategories.isLoading"

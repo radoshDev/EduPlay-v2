@@ -81,16 +81,21 @@ export const useCreatureStore = defineStore('creatureStore', () => {
     }
   }
 
-  function updateCreature(creature: Creature): void {
+  function updateCreature(creature: Creature, action?: 'delete'): void {
     if (!currentCategory.value) return
-    const existCreature = currentCategory.value.creatures.find(
+    const idx = currentCategory.value.creatures.findIndex(
       (item) => item.slug === creature.slug
     )
-    if (!existCreature) {
+
+    if (action === 'delete' && idx >= 0) {
+      currentCategory.value.creatures.splice(idx, 1)
+      return
+    }
+    if (idx === -1) {
       currentCategory.value.creatures.push(creature)
       return
     }
-
+    const existCreature = currentCategory.value.creatures[idx]
     existCreature.title = creature.title
     existCreature.description = creature.description
     existCreature.mainImage = creature.mainImage

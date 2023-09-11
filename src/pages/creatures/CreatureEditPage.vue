@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { CreatureDeleteButton } from '@/components/creatures'
 import { CreatureForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { PageTitle } from '@/components/ui'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 import { computed } from 'vue'
-const { currentCreature: creature } = useCreatureStoreValues()
 
+const { currentCreature: creature } = useCreatureStoreValues()
 const backPath = computed(() => {
   if (!creature.value) return
   return `/creatures/${creature.value.categorySlug}/${creature.value.slug}`
@@ -15,7 +16,11 @@ const backPath = computed(() => {
 <template>
   <PageLayout v-if="creature">
     <template #title>
-      <PageTitle title="Edit Creature" :back-href="backPath" />
+      <PageTitle title="Edit Creature" :back-href="backPath">
+        <template #right-action>
+          <CreatureDeleteButton :creature="creature" />
+        </template>
+      </PageTitle>
     </template>
     <CreatureForm
       action="updateCreature"
