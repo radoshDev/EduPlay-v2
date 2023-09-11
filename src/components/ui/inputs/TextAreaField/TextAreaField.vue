@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { FormControl } from '..'
+import { FieldControl } from '@/components/ui/inputs'
 
 type Props = {
   label: string
@@ -26,7 +26,7 @@ const inputValue = computed({
 </script>
 
 <template>
-  <FormControl :label="label" :error="error">
+  <FieldControl :label="label" :error="error">
     <textarea
       v-model="inputValue"
       :rows="rows"
@@ -36,5 +36,5 @@ const inputValue = computed({
         { 'textarea-error': !!error }
       ]"
     />
-  </FormControl>
+  </FieldControl>
 </template>

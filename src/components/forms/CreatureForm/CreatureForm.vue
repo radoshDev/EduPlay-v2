@@ -7,12 +7,11 @@ import { useRouter } from 'vue-router'
 import slugify from 'slugify'
 import { CreatureFormSchema } from '@/schemas/CreatureSchema'
 import api from '@/api/api'
-import type { CreatureInput } from '@/schemas/CreatureSchema'
-import type { AtLeast } from '@/types'
-import { ButtonText } from '@/components/ui/buttons'
-import { InputField, TextAreaField } from '@/components/ui'
+import { FormControl, InputField, TextAreaField } from '@/components/ui/inputs'
 import MediaBlock from './MediaBlock/MediaBlock.vue'
 import { useCreatureStore } from '@/stores/creature/creatureStore'
+import type { CreatureInput } from '@/schemas/CreatureSchema'
+import type { AtLeast } from '@/types'
 
 type Props = {
   action: Extract<keyof typeof api.creatures, 'updateCreature' | 'addCreature'>
@@ -58,41 +57,34 @@ const onSubmit = handleSubmit(async (data) => {
 </script>
 
 <template>
-  <form @submit="onSubmit" class="flex flex-col items-center w-full">
-    <div class="overflow-auto w-full max-w-lg">
-      <InputField v-bind="title" label="Ім'я" :error="errors.title" />
-      <InputField v-bind="source" label="Джерело" :error="errors.source" />
-      <TextAreaField
-        v-bind="description"
-        label="Опис"
-        :error="errors.description"
-      />
-      <InputField
-        v-bind="categorySlug"
-        label="Категорія"
-        disabled
-        :error="errors.categorySlug"
-      />
-      <InputField
-        v-bind="mainImage"
-        label="Головне зображення"
-        :error="errors.mainImage"
-      />
-      <MediaBlock
-        :media="values.media"
-        :main-image="values.mainImage"
-        @main-image="(image) => setValues({ mainImage: image })"
-        @media="(val) => setValues({ media: val })"
-      />
-    </div>
-    <ButtonText
-      class="mt-6"
-      :is-loading="isLoading"
-      variant="success"
-      size="sm"
-      type="submit"
-    >
-      {{ isAdding ? 'Add' : 'Update' }}
-    </ButtonText>
-  </form>
+  <FormControl
+    @submit="onSubmit"
+    :button-text="isAdding ? 'Add' : 'Update'"
+    :is-loading="isLoading"
+  >
+    <InputField v-bind="title" label="Назва" :error="errors.title" />
+    <InputField v-bind="source" label="Джерело" :error="errors.source" />
+    <TextAreaField
+      v-bind="description"
+      label="Опис"
+      :error="errors.description"
+    />
+    <InputField
+      v-bind="categorySlug"
+      label="Категорія"
+      disabled
+      :error="errors.categorySlug"
+    />
+    <InputField
+      v-bind="mainImage"
+      label="Головне зображення"
+      :error="errors.mainImage"
+    />
+    <MediaBlock
+      :media="values.media"
+      :main-image="values.mainImage"
+      @main-image="(image) => setValues({ mainImage: image })"
+      @media="(val) => setValues({ media: val })"
+    />
+  </FormControl>
 </template>

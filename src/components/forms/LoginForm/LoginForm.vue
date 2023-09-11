@@ -2,7 +2,7 @@
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { LoginSchema } from '@/schemas/AuthSchema'
-import { InputField } from '@/components/ui'
+import { InputField } from '@/components/ui/inputs'
 import { ButtonText } from '@/components/ui/buttons'
 import { useRouter } from 'vue-router'
 import { RouteName } from '@/utils/constants'

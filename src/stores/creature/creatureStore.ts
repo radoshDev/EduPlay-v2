@@ -1,6 +1,10 @@
 import { computed, reactive } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
-import type { CategoryWithCreatures, Creature } from '@/types/db'
+import type {
+  CategoryWithCreatures,
+  Creature,
+  CreatureCategory
+} from '@/types/db'
 import type { QueryData } from '@/types'
 import api from '@/api/api'
 import getRandomIndex from '@/helpers/getRandomIndex'
@@ -102,6 +106,26 @@ export const useCreatureStore = defineStore('creatureStore', () => {
     existCreature.media = creature.media
     existCreature.source = creature.source
   }
+  function updateCategory(category: CreatureCategory, action?: 'delete') {
+    if (!creatureCategories.data) return
+
+    const idx = creatureCategories.data.findIndex(
+      (item) => item.slug === category.slug
+    )
+    if (action === 'delete' && idx >= 0) {
+      creatureCategories.data.splice(idx, 1)
+      return
+    }
+    if (idx === -1) {
+      creatureCategories.data.push({ ...category, creatures: [] })
+      return
+    }
+    const existCategory = creatureCategories.data[idx]
+    existCategory.title = category.title
+    existCategory.description = category.description
+    existCategory.imageUrl = category.imageUrl
+    existCategory.sourceLink = category.sourceLink
+  }
   return {
     slug,
     creatureCategories,
@@ -112,6 +136,7 @@ export const useCreatureStore = defineStore('creatureStore', () => {
     setCreatures,
     getRandomCreature,
     updateCreature,
+    updateCategory,
     setPageParams
   }
 })

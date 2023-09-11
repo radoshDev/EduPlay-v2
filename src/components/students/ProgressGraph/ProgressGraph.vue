@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SelectField } from '@/components/ui'
+import { SelectField } from '@/components/ui/inputs'
 import { VerticalBar } from '@/components/ui/visualization'
 import { transformStatData } from '@/helpers/transformStatData'
 import { useStudentStore } from '@/stores/student/studentStore'

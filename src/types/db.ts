@@ -12,7 +12,7 @@ export type Student = Tables['students']['Row']
 export type StudentProgress = Tables['students_progress']['Row']
 export type StudentWithProgress = Student & { progress: StudentProgress[] }
 export type Creature = Tables['creatures']['Row']
-type CreatureCategory = Tables['creature_categories']['Row']
+export type CreatureCategory = Tables['creature_categories']['Row']
 export type CategoryWithCreatures = CreatureCategory & { creatures: Creature[] }
 export type TaskCategory = Tables['task_categories']['Row']
 export type TaskSubcategory = Tables['task_subcategories']['Row']
@@ -33,17 +33,17 @@ export interface Database {
           title: string
         }
         Insert: {
-          description?: string | null
-          imageUrl?: string | null
+          description?: string
+          imageUrl?: string
           slug?: string
-          sourceLink?: string | null
+          sourceLink?: string
           title: string
         }
         Update: {
-          description?: string | null
-          imageUrl?: string | null
+          description?: string
+          imageUrl?: string
           slug?: string
-          sourceLink?: string | null
+          sourceLink?: string
           title?: string
         }
         Relationships: []

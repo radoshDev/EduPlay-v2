@@ -2,7 +2,7 @@
 import { reactive } from 'vue'
 import { nanoid } from 'nanoid'
 import { ButtonAdd, ButtonIcon } from '@/components/ui/buttons'
-import { InputField } from '@/components/ui'
+import { InputField } from '@/components/ui/inputs'
 import { useToast } from 'vue-toast-notification'
 
 type Props = {

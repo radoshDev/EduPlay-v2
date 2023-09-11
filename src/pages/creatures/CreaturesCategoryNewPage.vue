@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { CreatureCategoryForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { PageTitle } from '@/components/ui'
 </script>
@@ -8,6 +9,6 @@ import { PageTitle } from '@/components/ui'
     <template #title>
       <PageTitle title="Нова категорія істот" back-href="/creatures" />
     </template>
-    <div>{{ `<NewCreatureCategoryForm />` }}</div>
+    <CreatureCategoryForm action="addCategory" />
   </PageLayout>
 </template>

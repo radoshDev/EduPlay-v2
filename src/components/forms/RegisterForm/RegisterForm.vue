@@ -3,7 +3,7 @@ import { useForm } from 'vee-validate'
 import { useToast } from 'vue-toast-notification'
 import { toTypedSchema } from '@vee-validate/zod'
 import { RegisterSchema } from '@/schemas/AuthSchema'
-import { InputField } from '@/components/ui'
+import { InputField } from '@/components/ui/inputs'
 import { ButtonText } from '@/components/ui/buttons'
 import api from '@/api/api'
 import { useRouter } from 'vue-router'
@@ -21,7 +21,6 @@ const pwd = defineComponentBinds('password')
 
 const onSubmit = handleSubmit(async (data) => {
   try {
-    console.log({ data })
     await api.register(data)
     $toast.success('Користувача зареєстровано!', {
       onDismiss: () => {
