@@ -7,7 +7,12 @@ type Input = {
   date: string
 }
 
-const saveProgressHandler = async ({ date, roundLength, studentId }: Input) => {
+const saveProgressHandler = async ({
+  date,
+  roundLength,
+  studentId,
+  action
+}: Input) => {
   const existProgressRes = await supabase
     .from('students_progress')
     .select()
@@ -19,9 +24,13 @@ const saveProgressHandler = async ({ date, roundLength, studentId }: Input) => {
       .from('students_progress')
       .insert({ date, student_id: studentId, value: roundLength })
   } else {
+    const newValue =
+      action === 'add'
+        ? existProgress.value + roundLength
+        : existProgress.value - roundLength
     await supabase
       .from('students_progress')
-      .update({ value: existProgress.value + roundLength })
+      .update({ value: newValue })
       .match({ student_id: studentId, date })
   }
 }
