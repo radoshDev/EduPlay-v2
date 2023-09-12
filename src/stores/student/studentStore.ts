@@ -53,11 +53,17 @@ export const useStudentStore = defineStore('studentStore', () => {
   function saveStudentProgress(action: 'add' | 'subtract') {
     if (!currentStudent.value) return
     const today = format(new Date(), 'dd-MM-yyyy')
+
+    api.students.saveProgress({
+      roundLength: currentStudent.value.roundLength,
+      action,
+      studentId: currentStudent.value.id,
+      date: today
+    })
+
     const existProgress = currentStudent.value.progress.find(
       (item) => item.date === today
     )
-
-    if (!existProgress && action === 'subtract') return
 
     if (!existProgress) {
       currentStudent.value.progress.push({
@@ -66,11 +72,6 @@ export const useStudentStore = defineStore('studentStore', () => {
         id: 0,
         value: currentStudent.value.roundLength
       })
-      api.students.saveProgress({
-        newValue: currentStudent.value.roundLength,
-        studentId: currentStudent.value.id,
-        date: today
-      })
       return
     }
     if (action === 'add') {
@@ -78,11 +79,6 @@ export const useStudentStore = defineStore('studentStore', () => {
     } else {
       existProgress.value -= currentStudent.value.roundLength
     }
-    api.students.saveProgress({
-      newValue: existProgress.value,
-      studentId: currentStudent.value.id,
-      date: today
-    })
   }
   function $reset() {
     students.data = null
