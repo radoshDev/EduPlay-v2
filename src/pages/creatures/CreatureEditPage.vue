@@ -2,7 +2,7 @@
 import { CreatureDeleteButton } from '@/components/creatures'
 import { CreatureForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 import { computed } from 'vue'
 
@@ -35,10 +35,7 @@ const backPath = computed(() => {
       }"
     />
     <div v-else>
-      <AlertNotification
-        variant="error"
-        message="Істоту для редагування не знайдено"
-      />
+      <v-alert variant="error" message="Істоту для редагування не знайдено" />
     </div>
   </PageLayout>
 </template>

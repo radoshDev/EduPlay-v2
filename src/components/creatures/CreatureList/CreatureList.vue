@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ImageCard } from '@/components/ui'
-import AlertNotification from '@/components/ui/AlertNotification/AlertNotification.vue'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 
 const { currentCategory } = useCreatureStoreValues()
@@ -10,13 +9,13 @@ const { currentCategory } = useCreatureStoreValues()
   <div
     class="mb-6 mt-3 flex flex-1 flex-wrap content-start items-start justify-center gap-3 overflow-auto"
   >
-    <AlertNotification
+    <v-alert
       v-if="!currentCategory"
       variant="error"
       message="Істот не знайдено"
     />
-    <AlertNotification
-      v-else-if="!currentCategory.creatures.length"
+    <v-alert
+      v-else-if="currentCategory.creatures.length === 0"
       variant="info"
       :message="`Список ${currentCategory.title} порожній.`"
     />

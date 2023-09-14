@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { CreatureForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 import { computed } from 'vue'
 const { currentCategory: category } = useCreatureStoreValues()
@@ -23,10 +23,7 @@ const backPath = computed(() => {
       :default-values="{ categorySlug: category.slug }"
     />
     <div v-else>
-      <AlertNotification
-        variant="error"
-        message="Категорія істоти не знайдена"
-      />
+      <v-alert variant="error" message="Категорія істоти не знайдена" />
     </div>
   </PageLayout>
 </template>

@@ -2,7 +2,7 @@
 import { LibraryCategoryForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { DeleteButton } from '@/components/library'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import type { TaskCategoryInput } from '@/schemas/TaskSchema'
 import { useLibraryStore } from '@/stores/library/libraryStore'
 import { computed, ref } from 'vue'
@@ -43,7 +43,7 @@ const defaultValues = computed<TaskCategoryInput | undefined>(() => {
       :default-values="defaultValues"
     />
     <div v-else>
-      <AlertNotification variant="error" message="Категорію не знайдено" />
+      <v-alert variant="error" message="Категорію не знайдено" />
     </div>
   </PageLayout>
 </template>

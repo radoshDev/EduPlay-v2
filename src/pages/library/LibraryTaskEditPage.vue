@@ -2,7 +2,7 @@
 import { LibraryTaskForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { DeleteButton } from '@/components/library'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { useLibraryStore } from '@/stores/library/libraryStore'
 import { computed, ref } from 'vue'
 
@@ -32,7 +32,7 @@ const parentPath = computed(() => {
         :default-values="{ ...task, result: task.result || undefined }"
       />
       <div v-else>
-        <AlertNotification variant="error" message="Завдання не знайдено" />
+        <v-alert variant="error" message="Завдання не знайдено" />
       </div>
     </template>
   </PageLayout>

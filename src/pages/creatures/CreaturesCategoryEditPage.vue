@@ -2,7 +2,7 @@
 import { CategoryDeleteButton } from '@/components/creatures'
 import { CreatureCategoryForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import type { CreatureCategoryInput } from '@/schemas/CreatureSchema'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 import { computed } from 'vue'
@@ -42,7 +42,7 @@ const defaultValues = computed<CreatureCategoryInput | undefined>(() => {
       :default-values="defaultValues"
     />
     <div v-else>
-      <AlertNotification
+      <v-alert
         variant="error"
         message="Категорію для редагування не знайдено"
       />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { TaskInfo } from '@/components/library'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { ButtonEdit } from '@/components/ui/buttons'
 import { useLibraryStore } from '@/stores/library/libraryStore'
 import { useUserStoreValues } from '@/stores/user/userStore'
@@ -39,7 +39,7 @@ const parentPath = computed(() => {
       </PageTitle>
       <TaskInfo v-if="task" :task="task" />
       <div v-else>
-        <AlertNotification variant="error" message="Завдання не знайдено" />
+        <v-alert variant="error" message="Завдання не знайдено" />
       </div>
     </template>
   </PageLayout>

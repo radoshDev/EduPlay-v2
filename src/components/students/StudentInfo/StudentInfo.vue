@@ -2,7 +2,7 @@
 import { useStudentStore } from '@/stores/student/studentStore'
 import { StudentAvatar } from '..'
 import { storeToRefs } from 'pinia'
-import { AlertNotification, BadgeTag } from '@/components/ui'
+import { BadgeTag } from '@/components/ui'
 import { DIFFICULTY_TYPES } from '@/utils/constants'
 const { currentStudent } = storeToRefs(useStudentStore())
 </script>
@@ -34,7 +34,7 @@ const { currentStudent } = storeToRefs(useStudentStore())
       />
     </div>
   </div>
-  <AlertNotification
+  <v-alert
     v-else
     variant="error"
     message="Інформацію про студента не знайдено 😢"

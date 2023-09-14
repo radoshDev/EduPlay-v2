@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { TasksList } from '@/components/library'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { ButtonAdd, ButtonEdit, ButtonEducation } from '@/components/ui/buttons'
 import { useLibraryStore } from '@/stores/library/libraryStore'
 import { useUserStoreValues } from '@/stores/user/userStore'
@@ -41,7 +41,7 @@ const backHref = computed(() => {
       <ButtonAdd :href="`${subcategory.slug}/new`" private />
     </div>
     <div v-else>
-      <AlertNotification variant="error" message="Підкатегорію не знайдено" />
+      <v-alert variant="error" message="Підкатегорію не знайдено" />
     </div>
   </PageLayout>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { LibraryTaskForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { useLibraryStore } from '@/stores/library/libraryStore'
 import { computed, ref } from 'vue'
 
@@ -26,7 +26,7 @@ const parentPath = computed(() => {
         }"
       />
       <div v-else>
-        <AlertNotification variant="error" message="Підкатегорію не знайдено" />
+        <v-alert variant="error" message="Підкатегорію не знайдено" />
       </div>
     </template>
   </PageLayout>

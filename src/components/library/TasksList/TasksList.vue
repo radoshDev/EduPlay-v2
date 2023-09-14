@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useUserStoreValues } from '@/stores/user/userStore'
 import TaskItem from '../TaskItem/TaskItem.vue'
-import { AlertNotification } from '@/components/ui'
 import type { Task } from '@/types/db'
 
 type Props = { tasks: Task[]; categorySlug: string }
@@ -20,7 +19,7 @@ function getHref(task: Task) {
   <div
     class="mb-4 flex w-full flex-1 flex-wrap content-start gap-2 overflow-auto"
   >
-    <AlertNotification
+    <v-alert
       v-if="tasks.length === 0"
       variant="info"
       message="Task list is empty..."

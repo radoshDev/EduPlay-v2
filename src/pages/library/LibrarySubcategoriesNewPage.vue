@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { LibrarySubcategoryForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { useLibraryStore } from '@/stores/library/libraryStore'
 import { computed, ref } from 'vue'
 
@@ -24,7 +24,7 @@ const backHref = computed(() => {
         :default-values="{ parentSlug: category.slug }"
       />
       <div v-else>
-        <AlertNotification variant="error" message="Категорію не знайдено" />
+        <v-alert variant="error" message="Категорію не знайдено" />
       </div>
     </template>
   </PageLayout>

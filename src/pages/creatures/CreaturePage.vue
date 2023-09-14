@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { CreatureInfo } from '@/components/creatures'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { ButtonEdit } from '@/components/ui/buttons'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 
@@ -29,7 +29,7 @@ const { query } = useRoute()
     </template>
     <CreatureInfo v-if="creature" :creature="creature" />
     <div v-else>
-      <AlertNotification variant="error" message="Істоту не знайдено" />
+      <v-alert variant="error" message="Істоту не знайдено" />
     </div>
   </PageLayout>
 </template>

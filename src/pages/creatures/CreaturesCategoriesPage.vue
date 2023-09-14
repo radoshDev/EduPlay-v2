@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { CategoryList } from '@/components'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { ButtonAdd, ButtonEducation } from '@/components/ui/buttons'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 
@@ -29,6 +29,6 @@ const { creatureCategories } = useCreatureStoreValues()
       />
       <ButtonAdd private href="/creatures/new" />
     </div>
-    <AlertNotification v-else variant="error" message="Категорії не знайдено" />
+    <v-alert v-else variant="error" message="Категорії не знайдено" />
   </PageLayout>
 </template>

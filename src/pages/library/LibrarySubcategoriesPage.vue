@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useLibraryStoreValues } from '@/stores/library/libraryStore'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { ButtonAdd, ButtonEdit, ButtonEducation } from '@/components/ui/buttons'
 import { CategoryList } from '@/components'
 import { computed, ref } from 'vue'
@@ -46,6 +46,6 @@ const subcategories = computed(() => {
       />
       <ButtonAdd :href="`${category.slug}/new`" private />
     </div>
-    <AlertNotification v-else variant="error" message="Категорію не знайдено" />
+    <v-alert v-else variant="error" message="Категорію не знайдено" />
   </PageLayout>
 </template>

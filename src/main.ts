@@ -7,7 +7,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
-import { OhVueIcon, addIcons } from 'oh-vue-icons'
+import { addIcons } from 'oh-vue-icons'
 import {
   BiBoxArrowInLeft,
   BiGithub,
@@ -34,6 +34,8 @@ import {
   IoReloadSharp,
   IoRocketSharp
 } from 'oh-vue-icons/icons'
+import { AlertNotification, Image, PreloaderBlock } from '@/components/ui'
+import { OhIcon } from './components/ui/icons'
 
 addIcons(
   BiBoxArrowInLeft,
@@ -65,6 +67,9 @@ addIcons(
 const app = createApp(App)
 const pinia = createPinia()
 app.use(pinia)
-app.component('v-icon', OhVueIcon)
+app.component('v-icon', OhIcon)
+app.component('v-image', Image)
+app.component('v-loader', PreloaderBlock)
+app.component('v-alert', AlertNotification)
 app.use(router)
 app.mount('#app')

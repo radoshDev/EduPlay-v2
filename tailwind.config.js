@@ -13,6 +13,9 @@ module.exports = {
     {
       pattern: /(btn|badge|loading)-(lg|sm|xs)/
     },
+    {
+      pattern: /!?(object)-(cover|fill|contain|none|scale-down)/
+    },
     'w-[40px]',
     'w-[60px]',
     'w-[80px]',

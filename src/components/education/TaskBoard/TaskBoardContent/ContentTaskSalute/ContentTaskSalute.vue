@@ -20,8 +20,9 @@ const cbQuery = computed(() =>
         !isRoundEnd
     }"
   >
-    <img
-      class="h-64 object-contain"
+    <v-image
+      class="h-64"
+      fit="contain"
       :src="creature.mainImage"
       :alt="creature.title"
       :width="300"

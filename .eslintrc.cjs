@@ -13,6 +13,7 @@ module.exports = {
     ecmaVersion: 'latest'
   },
   rules: {
-    'no-console': ['warn', { allow: ['warn', 'error'] }]
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
+    'vue/multi-word-component-names': 'off'
   }
 }

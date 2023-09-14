@@ -66,8 +66,9 @@ function handleChangeSlide(e: Event, type: 'next' | 'prev') {
           ]"
           @click="$emit('update:modelValue', imageUrl)"
         >
-          <img
-            class="h-full w-full object-contain"
+          <v-image
+            class="h-full w-full"
+            fit="contain"
             :src="imageUrl"
             alt="creatures"
             :width="50"

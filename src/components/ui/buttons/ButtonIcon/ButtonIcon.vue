@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Variant, Size } from '@/types/styles'
+import type { Variant, Size, IconProps } from '@/types/styles'
 import type { AnchorTarget } from '@/types'
 import { onMounted, onUpdated, ref } from 'vue'
 
 type Props = {
   color: Variant
-  icon: { name: string; scale?: number; fill?: string }
+  icon: IconProps
   round?: boolean
   href?: string
   target?: AnchorTarget

@@ -11,7 +11,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div className="avatar">
+  <div class="avatar">
     <div
       :class="[
         `w-[${size}px]`,
@@ -20,8 +20,8 @@ defineProps<Props>()
         'ring-offset-2 ring-offset-base-100'
       ]"
     >
-      <img
-        class="!object-contain"
+      <v-image
+        class="h-full image"
         :src="imageSrc"
         :alt="alt"
         :width="size"
@@ -30,3 +30,9 @@ defineProps<Props>()
     </div>
   </div>
 </template>
+
+<style>
+.avatar .image img {
+  object-fit: contain !important;
+}
+</style>

@@ -7,5 +7,5 @@ defineProps<Props>()
 </script>
 
 <template>
-  <span :className="`loading loading-spinner loading-${size}`" />
+  <span :class="`loading loading-spinner loading-${size}`" />
 </template>

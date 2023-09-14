@@ -18,8 +18,9 @@ const capitalizeTitle = computed(
     class="grid h-52 justify-center justify-items-center gap-4 rounded-lg p-3 shadow-lg"
     :to="href || ''"
   >
-    <img
-      class="h-full min-h-full self-center object-contain"
+    <v-image
+      class="h-full min-h-full self-center"
+      fit="contain"
       :src="imageSrc"
       :alt="title"
       :width="170"

@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import type { Category } from '@/types'
-import {
-  AlertNotification,
-  CategoryCard,
-  PreloaderBlock
-} from '@/components/ui'
+import { CategoryCard } from '@/components/ui'
 
 type Props = {
   list: Category[]
@@ -16,9 +12,9 @@ defineProps<Props>()
 
 <template>
   <div className="flex w-full flex-1 flex-col gap-4 overflow-auto p-3">
-    <PreloaderBlock v-if="isLoading" size="lg" />
+    <v-loader v-if="isLoading" size="lg" />
 
-    <AlertNotification
+    <v-alert
       v-else-if="list.length === 0"
       variant="info"
       message="No categories yet..."

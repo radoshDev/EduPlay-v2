@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { CategoryList } from '@/components'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { AlertNotification, PageTitle } from '@/components/ui'
+import { PageTitle } from '@/components/ui'
 import { ButtonAdd } from '@/components/ui/buttons'
 import { useLibraryStoreValues } from '@/stores/library/libraryStore'
 import { useStudentStoreValues } from '@/stores/student/studentStore'
@@ -31,10 +31,6 @@ const backHref = computed(() =>
       />
       <ButtonAdd private href="/library/new" />
     </div>
-    <AlertNotification
-      v-else
-      variant="error"
-      message="Категорії не завантажено"
-    />
+    <v-alert v-else variant="error" message="Категорії не завантажено" />
   </PageLayout>
 </template>

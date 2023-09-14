@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { IconProps } from '@/types/styles'
+
 type Props = {
   title: string
-  iconName?: string
+  iconName?: IconProps['name']
   fill?: string
   imageSrc?: string | null
   href?: string
@@ -19,9 +21,10 @@ defineProps<Props>()
       >
         <v-icon :name="iconName" scale="3" :fill="fill" />
       </div>
-      <img
+      <v-image
         v-else-if="imageSrc"
-        class="h-32 w-32 object-contain"
+        class="h-32 w-32 bg-white"
+        fit="cover"
         :src="imageSrc"
         :alt="title"
         width="300"

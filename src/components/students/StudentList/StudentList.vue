@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { useStudentStore } from '@/stores/student/studentStore'
+import { useStudentStoreValues } from '@/stores/student/studentStore'
 import StudentAvatar from '../StudentAvatar/StudentAvatar.vue'
 import { VARIANT_COLORS } from '@/utils/constants'
-import { AlertNotification, PreloaderBlock } from '@/components/ui'
 
-const { students } = useStudentStore()
+const { students } = useStudentStoreValues()
 </script>
 
 <template>
   <div className="flex flex-1 flex-wrap content-center justify-around gap-6">
-    <PreloaderBlock v-if="students.isLoading || !students.data" size="lg" />
-    <AlertNotification
-      v-else-if="students.error"
+    <v-loader v-if="students.isLoading" size="lg" />
+    <v-alert
+      v-else-if="students.error || !students.data"
       :message="students.error"
       variant="error"
     />
