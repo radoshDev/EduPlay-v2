@@ -11,7 +11,7 @@ const { creatureCategories } = useCreatureStoreValues()
 <template>
   <PageLayout>
     <template #title>
-      <PageTitle title="Creatures" backButton href="/account">
+      <PageTitle title="Creatures" back-href="/account">
         <template #right-action>
           <ButtonEducation />
         </template>
