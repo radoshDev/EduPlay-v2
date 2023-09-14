@@ -1,5 +1,31 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { LibrarySubcategoryForm } from '@/components/forms'
+import PageLayout from '@/components/layouts/PageLayout.vue'
+import { AlertNotification, PageTitle } from '@/components/ui'
+import { useLibraryStore } from '@/stores/library/libraryStore'
+import { computed, ref } from 'vue'
+
+const store = useLibraryStore()
+const category = ref(store.current.category)
+
+const backHref = computed(() => {
+  if (!category.value) return '/library'
+  return `/library/${category.value.slug}`
+})
+</script>
 
 <template>
-  <div>LibrarySubcategoryAdd Component</div>
+  <PageLayout>
+    <template #title>
+      <PageTitle title="Нова підкатегорія" :back-href="backHref" />
+      <LibrarySubcategoryForm
+        v-if="category"
+        action="add"
+        :default-values="{ parentSlug: category.slug }"
+      />
+      <div v-else>
+        <AlertNotification variant="error" message="Категорію не знайдено" />
+      </div>
+    </template>
+  </PageLayout>
 </template>

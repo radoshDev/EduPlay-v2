@@ -62,9 +62,16 @@ const routes: RouteRecord[] = [
   },
   {
     path: '/library/new',
-    name: 'library-categories-new',
+    name: 'library-category-new',
     component: () => import('@/pages/library/LibraryCategoriesNewPage.vue'),
-    meta: { title: 'Нова категорія' }
+    meta: { title: 'Нова категорія завдань' }
+  },
+  {
+    path: '/library/:category/edit',
+    name: 'library-category-edit',
+    component: () => import('@/pages/library/LibraryCategoriesEditPage.vue'),
+    beforeEnter: setParamsHandler,
+    meta: { title: 'Редагування категорії завдань' }
   },
   {
     path: '/library/:category',
@@ -75,21 +82,28 @@ const routes: RouteRecord[] = [
   },
   {
     path: '/library/:category/new',
-    name: 'library-subcategories-new',
+    name: 'library-subcategory-new',
     component: () => import('@/pages/library/LibrarySubcategoriesNewPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Нова підкатегорія' }
+  },
+  {
+    path: '/library/:category/:subcategory/edit',
+    name: 'library-subcategory-edit',
+    component: () => import('@/pages/library/LibrarySubcategoriesEditPage.vue'),
+    beforeEnter: setParamsHandler,
+    meta: { title: 'Редагування підкатегорії' }
   },
   {
     path: '/library/:category/:subcategory',
     name: 'library-tasks',
     component: () => import('@/pages/library/LibraryTasksPage.vue'),
     beforeEnter: setParamsHandler,
-    meta: { title: 'Завдання' }
+    meta: { title: 'Список завдань' }
   },
   {
     path: '/library/:category/:subcategory/new',
-    name: 'library-tasks-new',
+    name: 'library-a-task-new',
     component: () => import('@/pages/library/LibraryTasksNewPage.vue'),
     beforeEnter: setParamsHandler,
     meta: { title: 'Нове завдання' }

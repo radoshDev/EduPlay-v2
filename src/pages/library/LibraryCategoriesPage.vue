@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { CategoryList } from '@/components'
 import PageLayout from '@/components/layouts/PageLayout.vue'
-import { PageTitle } from '@/components/ui'
+import { AlertNotification, PageTitle } from '@/components/ui'
 import { ButtonAdd } from '@/components/ui/buttons'
 import { useLibraryStoreValues } from '@/stores/library/libraryStore'
 import { useStudentStoreValues } from '@/stores/student/studentStore'
@@ -19,7 +19,10 @@ const backHref = computed(() =>
     <template #title>
       <PageTitle title="Бібліотека" :back-href="backHref" />
     </template>
-    <div className="flex w-full max-w-md flex-col items-center">
+    <div
+      v-if="categories.data"
+      class="flex w-full max-w-md flex-col items-center"
+    >
       <CategoryList
         hrefStart="library"
         :list="categories.data"
@@ -28,5 +31,10 @@ const backHref = computed(() =>
       />
       <ButtonAdd private href="/library/new" />
     </div>
+    <AlertNotification
+      v-else
+      variant="error"
+      message="Категорії не завантажено"
+    />
   </PageLayout>
 </template>
