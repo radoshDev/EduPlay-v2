@@ -15,10 +15,40 @@ export type Creature = Tables['creatures']['Row']
 export type CreatureCategory = Tables['creature_categories']['Row']
 export type CategoryWithCreatures = CreatureCategory & { creatures: Creature[] }
 export type TaskCategory = Tables['task_categories']['Row']
+export type TaskCategoryInsert = Tables['task_categories']['Insert']
+export type TaskCategoryUpdate = Tables['task_categories']['Update']
+export type TaskCategoryTree = TaskCategory & {
+  subcategories: TaskSubcategory[]
+}
 export type TaskSubcategory = Tables['task_subcategories']['Row']
+export type TaskSubcategoryInsert = Tables['task_subcategories']['Insert']
+export type TaskSubcategoryUpdate = Tables['task_subcategories']['Update']
 export type Task = Tables['tasks']['Row']
+export type TaskInsert = Tables['tasks']['Insert']
+export type TaskUpdate = Tables['tasks']['Update']
 export type TaskWithDifficulty = Task & {
   subcategory: Pick<TaskSubcategory, 'difficulty'> | null
+}
+
+export type Values = {
+  category: {
+    add: { input: TaskCategoryInsert; output: TaskCategory }
+    update: { input: TaskCategoryUpdate; output: TaskCategory }
+    delete: { input: string; output: void }
+    getAll: { input: void; output: TaskCategoryTree[] }
+  }
+  subcategory: {
+    add: { input: TaskSubcategoryInsert; output: TaskSubcategory }
+    update: { input: TaskSubcategoryUpdate; output: TaskSubcategory }
+    delete: { input: string; output: void }
+    getAll: { input: void; output: TaskSubcategory[] }
+  }
+  task: {
+    add: { input: TaskInsert; output: Task }
+    update: { input: TaskUpdate; output: Task }
+    delete: { input: string; output: void }
+    getAll: { input: void; output: TaskWithDifficulty[] }
+  }
 }
 
 export interface Database {
@@ -143,7 +173,7 @@ export interface Database {
       task_categories: {
         Row: {
           imageUrl: string | null
-          position: number | null
+          position: number
           slug: string
           title: string
         }
@@ -156,7 +186,7 @@ export interface Database {
         Update: {
           imageUrl?: string
           position?: number
-          slug?: string
+          slug: string
           title?: string
         }
         Relationships: []
@@ -183,7 +213,7 @@ export interface Database {
           imageUrl?: string
           parentSlug?: string
           position?: number
-          slug?: string
+          slug: string
           title?: string
         }
         Relationships: [
@@ -206,13 +236,13 @@ export interface Database {
         Insert: {
           id?: string
           result?: string
-          subcategorySlug?: string
+          subcategorySlug: string
           type: string
-          value?: string
+          value: string
         }
         Update: {
-          id?: string
-          result?: string | null
+          id: string
+          result?: string
           subcategorySlug?: string
           type?: string
           value?: string

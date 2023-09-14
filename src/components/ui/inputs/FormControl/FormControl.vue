@@ -2,7 +2,7 @@
 import { ButtonText } from '@/components/ui/buttons'
 type Props = {
   buttonText: string
-  isLoading?: boolean
+  loading?: boolean
 }
 
 defineProps<Props>()
@@ -19,7 +19,7 @@ defineEmits<{ (e: 'submit', event: Event): void }>()
     </div>
     <ButtonText
       class="mt-6"
-      :is-loading="isLoading"
+      :is-loading="loading"
       variant="success"
       size="sm"
       type="submit"

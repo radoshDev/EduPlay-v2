@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ModalWindow } from '@/components/ui'
 import { ButtonText } from '@/components/ui/buttons'
+import { BasicModal } from '@/components/ui/modals'
 import { useTaskStore } from '@/stores/task/taskStore'
 import { onMounted } from 'vue'
 
@@ -26,12 +26,12 @@ function handleResetTask() {
 </script>
 
 <template>
-  <ModalWindow title="Продовжити?" id="reset_task_modal" @close="handleClose">
+  <BasicModal title="Продовжити?" id="reset_task_modal" @close="handleClose">
     <ButtonText variant="success" @click="handleResetTask">
       <v-icon name="io-reload-sharp" scale="1.5" />
     </ButtonText>
     <ButtonText variant="warning" @click="handleClose">
       <v-icon name="hi-solid-arrow-narrow-right" scale="1.5" />
     </ButtonText>
-  </ModalWindow>
+  </BasicModal>
 </template>

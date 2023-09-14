@@ -4,5 +4,4 @@ export { default as AlertNotification } from './AlertNotification/AlertNotificat
 export { default as PreloaderBlock } from './PreloaderBlock/PreloaderBlock.vue'
 export { default as CategoryCard } from './CategoryCard/CategoryCard.vue'
 export { default as BadgeTag } from './BadgeTag/BadgeTag.vue'
-export { default as ModalWindow } from './ModalWindow/ModalWindow.vue'
 export { default as ImageCard } from './ImageCard/ImageCard.vue'

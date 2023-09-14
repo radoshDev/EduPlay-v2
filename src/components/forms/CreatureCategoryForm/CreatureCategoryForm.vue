@@ -21,7 +21,7 @@ type Props = {
 const { updateCategory } = useCreatureStore()
 const props = defineProps<Props>()
 const isAdding = computed(() => props.action === 'addCategory')
-const isLoading = ref(false)
+const loading = ref(false)
 const $toast = useToast({ position: 'top' })
 const router = useRouter()
 const { errors, defineComponentBinds, handleSubmit } = useForm({
@@ -36,20 +36,20 @@ const imageUrl = defineComponentBinds('imageUrl')
 
 const onSubmit = handleSubmit(async (data) => {
   try {
-    isLoading.value = true
+    loading.value = true
     const slug = data.slug || slugify(data.title, { lower: true })
     const newCategory = await api.creatures[props.action]({ ...data, slug })
+    updateCategory(newCategory)
 
     $toast.success(
       `Категорію "${data.title}" ${isAdding.value ? 'додано' : 'змінено'}!`
     )
-    updateCategory(newCategory)
     router.push('.')
   } catch (_error) {
     const error = _error as Error
     $toast.error(error.message || 'Something went wrong. Try to reload page')
   } finally {
-    isLoading.value = false
+    loading.value = false
   }
 })
 </script>
@@ -58,7 +58,7 @@ const onSubmit = handleSubmit(async (data) => {
   <FormControl
     @submit="onSubmit"
     :button-text="isAdding ? 'Додати' : 'Оновити'"
-    :is-loading="isLoading"
+    :loading="loading"
   >
     <InputField v-bind="title" label="Назва" :error="errors.title" />
     <InputField

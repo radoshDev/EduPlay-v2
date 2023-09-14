@@ -21,7 +21,7 @@ type Props = {
 const props = defineProps<Props>()
 const { updateCreature } = useCreatureStore()
 const isAdding = computed(() => props.action === 'addCreature')
-const isLoading = ref(false)
+const loading = ref(false)
 const $toast = useToast({ position: 'top' })
 const router = useRouter()
 const { errors, defineComponentBinds, handleSubmit, values, setValues } =
@@ -38,7 +38,7 @@ const mainImage = defineComponentBinds('mainImage')
 
 const onSubmit = handleSubmit(async (data) => {
   try {
-    isLoading.value = true
+    loading.value = true
     const slug =
       data.slug ||
       slugify(`${data.title} ${data.categorySlug}`, { lower: true })
@@ -51,7 +51,7 @@ const onSubmit = handleSubmit(async (data) => {
     const error = _error as Error
     $toast.error(error.message || 'Something went wrong. Try to reload page')
   } finally {
-    isLoading.value = false
+    loading.value = false
   }
 })
 </script>
@@ -60,7 +60,7 @@ const onSubmit = handleSubmit(async (data) => {
   <FormControl
     @submit="onSubmit"
     :button-text="isAdding ? 'Add' : 'Update'"
-    :is-loading="isLoading"
+    :loading="loading"
   >
     <InputField v-bind="title" label="Назва" :error="errors.title" />
     <InputField v-bind="source" label="Джерело" :error="errors.source" />

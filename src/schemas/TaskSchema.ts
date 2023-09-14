@@ -1,47 +1,44 @@
-import { ZodType, z } from "zod"
-import { DifficultySchema, ImageFileSchema, validateImage } from "./RootSchema"
+import { z } from 'zod'
+import { DifficultySchema } from './RootSchema'
 
 const TaskCategorySchema = z.object({
-	title: z.string().nonempty("Title is required"),
-	imageUrl: z.string().optional(),
+  title: z.string().nonempty('Title is required'),
+  imageUrl: z.string().optional(),
+  position: z.number().optional()
 })
 
 export const TaskCategoryInputSchema = TaskCategorySchema.extend({
-	imageFile: ImageFileSchema.optional(),
-}).refine(data => data.imageUrl || data.imageFile, "Either file or image URL")
+  slug: z.string()
+})
 
 export const TaskCategoryFormSchema = TaskCategorySchema.extend({
-	imageFile: z.any().optional() as ZodType<FileList | undefined>,
-}).superRefine(validateImage)
+  slug: z.string().optional()
+})
 
 const TaskSubcategorySchema = TaskCategorySchema.extend({
-	difficulty: DifficultySchema,
+  difficulty: DifficultySchema,
+  parentSlug: z.string()
 })
 
 export const TaskSubcategoryInputSchema = TaskSubcategorySchema.extend({
-	imageFile: ImageFileSchema.optional(),
-	parentSlug: z.string(),
-}).refine(data => data.imageUrl || data.imageFile, "Either file or image URL")
+  slug: z.string()
+})
 
 export const TaskSubcategoryFormSchema = TaskSubcategorySchema.extend({
-	imageFile: z.any().optional() as ZodType<FileList | undefined>,
-}).superRefine(validateImage)
-
-export const TaskSchema = z.object({
-	value: z.string().nonempty("Value is required"),
-	result: z.string().optional(),
-	subcategorySlug: z.string(),
+  slug: z.string().optional()
 })
 
-export const TaskUpdateSchema = TaskSchema.extend({
-	id: z.string().optional(),
+const TaskSchema = z.object({
+  type: z.string(),
+  value: z.string().nonempty('Value is required'),
+  subcategorySlug: z.string(),
+  result: z.string().optional()
 })
 
-export const TasksGetSchema = z.object({
-	difficulty: DifficultySchema.optional(),
-	type: z.string(),
-})
+export const TaskFormSchema = TaskSchema.extend({ id: z.string().optional() })
+export const TaskInputSchema = TaskSchema.extend({ id: z.string() })
 
-export type TaskCategoryForm = z.infer<typeof TaskCategoryFormSchema>
-export type TaskSubcategoryForm = z.infer<typeof TaskSubcategoryFormSchema>
-export type TaskForm = z.infer<typeof TaskSchema>
+export type TaskCategoryInput = z.infer<typeof TaskCategoryInputSchema>
+export type TaskSubcategoryInput = z.infer<typeof TaskSubcategoryInputSchema>
+export type TaskInput = z.infer<typeof TaskInputSchema>
+export type TaskForm = z.infer<typeof TaskFormSchema>

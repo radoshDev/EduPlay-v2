@@ -15,3 +15,5 @@ export type Category = {
   slug: string
   imageUrl: string | null
 }
+
+export type Action = 'add' | 'update' | 'delete' | 'getAll'

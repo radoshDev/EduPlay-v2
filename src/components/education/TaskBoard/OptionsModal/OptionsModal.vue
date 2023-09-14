@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ModalWindow } from '@/components/ui'
-import { useTaskStore } from '@/stores/task/taskStore'
-import { storeToRefs } from 'pinia'
+import { BasicModal } from '@/components/ui/modals'
+import { useTaskStoreValues } from '@/stores/task/taskStore'
+
 import { watch } from 'vue'
 
-const { isOptionModal } = storeToRefs(useTaskStore())
+const { isOptionModal } = useTaskStoreValues()
 const modalId = 'task_options'
 
 watch(isOptionModal, () => {
@@ -20,7 +20,7 @@ function handleClose() {
 </script>
 
 <template>
-  <ModalWindow :id="modalId" @close="handleClose">
+  <BasicModal :id="modalId" @close="handleClose">
     <div>Options</div>
-  </ModalWindow>
+  </BasicModal>
 </template>

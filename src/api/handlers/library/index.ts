@@ -1,7 +1,9 @@
-import getCategoriesHandler from './getCategoriesHandler'
-import getTasksHandler from './getTasksHandler'
+import categoryHandler from './categoryHandler'
+import subcategoryHandler from './subcategoryHandler'
+import taskHandler from './taskHandler'
 
 export default {
-  getTasks: getTasksHandler,
-  getCategories: getCategoriesHandler
+  category: categoryHandler,
+  subcategory: subcategoryHandler,
+  task: taskHandler
 }

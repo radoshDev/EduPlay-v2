@@ -14,12 +14,14 @@ export const RouteName = {
   EDUCATION_MENU: 'education-menu',
   EDUCATION_TASK: 'education-task',
   LIBRARY_CATEGORIES: 'library-categories',
-  LIBRARY_CATEGORIES_NEW: 'library-categories-new',
+  LIBRARY_CATEGORY_NEW: 'library-category-new',
+  LIBRARY_CATEGORY_EDIT: 'library-category-edit',
   LIBRARY_SUBCATEGORIES: 'library-subcategories',
-  LIBRARY_SUBCATEGORIES_NEW: 'library-subcategories-new',
+  LIBRARY_SUBCATEGORY_NEW: 'library-subcategory-new',
+  LIBRARY_SUBCATEGORY_EDIT: 'library-subcategory-edit',
   LIBRARY_TASKS: 'library-tasks',
-  LIBRARY_TASKS_NEW: 'library-tasks-new',
   LIBRARY_A_TASK: 'library-a-task',
+  LIBRARY_A_TASK_NEW: 'library-a-task-new',
   LIBRARY_A_TASK_EDIT: 'library-a-task-edit',
   CREATURE_CATEGORIES: 'creature-categories',
   CREATURE_CATEGORY_NEW: 'creature-category-new',
@@ -78,3 +80,11 @@ export const GRAPH_PERIOD_OPTIONS = [
   { label: 'Місяць', value: 'month' },
   { label: 'Рік', value: 'year' }
 ]
+
+export const TL_UA = {
+  library: {
+    category: { title: 'Категорія' },
+    subcategory: { title: 'Підкатегорія' },
+    task: { title: 'Завдання' }
+  }
+}

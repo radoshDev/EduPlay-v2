@@ -7,10 +7,9 @@ import {
 } from '@/components/ui'
 
 type Props = {
-  list: Category[] | null
+  list: Category[]
   hrefStart: string
   isLoading?: boolean
-  error?: string
 }
 defineProps<Props>()
 </script>
@@ -18,15 +17,11 @@ defineProps<Props>()
 <template>
   <div className="flex w-full flex-1 flex-col gap-4 overflow-auto p-3">
     <PreloaderBlock v-if="isLoading" size="lg" />
-    <AlertNotification
-      v-else-if="error || !list"
-      variant="error"
-      :message="error || 'No categories'"
-    />
+
     <AlertNotification
       v-else-if="list.length === 0"
       variant="info"
-      message="No items yet..."
+      message="No categories yet..."
     />
     <template v-else>
       <CategoryCard

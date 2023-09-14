@@ -1,11 +1,19 @@
 <script setup lang="ts">
-import { useLibraryStoreValues } from '@/stores/library/libraryStore'
 import { useUserStoreValues } from '@/stores/user/userStore'
 import TaskItem from '../TaskItem/TaskItem.vue'
 import { AlertNotification } from '@/components/ui'
+import type { Task } from '@/types/db'
 
-const { currentSubcategory } = useLibraryStoreValues()
+type Props = { tasks: Task[]; categorySlug: string }
+
+const props = defineProps<Props>()
+
 const { user } = useUserStoreValues()
+
+function getHref(task: Task) {
+  if (!user.value?.isAdmin) return
+  return `/library/${props.categorySlug}/${task.subcategorySlug}/${task.id}`
+}
 </script>
 
 <template>
@@ -13,23 +21,16 @@ const { user } = useUserStoreValues()
     class="mb-4 flex w-full flex-1 flex-wrap content-start gap-2 overflow-auto"
   >
     <AlertNotification
-      v-if="!currentSubcategory?.tasks"
-      variant="error"
-      message="Tasks not found"
-    />
-    <AlertNotification
-      v-else-if="currentSubcategory.tasks.length === 0"
+      v-if="tasks.length === 0"
       variant="info"
       message="Task list is empty..."
     />
     <template v-else>
       <TaskItem
-        v-for="task in currentSubcategory.tasks"
+        v-for="task in tasks"
         :key="task.id"
         :value="task.value"
-        :href="
-          user?.isAdmin ? `${currentSubcategory.slug}/${task.id}` : undefined
-        "
+        :href="getHref(task)"
       />
     </template>
   </div>
