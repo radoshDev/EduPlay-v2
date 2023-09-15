@@ -19,10 +19,13 @@ const backHref = computed(() =>
     <template #title>
       <PageTitle title="Бібліотека" :back-href="backHref" />
     </template>
-    <div
-      v-if="categories.data"
-      class="flex w-full max-w-md flex-col items-center"
-    >
+    <v-loader v-if="categories.isLoading" size="lg" />
+    <v-alert
+      v-else-if="categories.error || !categories.data"
+      variant="error"
+      :message="categories.error || 'Категорії не завантажено'"
+    />
+    <div v-else class="flex w-full max-w-md flex-col items-center">
       <CategoryList
         hrefStart="library"
         :list="categories.data"
@@ -31,6 +34,5 @@ const backHref = computed(() =>
       />
       <ButtonAdd private href="/library/new" />
     </div>
-    <v-alert v-else variant="error" message="Категорії не завантажено" />
   </PageLayout>
 </template>

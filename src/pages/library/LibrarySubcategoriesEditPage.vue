@@ -3,27 +3,26 @@ import { LibrarySubcategoryForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { DeleteButton } from '@/components/library'
 import { PageTitle } from '@/components/ui'
-import { useLibraryStore } from '@/stores/library/libraryStore'
-import { computed, ref } from 'vue'
+import { useLibraryStoreValues } from '@/stores/library/libraryStore'
+import { computed } from 'vue'
 
-const store = useLibraryStore()
-const subcategory = ref(store.current.subcategory)
+const { current, categories } = useLibraryStoreValues()
 
 const title = computed(() => {
-  if (!subcategory.value) return 'Редагування підкатегорії'
-  return `Редагування '${subcategory.value.title}'`
+  if (!current.value.subcategory) return 'Редагування підкатегорії'
+  return `Редагування '${current.value.subcategory.title}'`
 })
 const backHref = computed(() => {
-  if (!subcategory.value) return '/library'
-  return `/library/${subcategory.value.parentSlug}`
+  if (!current.value.subcategory) return '/library'
+  return `/library/${current.value.subcategory.parentSlug}`
 })
 
 const defaultValues = computed(() => {
-  if (!subcategory.value) return { parentSlug: 'test' }
+  if (!current.value.subcategory) return { parentSlug: 'test' }
   return {
-    ...subcategory.value,
-    imageUrl: subcategory.value.imageUrl ?? undefined,
-    position: subcategory.value.position ?? undefined
+    ...current.value.subcategory,
+    imageUrl: current.value.subcategory.imageUrl ?? undefined,
+    position: current.value.subcategory.position ?? undefined
   }
 })
 </script>
@@ -32,18 +31,21 @@ const defaultValues = computed(() => {
   <PageLayout>
     <template #title>
       <PageTitle :title="title" :back-href="backHref">
-        <template #right-action v-if="subcategory">
+        <template #right-action v-if="current.subcategory">
           <DeleteButton type="subcategory" />
         </template>
       </PageTitle>
-      <LibrarySubcategoryForm
-        v-if="subcategory"
-        action="update"
-        :default-values="defaultValues"
-      />
-      <div v-else>
-        <v-alert variant="error" message="Категорію не знайдено" />
-      </div>
     </template>
+    <v-loader v-if="categories.isLoading" size="lg" />
+    <v-alert
+      v-else-if="categories.error || !current.subcategory"
+      variant="error"
+      :message="categories.error || 'Підкатегорію не знайдено'"
+    />
+    <LibrarySubcategoryForm
+      v-else
+      action="update"
+      :default-values="defaultValues"
+    />
   </PageLayout>
 </template>

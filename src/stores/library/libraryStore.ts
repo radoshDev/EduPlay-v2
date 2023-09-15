@@ -47,11 +47,11 @@ export const useLibraryStore = defineStore('libraryStore', () => {
       (subcategory) => subcategory.slug === slug.subcategory
     )
 
-    if (!subcategory) return undefined
+    if (!subcategory || !tasks.data) return undefined
 
-    const subcategoryTasks =
-      tasks.data?.filter((task) => task.subcategorySlug === subcategory.slug) ||
-      []
+    const subcategoryTasks = tasks.data.filter(
+      (task) => task.subcategorySlug === subcategory.slug
+    )
     return { ...subcategory, tasks: subcategoryTasks }
   })
 
@@ -147,7 +147,7 @@ export const useLibraryStore = defineStore('libraryStore', () => {
 
   function updateTask(task: Task, action?: 'delete') {
     if (!currentSubcategory.value) return
-    const idx = currentSubcategory.value.tasks.findIndex(
+    const idx = currentSubcategory.value.tasks?.findIndex(
       (item) => item.id === task.id
     )
 

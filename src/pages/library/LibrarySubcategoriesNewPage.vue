@@ -2,15 +2,14 @@
 import { LibrarySubcategoryForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { PageTitle } from '@/components/ui'
-import { useLibraryStore } from '@/stores/library/libraryStore'
-import { computed, ref } from 'vue'
+import { useLibraryStoreValues } from '@/stores/library/libraryStore'
+import { computed } from 'vue'
 
-const store = useLibraryStore()
-const category = ref(store.current.category)
+const { current, categories } = useLibraryStoreValues()
 
 const backHref = computed(() => {
-  if (!category.value) return '/library'
-  return `/library/${category.value.slug}`
+  if (!current.value.category) return '/library'
+  return `/library/${current.value.category.slug}`
 })
 </script>
 
@@ -18,14 +17,17 @@ const backHref = computed(() => {
   <PageLayout>
     <template #title>
       <PageTitle title="Нова підкатегорія" :back-href="backHref" />
-      <LibrarySubcategoryForm
-        v-if="category"
-        action="add"
-        :default-values="{ parentSlug: category.slug }"
-      />
-      <div v-else>
-        <v-alert variant="error" message="Категорію не знайдено" />
-      </div>
     </template>
+    <v-loader v-if="categories.isLoading" size="lg" />
+    <v-alert
+      v-else-if="categories.error || !current.category"
+      variant="error"
+      :message="categories.error || 'Категорію не знайдено'"
+    />
+    <LibrarySubcategoryForm
+      v-else
+      action="add"
+      :default-values="{ parentSlug: current.category.slug }"
+    />
   </PageLayout>
 </template>

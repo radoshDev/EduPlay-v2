@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { CategoryCard } from '@/components/ui'
-import { useStudentStore } from '@/stores/student/studentStore'
+import { useStudentStoreValues } from '@/stores/student/studentStore'
 import { EARN_TYPES } from '@/utils/constants'
-import { storeToRefs } from 'pinia'
 
-const { studentId } = storeToRefs(useStudentStore())
+const { studentId } = useStudentStoreValues()
 </script>
 
 <template>

@@ -4,15 +4,15 @@ import PageLayout from '@/components/layouts/PageLayout.vue'
 import { PageTitle } from '@/components/ui'
 import { ButtonAdd, ButtonEdit, ButtonEducation } from '@/components/ui/buttons'
 import { CategoryList } from '@/components'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useUserStoreValues } from '@/stores/user/userStore'
 
 const { current, categories } = useLibraryStoreValues()
-const category = ref(current.value.category)
+
 const { user } = useUserStoreValues()
 const subcategories = computed(() => {
-  if (!category.value) return null
-  return [...category.value.subcategories].sort((a, b) =>
+  if (!current.value.category) return []
+  return [...current.value.category.subcategories].sort((a, b) =>
     a.position < b.position ? -1 : 0
   )
 })
@@ -22,30 +22,32 @@ const subcategories = computed(() => {
   <PageLayout>
     <template #title>
       <PageTitle
-        :title="category?.title || 'Підкатегорії завдань'"
+        :title="current.category?.title || 'Підкатегорії завдань'"
         :back-href="`/library`"
       >
-        <template #right-action v-if="category">
+        <template #right-action v-if="current.category">
           <ButtonEdit
             v-if="user?.isAdmin"
-            :href="`/library/${category.slug}/edit`"
+            :href="`/library/${current.category.slug}/edit`"
           />
-          <ButtonEducation v-else :task-type="category.slug" />
+          <ButtonEducation v-else :task-type="current.category.slug" />
         </template>
       </PageTitle>
     </template>
-    <div
-      className="flex w-full max-w-md flex-col items-center"
-      v-if="category && subcategories"
-    >
+    <v-loader v-if="categories.isLoading" size="lg" />
+    <v-alert
+      v-else-if="categories.error || !current.category"
+      variant="error"
+      :message="categories.error || 'Підкатегорії не знайдено'"
+    />
+    <div v-else class="flex w-full max-w-md flex-col items-center">
       <CategoryList
-        :hrefStart="`library/${category.slug}`"
+        :hrefStart="`library/${current.category.slug}`"
         :list="subcategories"
         :is-loading="categories.isLoading"
         :error="categories.error"
       />
-      <ButtonAdd :href="`${category.slug}/new`" private />
+      <ButtonAdd :href="`/library/${current.category.slug}/new`" private />
     </div>
-    <v-alert v-else variant="error" message="Категорію не знайдено" />
   </PageLayout>
 </template>

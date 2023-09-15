@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import { useStudentStoreValues } from '@/stores/student/studentStore'
 import StudentAvatar from '../StudentAvatar/StudentAvatar.vue'
 import { VARIANT_COLORS } from '@/utils/constants'
+import type { Student } from '@/types/db'
 
-const { students } = useStudentStoreValues()
+defineProps<{ students: Student[] }>()
 </script>
 
 <template>
   <div className="flex flex-1 flex-wrap content-center justify-around gap-6">
-    <v-loader v-if="students.isLoading" size="lg" />
     <v-alert
-      v-else-if="students.error || !students.data"
-      :message="students.error"
-      variant="error"
+      v-if="students.length === 0"
+      variant="info"
+      message="Ще немає створених студентів"
     />
     <template v-else>
       <StudentAvatar
-        v-for="(student, i) in students.data"
+        v-for="(student, i) in students"
         :key="student.id"
         :href="`/education/${student.id}`"
         :title="student.name"

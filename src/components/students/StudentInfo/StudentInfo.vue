@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { useStudentStore } from '@/stores/student/studentStore'
 import { StudentAvatar } from '..'
-import { storeToRefs } from 'pinia'
 import { BadgeTag } from '@/components/ui'
 import { DIFFICULTY_TYPES } from '@/utils/constants'
-const { currentStudent } = storeToRefs(useStudentStore())
+import type { Student } from '@/types/db'
+
+defineProps<{ student: Student }>()
 </script>
 
 <template>
-  <div class="mb-4" v-if="currentStudent">
+  <div class="mb-4 w-full">
     <StudentAvatar
-      :title="currentStudent.name"
-      :imageSrc="currentStudent.avatar"
+      :title="student.name"
+      :imageSrc="student.avatar"
       size="lg"
       variant="success"
     />
     <div class="mt-5 font-bold">
       <span class="mr-2">Difficulty:</span>
       <BadgeTag
-        :text="DIFFICULTY_TYPES[currentStudent.difficulty]"
+        :text="DIFFICULTY_TYPES[student.difficulty]"
         color="primary"
         size="lg"
         outline
@@ -27,16 +27,11 @@ const { currentStudent } = storeToRefs(useStudentStore())
     <div class="mt-5 font-bold">
       <span class="mr-2">Round Length:</span>
       <BadgeTag
-        :text="`${currentStudent.roundLength}`"
+        :text="`${student.roundLength}`"
         color="primary"
         size="lg"
         outline
       />
     </div>
   </div>
-  <v-alert
-    v-else
-    variant="error"
-    message="Інформацію про студента не знайдено 😢"
-  />
 </template>

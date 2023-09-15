@@ -10,9 +10,8 @@ import { InputField, SelectField } from '@/components/ui/inputs'
 import { ButtonText } from '@/components/ui/buttons'
 import { DIFFICULTY_TYPES, RouteName } from '@/utils/constants'
 import SelectAvatar from './SelectAvatar/SelectAvatar.vue'
-import { useUserStore } from '@/stores/user/userStore'
+import { useUserStoreValues } from '@/stores/user/userStore'
 import { useStudentStore } from '@/stores/student/studentStore'
-import { storeToRefs } from 'pinia'
 
 type Props = {
   defaultValues?: Partial<StudentInput>
@@ -20,7 +19,7 @@ type Props = {
 }
 const props = defineProps<Props>()
 
-const { user } = storeToRefs(useUserStore())
+const { user } = useUserStoreValues()
 const { updateStudents } = useStudentStore()
 const isAdding = computed(() => props.action === 'addStudent')
 const isLoading = ref(false)

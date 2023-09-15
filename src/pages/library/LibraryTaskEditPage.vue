@@ -3,18 +3,17 @@ import { LibraryTaskForm } from '@/components/forms'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { DeleteButton } from '@/components/library'
 import { PageTitle } from '@/components/ui'
-import { useLibraryStore } from '@/stores/library/libraryStore'
-import { computed, ref } from 'vue'
+import { useLibraryStoreValues } from '@/stores/library/libraryStore'
+import { computed } from 'vue'
 
-const store = useLibraryStore()
-const task = ref(store.current.task)
+const { current, categories, tasks } = useLibraryStoreValues()
 const title = computed(() => {
-  if (!task.value) return 'Редагування завдання'
-  return `Редагування '${task.value.value}'`
+  if (!current.value.task) return 'Редагування завдання'
+  return `Редагування '${current.value.task.value}'`
 })
 const parentPath = computed(() => {
-  if (!task.value) return '/library'
-  return `/library/${task.value.type}/${task.value.subcategorySlug}/${task.value.id}`
+  if (!current.value.task) return '/library'
+  return `/library/${current.value.task.type}/${current.value.task.subcategorySlug}/${current.value.task.id}`
 })
 </script>
 
@@ -22,18 +21,24 @@ const parentPath = computed(() => {
   <PageLayout>
     <template #title>
       <PageTitle :title="title" :back-href="parentPath">
-        <template #right-action v-if="task">
+        <template #right-action v-if="current.task">
           <DeleteButton type="task" />
         </template>
       </PageTitle>
-      <LibraryTaskForm
-        v-if="task"
-        action="update"
-        :default-values="{ ...task, result: task.result || undefined }"
-      />
-      <div v-else>
-        <v-alert variant="error" message="Завдання не знайдено" />
-      </div>
     </template>
+    <v-loader v-if="categories.isLoading || tasks.isLoading" size="lg" />
+    <v-alert
+      v-else-if="categories.error || tasks.error || !current.task"
+      variant="error"
+      :message="categories.error || tasks.error || 'Завдання не знайдено'"
+    />
+    <LibraryTaskForm
+      v-else
+      action="update"
+      :default-values="{
+        ...current.task,
+        result: current.task.result || undefined
+      }"
+    />
   </PageLayout>
 </template>

@@ -11,7 +11,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div :class="`alert alert-${variant}`">
+  <div :class="`alert alert-${variant} self-start`">
     <span :class="`text-${textSize || 'md'}`">{{ message }}</span>
   </div>
 </template>

@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import { useTaskStore } from '@/stores/task/taskStore'
+import { useTaskStoreValues } from '@/stores/task/taskStore'
 import calcFontSize from '@/helpers/calcFontSize'
 
-const { currentTask, currentTaskRound } = storeToRefs(useTaskStore())
+const { currentTask, currentTaskRound } = useTaskStoreValues()
 </script>
 
 <template>

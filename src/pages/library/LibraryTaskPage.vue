@@ -3,13 +3,13 @@ import PageLayout from '@/components/layouts/PageLayout.vue'
 import { TaskInfo } from '@/components/library'
 import { PageTitle } from '@/components/ui'
 import { ButtonEdit } from '@/components/ui/buttons'
-import { useLibraryStore } from '@/stores/library/libraryStore'
+import { useLibraryStoreValues } from '@/stores/library/libraryStore'
 import { useUserStoreValues } from '@/stores/user/userStore'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
-const store = useLibraryStore()
-const task = ref(store.current.task)
+const { current, categories, tasks } = useLibraryStoreValues()
+
 const { user } = useUserStoreValues()
 const router = useRouter()
 
@@ -20,12 +20,12 @@ onMounted(() => {
 })
 
 const title = computed(() => {
-  if (!task.value) return 'Сторінка завдання'
-  return `Завдання '${task.value.value}'`
+  if (!current.value.task) return 'Сторінка завдання'
+  return `Завдання '${current.value.task.value}'`
 })
 const parentPath = computed(() => {
-  if (!task.value) return '/library'
-  return `/library/${task.value.type}/${task.value.subcategorySlug}`
+  if (!current.value.task) return '/library'
+  return `/library/${current.value.task.type}/${current.value.task.subcategorySlug}`
 })
 </script>
 
@@ -33,14 +33,17 @@ const parentPath = computed(() => {
   <PageLayout>
     <template #title>
       <PageTitle :title="title" :back-href="parentPath">
-        <template #right-action v-if="task">
-          <ButtonEdit :href="`${parentPath}/${task.id}/edit`" />
+        <template #right-action v-if="current.task">
+          <ButtonEdit :href="`${parentPath}/${current.task.id}/edit`" />
         </template>
       </PageTitle>
-      <TaskInfo v-if="task" :task="task" />
-      <div v-else>
-        <v-alert variant="error" message="Завдання не знайдено" />
-      </div>
     </template>
+    <v-loader v-if="categories.isLoading || tasks.isLoading" size="lg" />
+    <v-alert
+      v-else-if="categories.error || tasks.error || !current.task"
+      variant="error"
+      :message="categories.error || tasks.error || 'Завдання не знайдено'"
+    />
+    <TaskInfo v-else :task="current.task" />
   </PageLayout>
 </template>

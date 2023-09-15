@@ -7,10 +7,10 @@ import TaskBoardNavigation from './TaskBoardNavigation/TaskBoardNavigation.vue'
 import ResetModal from './ResetModal/ResetModal.vue'
 import OptionsModal from './OptionsModal/OptionsModal.vue'
 
-const taskStore = useTaskStore()
+const { initiateTask } = useTaskStore()
 
 onMounted(() => {
-  taskStore.initiateTask()
+  initiateTask()
 })
 </script>
 

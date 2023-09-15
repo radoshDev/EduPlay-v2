@@ -3,20 +3,20 @@ import PageLayout from '@/components/layouts/PageLayout.vue'
 import { TasksList } from '@/components/library'
 import { PageTitle } from '@/components/ui'
 import { ButtonAdd, ButtonEdit, ButtonEducation } from '@/components/ui/buttons'
-import { useLibraryStore } from '@/stores/library/libraryStore'
+import { useLibraryStoreValues } from '@/stores/library/libraryStore'
 import { useUserStoreValues } from '@/stores/user/userStore'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 
-const store = useLibraryStore()
-const subcategory = ref(store.current.subcategory) //May lost reactivity
+const { current, tasks, categories } = useLibraryStoreValues()
+
 const { user } = useUserStoreValues()
 const title = computed(() => {
-  if (!subcategory.value) return 'Список завдань'
-  return subcategory.value.title
+  if (!current.value.subcategory) return 'Список завдань'
+  return current.value.subcategory.title
 })
 const backHref = computed(() => {
-  if (!subcategory.value) return '/library'
-  return `/library/${subcategory.value.parentSlug}`
+  if (!current.value.subcategory) return '/library'
+  return `/library/${current.value.subcategory.parentSlug}`
 })
 </script>
 
@@ -24,24 +24,30 @@ const backHref = computed(() => {
   <PageLayout>
     <template #title>
       <PageTitle :title="title" :back-href="backHref">
-        <template #right-action v-if="subcategory">
+        <template #right-action v-if="current.subcategory">
           <ButtonEdit
             v-if="user?.isAdmin"
-            :href="`/library/${subcategory.parentSlug}/${subcategory.slug}/edit`"
+            :href="`/library/${current.subcategory.parentSlug}/${current.subcategory.slug}/edit`"
           />
-          <ButtonEducation v-else :task-type="subcategory.slug" />
+          <ButtonEducation v-else :task-type="current.subcategory.slug" />
         </template>
       </PageTitle>
     </template>
-    <div v-if="subcategory" class="flex w-full max-w-xl flex-col items-center">
+    <v-loader v-if="categories.isLoading || tasks.isLoading" size="lg" />
+    <v-alert
+      v-else-if="categories.error || tasks.error || !current.subcategory"
+      variant="error"
+      :message="categories.error || tasks.error || 'Список не знайдено'"
+    />
+    <div v-else class="flex w-full max-w-xl flex-col items-center">
       <TasksList
-        :tasks="subcategory.tasks"
-        :category-slug="subcategory.parentSlug"
+        :tasks="current.subcategory.tasks"
+        :category-slug="current.subcategory.parentSlug"
       />
-      <ButtonAdd :href="`${subcategory.slug}/new`" private />
-    </div>
-    <div v-else>
-      <v-alert variant="error" message="Підкатегорію не знайдено" />
+      <ButtonAdd
+        :href="`/library/${current.subcategory.parentSlug}/${current.subcategory.slug}/new`"
+        private
+      />
     </div>
   </PageLayout>
 </template>

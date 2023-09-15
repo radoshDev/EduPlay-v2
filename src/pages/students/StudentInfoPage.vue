@@ -3,10 +3,9 @@ import PageLayout from '@/components/layouts/PageLayout.vue'
 import { StudentInfo } from '@/components/students'
 import { PageTitle } from '@/components/ui'
 import { ButtonEdit } from '@/components/ui/buttons'
-import { useStudentStore } from '@/stores/student/studentStore'
-import { storeToRefs } from 'pinia'
+import { useStudentStoreValues } from '@/stores/student/studentStore'
 
-const { currentStudent } = storeToRefs(useStudentStore())
+const { currentStudent, students } = useStudentStoreValues()
 </script>
 
 <template>
@@ -21,9 +20,12 @@ const { currentStudent } = storeToRefs(useStudentStore())
         </template>
       </PageTitle>
     </template>
-    <div className="w-full">
-      <StudentInfo />
-      <!-- <StudentStat dailyProgress={dailyProgress} /> -->
-    </div>
+    <v-loader v-if="students.isLoading" size="lg" />
+    <v-alert
+      v-else-if="students.error || !currentStudent"
+      variant="error"
+      :message="students.error || 'Студента не знайдено'"
+    />
+    <StudentInfo v-else :student="currentStudent" />
   </PageLayout>
 </template>

@@ -4,26 +4,25 @@ import PageLayout from '@/components/layouts/PageLayout.vue'
 import { DeleteButton } from '@/components/library'
 import { PageTitle } from '@/components/ui'
 import type { TaskCategoryInput } from '@/schemas/TaskSchema'
-import { useLibraryStore } from '@/stores/library/libraryStore'
-import { computed, ref } from 'vue'
+import { useLibraryStoreValues } from '@/stores/library/libraryStore'
+import { computed } from 'vue'
 
-const store = useLibraryStore()
-const category = ref(store.current.category)
+const { current, categories } = useLibraryStoreValues()
 const title = computed(() => {
-  if (!category.value) return 'Редагування категорії'
-  return `Редагування '${category.value.title}'`
+  if (!current.value.category) return 'Редагування категорії'
+  return `Редагування '${current.value.category.title}'`
 })
 const backHref = computed(() => {
-  if (!category.value) return '/library'
-  return `/library/${category.value.slug}`
+  if (!current.value.category) return '/library'
+  return `/library/${current.value.category.slug}`
 })
 const defaultValues = computed<TaskCategoryInput | undefined>(() => {
-  if (!category.value) return
+  if (!current.value.category) return
   return {
-    slug: category.value.slug,
-    title: category.value.title,
-    imageUrl: category.value.imageUrl ?? undefined,
-    position: category.value.position ?? undefined
+    slug: current.value.category.slug,
+    title: current.value.category.title,
+    imageUrl: current.value.category.imageUrl ?? undefined,
+    position: current.value.category.position ?? undefined
   }
 })
 </script>
@@ -32,18 +31,21 @@ const defaultValues = computed<TaskCategoryInput | undefined>(() => {
   <PageLayout>
     <template #title>
       <PageTitle :title="title" :back-href="backHref">
-        <template #right-action v-if="category">
+        <template #right-action v-if="current.category">
           <DeleteButton type="category" />
         </template>
       </PageTitle>
     </template>
+    <v-loader v-if="categories.isLoading" size="lg" />
+    <v-alert
+      v-else-if="categories.error || !current.category"
+      variant="error"
+      :message="categories.error || 'Категорію не знайдено'"
+    />
     <LibraryCategoryForm
-      v-if="category"
+      v-else
       action="update"
       :default-values="defaultValues"
     />
-    <div v-else>
-      <v-alert variant="error" message="Категорію не знайдено" />
-    </div>
   </PageLayout>
 </template>
