@@ -8,7 +8,7 @@ module.exports = {
   safelist: [
     {
       pattern:
-        /(alert|btn|text|ring|badge)-(primary|secondary|neutral|error|success|warning|info)/
+        /(alert|btn|text|ring|badge|checkbox)-(primary|secondary|neutral|error|success|warning|info)/
     },
     {
       pattern: /(btn|badge|loading)-(lg|sm|xs)/

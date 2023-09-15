@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toast-notification'
 import { toTypedSchema } from '@vee-validate/zod'
 import api from '@/api/api'
-import { FormControl, InputField } from '@/components/ui/inputs'
+import { CheckboxField, FormControl, InputField } from '@/components/ui/inputs'
 import { type TaskForm, TaskFormSchema } from '@/schemas/TaskSchema'
 import { useLibraryStore } from '@/stores/library/libraryStore'
 import type { AtLeast } from '@/types'
@@ -19,6 +19,7 @@ const props = defineProps<Props>()
 const { update } = useLibraryStore()
 const isAdding = computed(() => props.action === 'add')
 const loading = ref(false)
+const stayHere = ref(false)
 const $toast = useToast({ position: 'top' })
 const router = useRouter()
 const { errors, defineComponentBinds, handleSubmit } = useForm({
@@ -39,9 +40,9 @@ const onSubmit = handleSubmit(async (data) => {
 
     update('task', task)
     $toast.success(
-      `Завдання "${task.type}" ${isAdding.value ? 'додано' : 'змінено'}!`
+      `Завдання "${task.value}" ${isAdding.value ? 'додано' : 'змінено'}!`
     )
-    router.push('.')
+    if (!stayHere.value) router.push('.')
   } catch (_error) {
     const error = _error as Error
     $toast.error(error.message || 'Something went wrong. Try to reload page')
@@ -65,6 +66,11 @@ const onSubmit = handleSubmit(async (data) => {
       label="Підкатегорія"
       :error="errors.subcategorySlug"
       disabled
+    />
+    <CheckboxField
+      label="Залишитись після додавання?"
+      v-model="stayHere"
+      color="warning"
     />
   </FormControl>
 </template>

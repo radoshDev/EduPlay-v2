@@ -4,11 +4,11 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div className="form-control mb-4 w-full">
-    <label className="label">
-      <span className="label-text">{{ label }}</span>
+  <div class="form-control mb-4 w-full">
+    <label class="label">
+      <span class="label-text">{{ label }}</span>
     </label>
     <slot />
-    <div v-if="error" className="mt-1 text-error">{{ error }}</div>
+    <div v-if="error" class="mt-1 text-error">{{ error }}</div>
   </div>
 </template>
