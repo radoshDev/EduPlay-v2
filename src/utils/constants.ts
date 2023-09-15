@@ -1,4 +1,4 @@
-import type { Variant } from '@/types/styles'
+import type { IconNames, Variant } from '@/types/styles'
 
 export const RouteName = {
   HOME: 'home',
@@ -32,7 +32,14 @@ export const RouteName = {
   CREATURE_EDIT: 'creature-edit'
 } as const
 
-export const EARN_TYPES = [
+type EarnType = {
+  title: string
+  type: string
+  icon: IconNames
+  fill?: string
+}
+
+export const EARN_TYPES: EarnType[] = [
   {
     title: 'Математика',
     type: 'math',

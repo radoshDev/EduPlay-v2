@@ -10,7 +10,7 @@ export type Variant =
   | 'warning'
   | 'info'
 
-type IconNames =
+export type IconNames =
   | 'bi-github'
   | 'bi-box-arrow-in-left'
   | 'bi-github'
