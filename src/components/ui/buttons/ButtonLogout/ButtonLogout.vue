@@ -22,6 +22,7 @@ async function handleLogout() {
     if (res.error) throw new Error(res.error.message)
     userStore.$reset()
     studentsStore.$reset()
+    localStorage.clear()
     router.push({ name: RouteName.LOGIN })
   } catch (_error) {
     const error = _error as Error

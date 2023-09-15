@@ -29,7 +29,10 @@ export const setParamsHandler: NavigationGuard = (to, from, next) => {
   const categorySlug = to.params.categorySlug as string | undefined
   const creatureSlug = to.params.creatureSlug as string | undefined
 
-  if (studentId) setStudentId(studentId)
+  if (studentId) {
+    setStudentId(studentId)
+    localStorage.setItem('studentId', studentId)
+  }
   if (taskType) setTaskType(taskType)
   if (category || subcategory || taskId) {
     const libraryStore = useLibraryStore()

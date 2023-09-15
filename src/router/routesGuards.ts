@@ -16,7 +16,9 @@ export const routesGuard: NavigationGuard = (to, from, next) => {
   }
 
   if (isNotAuthRequired) {
-    next({ name: RouteName.STUDENTS })
+    const studentId = localStorage.getItem('studentId')
+    const path = studentId ? `/education/${studentId}` : '/students'
+    next(path)
     return
   }
 

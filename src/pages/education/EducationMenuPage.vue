@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { TaskList } from '@/components/education'
 import { StudentAvatar } from '@/components/students'
 import { PageTitle } from '@/components/ui'
-import { useStudentStore } from '@/stores/student/studentStore'
+import { useStudentStoreValues } from '@/stores/student/studentStore'
 
-const { currentStudent } = storeToRefs(useStudentStore())
+const { currentStudent } = useStudentStoreValues()
 </script>
 
 <template>
