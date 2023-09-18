@@ -12,6 +12,7 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+defineEmits<{ (e: 'click'): void }>()
 const style = computed(() => {
   let avatarSize: number
   let textSize: string
@@ -45,6 +46,7 @@ const style = computed(() => {
   <component
     :is="!href ? 'div' : href.startsWith('http') ? 'a' : 'router-link'"
     class="text-center"
+    @click="$emit('click')"
     :to="href"
   >
     <UserAvatar

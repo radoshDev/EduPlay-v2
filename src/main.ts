@@ -36,6 +36,7 @@ import {
 } from 'oh-vue-icons/icons'
 import { AlertNotification, Image, PreloaderBlock } from '@/components/ui'
 import { OhIcon } from './components/ui/icons'
+import { ButtonText } from './components/ui/buttons'
 
 addIcons(
   BiBoxArrowInLeft,
@@ -67,9 +68,10 @@ addIcons(
 const app = createApp(App)
 const pinia = createPinia()
 app.use(pinia)
+app.component('v-alert', AlertNotification)
+app.component('v-btn', ButtonText)
 app.component('v-icon', OhIcon)
 app.component('v-image', Image)
 app.component('v-loader', PreloaderBlock)
-app.component('v-alert', AlertNotification)
 app.use(router)
 app.mount('#app')

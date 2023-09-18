@@ -13,7 +13,7 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-defineEmits<{ (e: 'click'): void }>()
+defineEmits<{ (e: 'click', event: Event): void }>()
 
 const button = ref<HTMLButtonElement | null>(null)
 const isAnchorTag = computed(() => props.href?.startsWith('http'))
@@ -45,7 +45,7 @@ function setDisabled() {
     :href="isAnchorTag ? href : undefined"
     ref="button"
     :target="target"
-    @click="$emit('click')"
+    @click="(e: Event) => $emit('click', e)"
   >
     <v-loader v-if="isLoading" size="sm" />
     <slot v-else />

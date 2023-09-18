@@ -1,16 +1,24 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useTaskStore } from '@/stores/task/taskStore'
 import TaskBoardContent from './TaskBoardContent/TaskBoardContent.vue'
 import TaskBoardHeader from './TaskBoardHeader/TaskBoardHeader.vue'
 import TaskBoardNavigation from './TaskBoardNavigation/TaskBoardNavigation.vue'
 import ResetModal from './ResetModal/ResetModal.vue'
 import OptionsModal from './OptionsModal/OptionsModal.vue'
+import { useStudentStoreValues } from '@/stores/student/studentStore'
 
-const { initiateTask } = useTaskStore()
+const store = useTaskStore()
+const { studentId } = useStudentStoreValues()
 
 onMounted(() => {
-  initiateTask()
+  store.initiateTask()
+})
+
+watch(studentId, () => {
+  if (!store.currentTask) {
+    store.initiateTask()
+  }
 })
 </script>
 
