@@ -95,3 +95,9 @@ export const TL_UA = {
     task: { title: 'Завдання' }
   }
 }
+
+export const MODAlS = {
+  options: 'task_options_modal',
+  reset: 'task_reset_modal',
+  delete: 'delete_modal'
+} as const

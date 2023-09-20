@@ -35,6 +35,7 @@ export type IconNames =
   | 'io-library-sharp'
   | 'io-link-sharp'
   | 'io-reload-sharp'
+  | 'io-reload-circle'
   | 'io-rocket-sharp'
 type Animation =
   | 'wrench'

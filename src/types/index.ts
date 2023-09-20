@@ -1,3 +1,5 @@
+import { MODAlS } from '@/utils/constants'
+
 export type AnchorTarget = '_self' | '_blank' | '_parent' | '_top'
 
 export type ValueOf<T extends Object> = T[keyof T]
@@ -17,3 +19,5 @@ export type Category = {
 }
 
 export type Action = 'add' | 'update' | 'delete' | 'getAll'
+
+export type ModalKeys = ValueOf<typeof MODAlS>

@@ -16,8 +16,6 @@ export const useTaskStore = defineStore('taskStore', () => {
 
   const taskType = ref<string | null>(null)
 
-  const isOptionModal = ref(false)
-
   const tasksList = computed(() => {
     if (!tasks.value.data) return []
     if (!currentStudent.value) return tasks.value.data
@@ -121,7 +119,6 @@ export const useTaskStore = defineStore('taskStore', () => {
   return {
     taskType,
     currentTaskRound,
-    isOptionModal,
     isRoundEnd,
     isBeforeRoundEnd,
     currentTask,
