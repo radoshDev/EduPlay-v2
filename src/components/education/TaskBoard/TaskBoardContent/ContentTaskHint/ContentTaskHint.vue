@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ButtonIcon } from '@/components/ui/buttons'
-import { useTaskStore } from '@/stores/task/taskStore'
-import { storeToRefs } from 'pinia'
-const { currentTask } = storeToRefs(useTaskStore())
+import { useTaskStoreValues } from '@/stores/task/taskStore'
+
+const { currentTask } = useTaskStoreValues()
 </script>
 
 <template>
@@ -10,18 +9,18 @@ const { currentTask } = storeToRefs(useTaskStore())
     v-if="currentTask && !currentTask.result"
     className="flex justify-center gap-3 mt-4"
   >
-    <ButtonIcon
+    <v-btn
       :href="`https://uk.wiktionary.org/wiki/${currentTask.value}`"
       target="_blank"
       :icon="{ name: 'fa-wikipedia-w', scale: 1.5 }"
-      color="warning"
+      variant="warning"
       round
     />
-    <ButtonIcon
+    <v-btn
       :href="`https://www.google.com/search?q=${currentTask.value}&tbm=isch`"
       target="_blank"
       :icon="{ name: 'bi-image-fill', scale: 1.5 }"
-      color="success"
+      variant="success"
       round
     />
   </div>

@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
-import { useStudentStore } from '@/stores/student/studentStore'
-import { ButtonIcon } from '..'
+import { useStudentStoreValues } from '@/stores/student/studentStore'
 
-const { currentStudent } = storeToRefs(useStudentStore())
+const { currentStudent } = useStudentStoreValues()
 
 const props = defineProps<{ taskType?: string }>()
 const href = computed(() => {
@@ -19,9 +17,9 @@ const href = computed(() => {
 </script>
 
 <template>
-  <ButtonIcon
+  <v-btn
+    variant="primary"
     :icon="{ name: 'io-rocket-sharp', scale: 1.5 }"
-    color="primary"
     :href="href"
   />
 </template>

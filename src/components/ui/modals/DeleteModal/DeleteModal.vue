@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ButtonText } from '@/components/ui/buttons'
 import { BasicModal } from '..'
 
 type Props = {
@@ -18,12 +17,8 @@ function handleClose() {
 <template>
   <BasicModal :id="modalId" @close="handleClose" :title="title">
     <div class="flex gap-4">
-      <ButtonText variant="error" size="sm" @click="handleClose">
-        Відміна
-      </ButtonText>
-      <ButtonText variant="success" size="sm" @click="$emit('delete')">
-        Так
-      </ButtonText>
+      <v-btn variant="error" @click="handleClose"> Відміна </v-btn>
+      <v-btn variant="success" @click="$emit('delete')"> Так </v-btn>
     </div>
   </BasicModal>
 </template>

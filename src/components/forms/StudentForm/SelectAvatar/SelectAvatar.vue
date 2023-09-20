@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import breakArrayBySize from '@/helpers/breakArrayBySize'
-import { ButtonIcon } from '@/components/ui/buttons'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 
 type Props = {
@@ -45,12 +44,11 @@ function handleChangeSlide(e: Event, type: 'next' | 'prev') {
       class="mx-auto flex w-full max-w-[315px] items-center"
       :class="{ 'border-red-400 border': !!error }"
     >
-      <ButtonIcon
+      <v-btn
         @click="(e) => handleChangeSlide(e, 'prev')"
         :icon="{ name: 'md-arrowbackios-outlined' }"
         :disabled="index === 0"
-        color="primary"
-        size="sm"
+        variant="primary"
         round
       />
 
@@ -76,12 +74,11 @@ function handleChangeSlide(e: Event, type: 'next' | 'prev') {
           />
         </div>
       </div>
-      <ButtonIcon
+      <v-btn
         @click="(e) => handleChangeSlide(e, 'next')"
         :icon="{ name: 'md-arrowforwardios-outlined' }"
         :disabled="slides.length === 0 || index === slides.length - 1"
         color="primary"
-        size="sm"
         round
       />
     </div>

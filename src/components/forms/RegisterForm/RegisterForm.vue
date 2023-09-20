@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { useToast } from 'vue-toast-notification'
+import { useRouter } from 'vue-router'
 import { toTypedSchema } from '@vee-validate/zod'
 import { RegisterSchema } from '@/schemas/AuthSchema'
 import { InputField } from '@/components/ui/inputs'
-import { ButtonText } from '@/components/ui/buttons'
 import api from '@/api/api'
-import { useRouter } from 'vue-router'
 import { RouteName } from '@/utils/constants'
 
 const router = useRouter()
@@ -49,6 +48,6 @@ const onSubmit = handleSubmit(async (data) => {
       :error="errors.password"
       v-bind="pwd"
     />
-    <ButtonText type="submit" variant="success">Зареєструватись</ButtonText>
+    <v-btn type="submit" variant="success">Зареєструватись</v-btn>
   </form>
 </template>

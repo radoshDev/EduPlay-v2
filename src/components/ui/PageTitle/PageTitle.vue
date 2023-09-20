@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import ButtonIcon from '../buttons/ButtonIcon/ButtonIcon.vue'
 type Props = { title: string; backHref?: string }
 defineProps<Props>()
 </script>
 
 <template>
   <div className="mb-3 flex items-center gap-3">
-    <ButtonIcon
+    <v-btn
       v-if="backHref"
+      variant="primary"
       :icon="{ name: 'bi-box-arrow-in-left', scale: 1.5 }"
-      color="primary"
       :href="backHref"
     />
     <slot name="left-action"></slot>

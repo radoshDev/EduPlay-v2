@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import { ButtonIcon } from '@/components/ui/buttons'
 import { CoinIcon } from '@/components/ui/icons'
-import { useStudentStore } from '@/stores/student/studentStore'
-import { useTaskStore } from '@/stores/task/taskStore'
-import { storeToRefs } from 'pinia'
+import { useStudentStoreValues } from '@/stores/student/studentStore'
+import { useTaskStoreValues } from '@/stores/task/taskStore'
 
-const { currentStudent, roundLength } = storeToRefs(useStudentStore())
-const { currentTaskRound, isOptionModal } = storeToRefs(useTaskStore())
+const { currentStudent, roundLength } = useStudentStoreValues()
+const { currentTaskRound } = useTaskStoreValues()
+
+function showOptionsModal() {
+  window.task_options_modal.showModal()
+}
 </script>
 
 <template>
   <div v-if="currentTaskRound">
     <div class="mb-2 flex items-start justify-between">
-      <ButtonIcon
+      <v-btn
         :icon="{ name: 'io-close-circle-sharp', scale: 2 }"
-        color="error"
+        variant="error"
         size="md"
         :href="currentStudent ? '.' : '/'"
         round
@@ -22,10 +24,10 @@ const { currentTaskRound, isOptionModal } = storeToRefs(useTaskStore())
       <div className="w-20 cursor-pointer">
         <CoinIcon :count="currentTaskRound.earned" />
       </div>
-      <ButtonIcon
-        @click="isOptionModal = true"
+      <v-btn
+        @click="showOptionsModal"
         :icon="{ name: 'md-morevert', scale: 2 }"
-        color="info"
+        variant="info"
         size="md"
       />
     </div>

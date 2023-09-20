@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import PageTitle from '@/components/ui/PageTitle/PageTitle.vue'
-import ButtonText from '@/components/ui/buttons/ButtonText/ButtonText.vue'
 import { useUserStoreValues } from '@/stores/user/userStore'
 
 const { user } = useUserStoreValues()
@@ -12,9 +11,7 @@ const { user } = useUserStoreValues()
     <template #title>
       <PageTitle title="EduPlay: Learn & Earn Coins">
         <template v-if="!user" #right-action>
-          <ButtonText size="sm" variant="success" href="/login">
-            Увійти
-          </ButtonText>
+          <v-btn variant="success" href="/login"> Увійти </v-btn>
         </template>
       </PageTitle>
     </template>

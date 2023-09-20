@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { watch } from 'vue'
 import { BasicModal } from '@/components/ui/modals'
-import { useTaskStoreValues } from '@/stores/task/taskStore'
+import { useTaskStore } from '@/stores/task/taskStore'
 import StudentSwitcher from './StudentSwitcher/StudentSwitcher.vue'
+import type { ModalKeys } from '@/types'
 
-const { isOptionModal } = useTaskStoreValues()
-const modalId = 'task_options'
-
-watch(isOptionModal, () => {
-  if (isOptionModal.value) {
-    window[modalId].showModal()
-  }
-})
+const { resetTask } = useTaskStore()
+const modalId: ModalKeys = 'task_options_modal'
 
 function handleClose() {
   window[modalId].close()
-  isOptionModal.value = false
 }
 
 function handleResetTask(e: Event) {
   e.preventDefault()
-  console.log('reset runs')
+  resetTask()
+  handleClose()
 }
 </script>
 
 <template>
   <BasicModal :id="modalId" @close="handleClose">
-    <StudentSwitcher @close-modal="handleClose" />
-    <v-btn variant="success" @click="handleResetTask">
-      <v-icon name="io-reload-sharp" scale="1.5" />
-    </v-btn>
+    <div class="flex flex-col gap-4 items-center">
+      <StudentSwitcher @close-modal="handleClose" />
+      <v-btn
+        :icon="{ name: 'io-reload-circle', scale: 2 }"
+        variant="success"
+        size="md"
+        round
+        @click="handleResetTask"
+      />
+    </div>
   </BasicModal>
 </template>

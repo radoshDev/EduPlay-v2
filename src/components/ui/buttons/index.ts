@@ -1,5 +1,4 @@
-export { default as ButtonIcon } from './ButtonIcon/ButtonIcon.vue'
-export { default as ButtonText } from './ButtonText/ButtonText.vue'
+export { default as ButtonMain } from './ButtonMain/ButtonMain.vue'
 export { default as ButtonAdd } from './ButtonAdd/ButtonAdd.vue'
 export { default as ButtonLogout } from './ButtonLogout/ButtonLogout.vue'
 export { default as ButtonEdit } from './ButtonEdit/ButtonEdit.vue'

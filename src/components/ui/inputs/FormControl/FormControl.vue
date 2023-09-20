@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ButtonText } from '@/components/ui/buttons'
 type Props = {
   buttonText: string
   loading?: boolean
@@ -17,14 +16,8 @@ defineEmits<{ (e: 'submit', event: Event): void }>()
     <div class="overflow-auto w-full max-w-lg">
       <slot />
     </div>
-    <ButtonText
-      class="mt-6"
-      :is-loading="loading"
-      variant="success"
-      size="sm"
-      type="submit"
-    >
+    <v-btn class="mt-6" :loading="loading" variant="success" type="submit">
       {{ buttonText }}
-    </ButtonText>
+    </v-btn>
   </form>
 </template>

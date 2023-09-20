@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import type { Variant, Size } from '@/types/styles'
+import type { Variant, Size, IconProps } from '@/types/styles'
 import type { AnchorTarget } from '@/types'
 import { computed, onMounted, onUpdated, ref } from 'vue'
 
 type Props = {
   href?: string
+  icon?: IconProps
+  round?: boolean
   variant?: Variant
   size?: Size
-  isLoading?: boolean
+  loading?: boolean
   disabled?: boolean
   target?: AnchorTarget
 }
@@ -37,9 +39,14 @@ function setDisabled() {
   <component
     :is="!href ? 'button' : href.startsWith('http') ? 'a' : 'router-link'"
     :class="[
-      $attrs.class,
-      'btn normal-case rounded-full',
-      { [`btn-${variant}`]: !!variant, [`btn-${size}`]: !!size }
+      'btn',
+      `btn-${size || 'sm'}`,
+      {
+        [`btn-${variant} normal-case rounded-full`]: !icon,
+        [`border-none text-${variant} bg-transparent ${
+          round ? 'btn-circle' : 'btn-square'
+        }`]: !!icon
+      }
     ]"
     :to="isAnchorTag ? undefined : href"
     :href="isAnchorTag ? href : undefined"
@@ -47,7 +54,13 @@ function setDisabled() {
     :target="target"
     @click="(e: Event) => $emit('click', e)"
   >
-    <v-loader v-if="isLoading" size="sm" />
+    <v-loader v-if="loading" size="sm" />
+    <v-icon
+      v-else-if="icon"
+      :name="icon.name"
+      :fill="icon.fill"
+      :scale="icon.scale"
+    />
     <slot v-else />
   </component>
 </template>

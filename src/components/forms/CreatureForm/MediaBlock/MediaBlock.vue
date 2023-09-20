@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { nanoid } from 'nanoid'
-import { ButtonAdd, ButtonIcon } from '@/components/ui/buttons'
+import { ButtonAdd } from '@/components/ui/buttons'
 import { InputField } from '@/components/ui/inputs'
 import { useToast } from 'vue-toast-notification'
 
@@ -67,26 +67,26 @@ function handleSetMainImage(e: Event, id: string) {
       :key="input.id"
       className="flex items-end gap-1"
     >
-      <ButtonIcon
+      <v-btn
         v-if="mainImage"
         @click="(e) => handleSetMainImage(e, input.id)"
         :icon="{ name: 'hi-switch-horizontal' }"
         size="xs"
         class="mb-7"
-        color="primary"
+        variant="primary"
       />
       <InputField
         :label="`#${i + 1}`"
         :modelValue="input.value"
         @input="(val) => handleMediaChange(input.id, val)"
       />
-      <ButtonIcon
+      <v-btn
         @click="(e) => handleRemoveMedia(e, input.id)"
         :icon="{ name: 'md-removecircle' }"
         size="xs"
         class="mb-7"
         round
-        color="error"
+        variant="error"
       />
     </div>
     <ButtonAdd @click="handleAddMoreMedia" />

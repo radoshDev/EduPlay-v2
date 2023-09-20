@@ -2,7 +2,7 @@
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { ProgressGraph } from '@/components/students'
 import { PageTitle } from '@/components/ui'
-import { ButtonLogout, ButtonText } from '@/components/ui/buttons'
+import { ButtonLogout } from '@/components/ui/buttons'
 import { useStudentStore } from '@/stores/student/studentStore'
 import { useUserStore } from '@/stores/user/userStore'
 import { storeToRefs } from 'pinia'
@@ -33,12 +33,8 @@ const showProgress = computed(() => {
             admin
           </div>
         </div>
-        <ButtonText size="sm" variant="neutral" href="/creatures">
-          Істоти
-        </ButtonText>
-        <ButtonText size="sm" variant="warning" href="/library">
-          Бібліотека
-        </ButtonText>
+        <v-btn variant="neutral" href="/creatures"> Істоти </v-btn>
+        <v-btn variant="warning" href="/library"> Бібліотека </v-btn>
       </div>
       <div v-if="showProgress" class="w-full mt-6">
         <ProgressGraph />

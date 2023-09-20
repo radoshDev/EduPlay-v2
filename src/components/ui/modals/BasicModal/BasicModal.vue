@@ -11,7 +11,7 @@ defineEmits<{ (e: 'close'): void }>()
   <dialog :id="id" class="modal">
     <form method="dialog" class="modal-box">
       <h3 v-if="title" class="text-center text-lg font-bold">{{ title }}</h3>
-      <div class="flex flex-col items-center justify-center gap-4 py-4">
+      <div class="flex items-center justify-center gap-4 py-4">
         <slot />
       </div>
     </form>

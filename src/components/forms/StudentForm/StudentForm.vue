@@ -7,7 +7,6 @@ import { toTypedSchema } from '@vee-validate/zod'
 import api from '@/api/api'
 import { StudentSchema, type StudentInput } from '@/schemas/StudentSchema'
 import { InputField, SelectField } from '@/components/ui/inputs'
-import { ButtonText } from '@/components/ui/buttons'
 import { DIFFICULTY_TYPES, RouteName } from '@/utils/constants'
 import SelectAvatar from './SelectAvatar/SelectAvatar.vue'
 import { useUserStoreValues } from '@/stores/user/userStore'
@@ -22,7 +21,7 @@ const props = defineProps<Props>()
 const { user } = useUserStoreValues()
 const { updateStudents } = useStudentStore()
 const isAdding = computed(() => props.action === 'addStudent')
-const isLoading = ref(false)
+const loading = ref(false)
 const $toast = useToast({ position: 'top' })
 const router = useRouter()
 const { errors, defineComponentBinds, handleSubmit } = useForm({
@@ -37,7 +36,7 @@ const roundLength = defineComponentBinds('roundLength')
 
 const onSubmit = handleSubmit(async (data) => {
   try {
-    isLoading.value = true
+    loading.value = true
 
     if (!user.value) throw new Error('Unauthorized!')
 
@@ -54,7 +53,7 @@ const onSubmit = handleSubmit(async (data) => {
     const error = _error as Error
     $toast.error(error.message || 'Something went wrong. Try to reload page')
   } finally {
-    isLoading.value = false
+    loading.value = false
   }
 })
 </script>
@@ -77,15 +76,9 @@ const onSubmit = handleSubmit(async (data) => {
     />
 
     <div class="text-center">
-      <ButtonText
-        class="mt-6"
-        :is-loading="isLoading"
-        variant="success"
-        size="sm"
-        type="submit"
-      >
+      <v-btn class="mt-6" :loading="loading" variant="success" type="submit">
         {{ isAdding ? 'Add' : 'Update' }}
-      </ButtonText>
+      </v-btn>
     </div>
   </form>
 </template>

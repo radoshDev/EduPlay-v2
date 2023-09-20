@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ButtonIcon } from '..'
 type Props = {
   loading?: boolean
 }
@@ -8,10 +7,10 @@ defineEmits<{ (e: 'click', event: Event): void }>()
 </script>
 
 <template>
-  <ButtonIcon
+  <v-btn
+    variant="error"
     :disabled="loading"
     @click="(e) => $emit('click', e)"
     :icon="{ name: 'md-deleteforever-round', scale: 1.5 }"
-    color="error"
   />
 </template>

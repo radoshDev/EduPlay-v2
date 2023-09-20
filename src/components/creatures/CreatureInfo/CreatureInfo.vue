@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ButtonText } from '@/components/ui/buttons'
 import type { Creature } from '@/types/db'
 
 defineProps<{ creature: Creature }>()
@@ -7,7 +6,7 @@ defineProps<{ creature: Creature }>()
 
 <template>
   <div className="overflow-auto w-full text-center">
-    <ButtonText
+    <v-btn
       v-if="creature.source"
       variant="info"
       :href="creature.source"
@@ -16,7 +15,7 @@ defineProps<{ creature: Creature }>()
     >
       Джерело
       <v-icon name="io-link-sharp" />
-    </ButtonText>
+    </v-btn>
     <v-image
       class="mt-6 justify-center"
       :src="creature.mainImage"

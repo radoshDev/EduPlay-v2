@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
-import { ButtonText } from '@/components/ui/buttons'
 import { DatabaseAddIcon } from '@/components/ui/icons'
-import { useTaskStore } from '@/stores/task/taskStore'
+import { useTaskStore, useTaskStoreValues } from '@/stores/task/taskStore'
 import { useStudentStore } from '@/stores/student/studentStore'
 
 const taskStore = useTaskStore()
-const { currentTaskRound, isRoundEnd, isBeforeRoundEnd } =
-  storeToRefs(taskStore)
+const { currentTaskRound, isRoundEnd, isBeforeRoundEnd } = useTaskStoreValues()
 const studentStore = useStudentStore()
 const nextRoundAudioRef = ref<HTMLAudioElement | null>(null)
 const earnedCoinAudioRef = ref<HTMLAudioElement | null>(null)
@@ -53,24 +50,30 @@ function handlePlaySound() {
 
 <template>
   <div v-if="currentTaskRound" class="flex justify-center gap-10">
-    <ButtonText :disabled="currentTaskRound.index === 0" @click="handlePrev">
+    <v-btn
+      :disabled="currentTaskRound.index === 0"
+      @click="handlePrev"
+      size="md"
+    >
       <v-icon name="hi-solid-arrow-narrow-left" scale="2.5" />
-    </ButtonText>
-    <ButtonText
+    </v-btn>
+    <v-btn
       v-if="isRoundEnd"
       variant="success"
       @click="taskStore.nextRound"
+      size="md"
     >
       <DatabaseAddIcon />
-    </ButtonText>
-    <ButtonText
+    </v-btn>
+    <v-btn
       v-else
       variant="primary"
+      size="md"
       @click="handleNext"
       :disabled="currentTaskRound.roundTasks.length === 0"
     >
       <v-icon name="hi-solid-arrow-narrow-right" scale="2.5" />
-    </ButtonText>
+    </v-btn>
     <div class="hidden">
       <audio ref="nextRoundAudioRef" src="/success-sound.mp3" />
       <audio ref="earnedCoinAudioRef" src="/coin-earned.mp3" />

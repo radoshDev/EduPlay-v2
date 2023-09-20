@@ -2,7 +2,7 @@
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { StudentList } from '@/components/students'
 import { PageTitle } from '@/components/ui'
-import { ButtonAdd, ButtonIcon } from '@/components/ui/buttons'
+import { ButtonAdd } from '@/components/ui/buttons'
 import { useStudentStoreValues } from '@/stores/student/studentStore'
 
 const { students } = useStudentStoreValues()
@@ -13,10 +13,10 @@ const { students } = useStudentStoreValues()
     <template #title>
       <PageTitle title="Студенти">
         <template #right-action>
-          <ButtonIcon
+          <v-btn
+            variant="secondary"
             :icon="{ name: 'bi-gear-fill', scale: 1.5 }"
             href="/account"
-            color="secondary"
             round
           />
         </template>

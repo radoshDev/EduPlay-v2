@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ButtonIcon } from '@/components/ui/buttons'
 import { useStudentStoreValues } from '@/stores/student/studentStore'
 import { useTaskStoreValues } from '@/stores/task/taskStore'
 import { computed } from 'vue'
@@ -30,11 +29,11 @@ const cbQuery = computed(() =>
     />
     <div class="text-2xl font-bold">{{ creature.title }}</div>
 
-    <ButtonIcon
+    <v-btn
       v-if="currentStudent"
       :icon="{ name: 'fa-question-circle', scale: 1.5 }"
       :href="`/creatures/${creature.categorySlug}/${creature.slug}?cb=${cbQuery}`"
-      color="warning"
+      variant="warning"
     />
   </div>
 </template>

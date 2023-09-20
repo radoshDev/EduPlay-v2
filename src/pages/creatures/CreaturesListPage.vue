@@ -2,12 +2,7 @@
 import { CreatureList } from '@/components/creatures'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { PageTitle } from '@/components/ui'
-import {
-  ButtonAdd,
-  ButtonEdit,
-  ButtonEducation,
-  ButtonText
-} from '@/components/ui/buttons'
+import { ButtonAdd, ButtonEdit, ButtonEducation } from '@/components/ui/buttons'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
 import { useUserStoreValues } from '@/stores/user/userStore'
 
@@ -32,15 +27,14 @@ const { currentCategory: category } = useCreatureStoreValues()
       </PageTitle>
     </template>
     <div v-if="category" class="flex flex-1 flex-col items-center">
-      <ButtonText
+      <v-btn
         v-if="category.sourceLink"
         :href="category.sourceLink"
         variant="warning"
-        size="sm"
         target="_blank"
       >
         Source
-      </ButtonText>
+      </v-btn>
       <CreatureList />
       <ButtonAdd private :href="`/creatures/${category.slug}/new`" />
     </div>
