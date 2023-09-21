@@ -27,9 +27,9 @@ async function taskHandler<A extends Action, D extends Value[A]['input']>(
       return
     }
     case 'getAll': {
-      const res = await db.select(
-        '*, subcategory: task_subcategories(difficulty)'
-      )
+      const res = await db
+        .select('*, subcategory: task_subcategories(difficulty)')
+        .order('value')
       if (res?.error) throw new Error(res.error.message)
       return res.data
     }

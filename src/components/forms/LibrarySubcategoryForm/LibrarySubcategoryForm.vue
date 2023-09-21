@@ -6,13 +6,14 @@ import { useToast } from 'vue-toast-notification'
 import { toTypedSchema } from '@vee-validate/zod'
 import slugify from 'slugify'
 import api from '@/api/api'
-import { FormControl, InputField } from '@/components/ui/inputs'
+import { FormControl, InputField, SelectField } from '@/components/ui/inputs'
 import {
   type TaskSubcategoryInput,
   TaskSubcategoryFormSchema
 } from '@/schemas/TaskSchema'
 import { useLibraryStore } from '@/stores/library/libraryStore'
 import type { AtLeast } from '@/types'
+import { DIFFICULTY_TYPES } from '@/utils/constants'
 
 type Props = {
   action: 'add' | 'update'
@@ -77,10 +78,10 @@ const onSubmit = handleSubmit(async (data) => {
       :error="errors.parentSlug"
       disabled
     />
-    <InputField
+    <SelectField
       v-bind="difficulty"
       label="Складність"
-      type="number"
+      :options="DIFFICULTY_TYPES.map((label, i) => ({ label, value: i }))"
       :error="errors.difficulty"
     />
     <InputField

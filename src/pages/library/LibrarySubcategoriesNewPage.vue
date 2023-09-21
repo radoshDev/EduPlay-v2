@@ -27,7 +27,7 @@ const backHref = computed(() => {
     <LibrarySubcategoryForm
       v-else
       action="add"
-      :default-values="{ parentSlug: current.category.slug }"
+      :default-values="{ parentSlug: current.category.slug, difficulty: 0 }"
     />
   </PageLayout>
 </template>
