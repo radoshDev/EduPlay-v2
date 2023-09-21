@@ -3,6 +3,7 @@ import { StudentAvatar } from '..'
 import { BadgeTag } from '@/components/ui'
 import { DIFFICULTY_TYPES } from '@/utils/constants'
 import type { Student } from '@/types/db'
+import StudentRecords from '../StudentRecords/StudentRecords.vue'
 
 defineProps<{ student: Student }>()
 </script>
@@ -16,7 +17,7 @@ defineProps<{ student: Student }>()
       variant="success"
     />
     <div class="mt-5 font-bold">
-      <span class="mr-2">Difficulty:</span>
+      <span class="mr-2">Складність:</span>
       <BadgeTag
         :text="DIFFICULTY_TYPES[student.difficulty]"
         color="primary"
@@ -25,13 +26,17 @@ defineProps<{ student: Student }>()
       />
     </div>
     <div class="mt-5 font-bold">
-      <span class="mr-2">Round Length:</span>
+      <span class="mr-2">Довжина раунду:</span>
       <BadgeTag
         :text="`${student.roundLength}`"
         color="primary"
         size="lg"
         outline
       />
+    </div>
+    <div class="mt-5 font-bold">
+      <span class="mr-2">Персональний рекорд:</span>
+      <StudentRecords />
     </div>
   </div>
 </template>
