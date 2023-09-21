@@ -1,15 +1,13 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useLibraryStoreValues } from '@/stores/library/libraryStore'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { PageTitle } from '@/components/ui'
 import { ButtonAdd, ButtonEdit, ButtonEducation } from '@/components/ui/buttons'
 import { CategoryList } from '@/components'
-import { computed } from 'vue'
-import { useUserStoreValues } from '@/stores/user/userStore'
 
 const { current, categories } = useLibraryStoreValues()
 
-const { user } = useUserStoreValues()
 const subcategories = computed(() => {
   if (!current.value.category) return []
   return [...current.value.category.subcategories].sort((a, b) =>
@@ -27,10 +25,10 @@ const subcategories = computed(() => {
       >
         <template #right-action v-if="current.category">
           <ButtonEdit
-            v-if="user?.isAdmin"
+            private
             :href="`/library/${current.category.slug}/edit`"
           />
-          <ButtonEducation v-else :task-type="current.category.slug" />
+          <ButtonEducation :task-type="current.category.slug" />
         </template>
       </PageTitle>
     </template>

@@ -4,12 +4,10 @@ import { TasksList } from '@/components/library'
 import { PageTitle } from '@/components/ui'
 import { ButtonAdd, ButtonEdit, ButtonEducation } from '@/components/ui/buttons'
 import { useLibraryStoreValues } from '@/stores/library/libraryStore'
-import { useUserStoreValues } from '@/stores/user/userStore'
 import { computed } from 'vue'
 
 const { current, tasks, categories } = useLibraryStoreValues()
 
-const { user } = useUserStoreValues()
 const title = computed(() => {
   if (!current.value.subcategory) return 'Список завдань'
   return current.value.subcategory.title
@@ -26,10 +24,10 @@ const backHref = computed(() => {
       <PageTitle :title="title" :back-href="backHref">
         <template #right-action v-if="current.subcategory">
           <ButtonEdit
-            v-if="user?.isAdmin"
+            private
             :href="`/library/${current.subcategory.parentSlug}/${current.subcategory.slug}/edit`"
           />
-          <ButtonEducation v-else :task-type="current.subcategory.slug" />
+          <ButtonEducation :task-type="current.subcategory.slug" />
         </template>
       </PageTitle>
     </template>

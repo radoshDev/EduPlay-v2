@@ -2,5 +2,6 @@
 - add personal reading record (progress and date)
 - add task search bar for admin
 - add pagination for tasks
+- add ability to send request for delete word to admin
 - test refresh token (stay login forever)
 - refactor graph components

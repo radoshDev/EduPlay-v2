@@ -16,7 +16,7 @@ const calcFontSize = (wordLength: number, isUpper?: boolean): string => {
     9: `min(${desktopSize}px, ${isUpper ? '15vw' : '17vw'})`,
     10: `min(${desktopSize}px, ${isUpper ? '13vw' : '15vw'})`
   }
-  return sizeLookup[wordLength] || '1rem'
+  return sizeLookup[wordLength] || '10vw'
 }
 
 export default calcFontSize
