@@ -16,13 +16,13 @@ const { user } = useUserStoreValues()
       </PageTitle>
     </template>
     <div className="flex flex-1 items-center justify-center">
-      <ButtonText
+      <v-btn
         size="lg"
         variant="primary"
         :href="user ? '/students' : '/education/unknown/coins'"
       >
         До занять
-      </ButtonText>
+      </v-btn>
     </div>
   </PageLayout>
 </template>
