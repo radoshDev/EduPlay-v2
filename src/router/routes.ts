@@ -1,7 +1,7 @@
 import type { ValueOf } from '@/types'
 import type { RouteName } from '@/utils/constants'
 import type { RouteRecordRaw } from 'vue-router'
-import { setParamsHandler } from './routeHandlers'
+import { setParamsHandler, setQueriesHandler } from './routeHandlers'
 
 export type RouteRecord = Omit<RouteRecordRaw, 'name'> & {
   name: ValueOf<typeof RouteName>
@@ -13,6 +13,16 @@ const routes: RouteRecord[] = [
     name: 'home',
     component: () => import('@/pages/HomePage.vue'),
     meta: { title: 'Головна' }
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/pages/SearchPage.vue'),
+    beforeEnter: (to, from, next) => {
+      setQueriesHandler(to)
+      next()
+    },
+    meta: { title: 'Пошук' }
   },
   {
     path: '/students',

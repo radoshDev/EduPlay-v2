@@ -6,8 +6,10 @@ import PageLayout from '@/components/layouts/PageLayout.vue'
 import { PageTitle } from '@/components/ui'
 import { ButtonEdit } from '@/components/ui/buttons'
 import { useCreatureStoreValues } from '@/stores/creature/creatureStore'
+import { useUserStoreValues } from '@/stores/user/userStore'
 
 const { currentCreature: creature } = useCreatureStoreValues()
+const { user } = useUserStoreValues()
 const categoryPath = computed(() => {
   if (!creature.value) return '/creatures'
   return `/creatures/${creature.value.categorySlug}`
@@ -23,7 +25,10 @@ const { query } = useRoute()
         :back-href="(query.cb as string) || categoryPath"
       >
         <template #right-action v-if="creature">
-          <ButtonEdit :href="`${categoryPath}/${creature.slug}/edit`" />
+          <ButtonEdit
+            v-if="user?.isAdmin"
+            :href="`${categoryPath}/${creature.slug}/edit`"
+          />
         </template>
       </PageTitle>
     </template>

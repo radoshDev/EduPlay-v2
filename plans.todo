@@ -1,5 +1,5 @@
-- add personal reading record (progress and date)
 - add task search bar for admin
+- add stories reading (by 2-4 words)
 - add pagination for tasks
 - add ability to send request for delete word to admin
 - test refresh token (stay login forever)

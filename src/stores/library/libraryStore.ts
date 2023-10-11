@@ -1,4 +1,4 @@
-import { computed, reactive } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import api from '@/api/api'
 import type { QueryData } from '@/types'
@@ -35,6 +35,8 @@ export const useLibraryStore = defineStore('libraryStore', () => {
     subcategory: null as string | null,
     task: null as string | null
   })
+
+  const search = ref('')
 
   const currentCategory = computed(() => {
     return categories.data?.find((category) => category.slug === slug.category)
@@ -199,6 +201,7 @@ export const useLibraryStore = defineStore('libraryStore', () => {
     tasks,
     categories,
     current,
+    search,
     setTasks,
     setCategories,
     setPageParams,

@@ -31,6 +31,7 @@ export type IconNames =
   | 'hi-solid-arrow-narrow-left'
   | 'hi-solid-arrow-narrow-right'
   | 'hi-switch-horizontal'
+  | 'hi-search'
   | 'io-close-circle-sharp'
   | 'io-library-sharp'
   | 'io-link-sharp'
