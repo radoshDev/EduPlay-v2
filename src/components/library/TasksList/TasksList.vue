@@ -3,15 +3,15 @@ import { useUserStoreValues } from '@/stores/user/userStore'
 import TaskItem from '../TaskItem/TaskItem.vue'
 import type { Task } from '@/types/db'
 
-type Props = { tasks: Task[]; categorySlug: string }
+type Props = { tasks: Task[] }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 
 const { user } = useUserStoreValues()
 
 function getHref(task: Task) {
   if (!user.value?.isAdmin) return
-  return `/library/${props.categorySlug}/${task.subcategorySlug}/${task.id}`
+  return `/library/${task.type}/${task.subcategorySlug}/${task.id}`
 }
 </script>
 
@@ -22,7 +22,7 @@ function getHref(task: Task) {
     <v-alert
       v-if="tasks.length === 0"
       variant="info"
-      message="Task list is empty..."
+      message="Список завдань порожній..."
     />
     <template v-else>
       <TaskItem

@@ -10,5 +10,3 @@ export type TaskRound = {
 export type TaskStudentProgress = Partial<
   Record<string, Record<string, TaskRound>>
 >
-
-export type LibraryType = 'category' | 'subcategory' | 'task'

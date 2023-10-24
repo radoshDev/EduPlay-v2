@@ -3,7 +3,12 @@ import { computed } from 'vue'
 import { useLibraryStoreValues } from '@/stores/library/libraryStore'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { PageTitle } from '@/components/ui'
-import { ButtonAdd, ButtonEdit, ButtonEducation } from '@/components/ui/buttons'
+import {
+  ButtonAdd,
+  ButtonEdit,
+  ButtonEducation,
+  ButtonSearch
+} from '@/components/ui/buttons'
 import { CategoryList } from '@/components'
 
 const { current, categories } = useLibraryStoreValues()
@@ -24,6 +29,7 @@ const subcategories = computed(() => {
         :back-href="`/library`"
       >
         <template #right-action v-if="current.category">
+          <ButtonSearch private />
           <ButtonEdit
             private
             :href="`/library/${current.category.slug}/edit`"

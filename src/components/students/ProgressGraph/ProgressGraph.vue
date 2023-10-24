@@ -1,15 +1,15 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import { SelectField } from '@/components/ui/inputs'
 import { VerticalBar } from '@/components/ui/visualization'
 import { transformStatData } from '@/helpers/transformStatData'
-import { useStudentStore } from '@/stores/student/studentStore'
+import { useStudentStoreValues } from '@/stores/student/studentStore'
 import type { Progress, StudentsProgress } from '@/types/student'
 import { GRAPH_COLORS, GRAPH_PERIOD_OPTIONS } from '@/utils/constants'
-import { storeToRefs } from 'pinia'
-import { computed, ref } from 'vue'
 
-const { students } = storeToRefs(useStudentStore())
+const { students } = useStudentStoreValues()
 const statPeriod = ref(GRAPH_PERIOD_OPTIONS[0].value)
+
 const uniqueDates = computed(() => {
   if (!students.value.data) return []
 
@@ -39,6 +39,7 @@ const graphData = computed(() => {
   let period = 7
   if (statPeriod.value === 'month') period = 30
   if (statPeriod.value === 'year') period = 365
+
   const days = studentsProgress.value[0]?.progress.length - period
   const startIndex = days > 0 ? days : 0
 

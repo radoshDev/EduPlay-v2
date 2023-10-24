@@ -1,4 +1,3 @@
-import type { TaskStudentProgress } from '@/types/task'
 import { defineStore, storeToRefs } from 'pinia'
 import { computed, reactive, ref } from 'vue'
 import { useCreatureStore } from '../creature/creatureStore'
@@ -6,6 +5,7 @@ import { useStudentStoreValues } from '../student/studentStore'
 import { useLibraryStoreValues } from '../library/libraryStore'
 import generateUniqueList from '@/helpers/generateUniqueList'
 import type { TaskWithDifficulty } from '@/types/db'
+import type { TaskStudentProgress } from '@/types/task'
 
 export const useTaskStore = defineStore('taskStore', () => {
   const { getRandomCreature } = useCreatureStore()
