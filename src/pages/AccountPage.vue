@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import { ProgressGraph } from '@/components/students'
 import { PageTitle } from '@/components/ui'
 import { ButtonLogout } from '@/components/ui/buttons'
-import { useStudentStore } from '@/stores/student/studentStore'
-import { useUserStore } from '@/stores/user/userStore'
-import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
-const { user } = storeToRefs(useUserStore())
-const { students } = storeToRefs(useStudentStore())
+import { useStudentStoreValues } from '@/stores/student/studentStore'
+import { useUserStoreValues } from '@/stores/user/userStore'
+
+const { user } = useUserStoreValues()
+const { students } = useStudentStoreValues()
 
 const showProgress = computed(() => {
   if (!students.value.data?.length) return false

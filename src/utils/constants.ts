@@ -6,6 +6,7 @@ export const RouteName = {
   REGISTER: 'register',
   FORGOT_PASSWORD: 'forgot-password',
   ACCOUNT: 'account',
+  SEARCH: 'search',
   NOT_FOUND: 'not-found',
   STUDENTS: 'students',
   STUDENT_ADD: 'student-add',
@@ -99,5 +100,6 @@ export const TL_UA = {
 export const MODAlS = {
   options: 'task_options_modal',
   reset: 'task_reset_modal',
-  delete: 'delete_modal'
+  delete: 'delete_modal',
+  search: 'search_modal'
 } as const

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ModalKeys } from '@/types'
 import { BasicModal } from '..'
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
 defineProps<Props>()
 defineEmits<{ (e: 'delete'): void }>()
 
-const modalId = 'delete_modal'
+const modalId: ModalKeys = 'delete_modal'
 
 function handleClose() {
   window[modalId].close()

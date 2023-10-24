@@ -1,4 +1,4 @@
-import { computed, reactive } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import api from '@/api/api'
 import type { QueryData } from '@/types'
@@ -9,15 +9,11 @@ import type {
   TaskSubcategory,
   TaskWithDifficulty
 } from '@/types/db'
-import type { LibraryType } from '@/types/task'
+import type { Library } from '@/types/library'
 
-type LibraryParams = {
-  category?: string
-  subcategory?: string
-  task?: string
-}
+type LibraryParams = Partial<Record<keyof Library, string>>
 
-export const useLibraryStore = defineStore('libraryStore', () => {
+export const useLibraryStore = defineStore('library', () => {
   const tasks = reactive<QueryData<TaskWithDifficulty[] | null>>({
     data: null,
     isLoading: false,
@@ -30,24 +26,22 @@ export const useLibraryStore = defineStore('libraryStore', () => {
     error: ''
   })
 
-  const slug = reactive({
-    category: null as string | null,
-    subcategory: null as string | null,
-    task: null as string | null
-  })
+  const slug = reactive<LibraryParams>({})
+
+  const search = ref('')
 
   const currentCategory = computed(() => {
     return categories.data?.find((category) => category.slug === slug.category)
   })
 
   const currentSubcategory = computed(() => {
-    if (!currentCategory.value) return undefined
+    if (!currentCategory.value) return
 
     const subcategory = currentCategory.value.subcategories.find(
       (subcategory) => subcategory.slug === slug.subcategory
     )
 
-    if (!subcategory || !tasks.data) return undefined
+    if (!subcategory || !tasks.data) return
 
     const subcategoryTasks = tasks.data.filter(
       (task) => task.subcategorySlug === subcategory.slug
@@ -98,10 +92,10 @@ export const useLibraryStore = defineStore('libraryStore', () => {
   function setPageParams(params: LibraryParams) {
     for (const property in params) {
       const key = property as keyof LibraryParams
-      const value = params[key]
-      if (value && value !== slug[key]) {
-        slug[key] = value
-      }
+      const newParam = params[key]
+      if (newParam === undefined || newParam === slug[key]) continue
+
+      slug[key] = newParam
     }
   }
 
@@ -168,13 +162,7 @@ export const useLibraryStore = defineStore('libraryStore', () => {
     existTask.result = task.result
   }
 
-  type Value = {
-    category: TaskCategory
-    subcategory: TaskSubcategory
-    task: Task
-  }
-
-  function update<T extends LibraryType, D extends Value[T]>(
+  function update<T extends keyof Library, D extends Library[T]>(
     type: T,
     data: D,
     action?: 'delete'
@@ -199,6 +187,7 @@ export const useLibraryStore = defineStore('libraryStore', () => {
     tasks,
     categories,
     current,
+    search,
     setTasks,
     setCategories,
     setPageParams,

@@ -2,6 +2,7 @@
 type Props = {
   buttonText: string
   loading?: boolean
+  row?: boolean
 }
 
 defineProps<Props>()
@@ -11,12 +12,13 @@ defineEmits<{ (e: 'submit', event: Event): void }>()
 <template>
   <form
     @submit="(e) => $emit('submit', e)"
-    class="flex flex-col items-center w-full"
+    class="flex items-center w-full gap-4 justify-center"
+    :class="`flex-${row ? 'row' : 'col'}`"
   >
-    <div class="overflow-auto w-full max-w-lg">
+    <div class="overflow-auto w-full max-w-lg p-1">
       <slot />
     </div>
-    <v-btn class="mt-6" :loading="loading" variant="success" type="submit">
+    <v-btn :loading="loading" variant="success" type="submit">
       {{ buttonText }}
     </v-btn>
   </form>

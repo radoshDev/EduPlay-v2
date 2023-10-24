@@ -2,7 +2,7 @@ import { useCreatureStore } from '@/stores/creature/creatureStore'
 import { useLibraryStore } from '@/stores/library/libraryStore'
 import { useStudentStore } from '@/stores/student/studentStore'
 import { useTaskStore } from '@/stores/task/taskStore'
-import type { NavigationGuard } from 'vue-router'
+import type { NavigationGuard, RouteLocationNormalized } from 'vue-router'
 
 function setStudentId(studentId: string) {
   const studentStore = useStudentStore()
@@ -17,6 +17,13 @@ function setTaskType(taskType: string) {
 
   if (taskStore.taskType !== taskType) {
     taskStore.taskType = taskType
+  }
+}
+
+function setSearchKey(searchKey: string) {
+  const libraryStore = useLibraryStore()
+  if (libraryStore.search !== searchKey) {
+    libraryStore.search = searchKey
   }
 }
 
@@ -46,4 +53,11 @@ export const setParamsHandler: NavigationGuard = (to, from, next) => {
     })
   }
   next()
+}
+
+export const setQueriesHandler = (to: RouteLocationNormalized) => {
+  const searchKey = to.query.q as string | undefined
+  if (searchKey) {
+    setSearchKey(searchKey)
+  }
 }

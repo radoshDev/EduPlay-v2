@@ -38,10 +38,7 @@ const backHref = computed(() => {
       :message="categories.error || tasks.error || 'Список не знайдено'"
     />
     <div v-else class="flex w-full max-w-xl flex-col items-center">
-      <TasksList
-        :tasks="current.subcategory.tasks"
-        :category-slug="current.subcategory.parentSlug"
-      />
+      <TasksList :tasks="current.subcategory.tasks" />
       <ButtonAdd
         :href="`/library/${current.subcategory.parentSlug}/${current.subcategory.slug}/new`"
         private

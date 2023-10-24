@@ -1,12 +1,12 @@
 import { supabase } from '@/lib/supabaseClient'
-import type { Action } from '@/types'
 import type { TaskCategoryInsert, TaskCategoryUpdate, Values } from '@/types/db'
 
-type Value = Values['category']
-async function categoryHandler<A extends Action, D extends Value[A]['input']>(
-  action: A,
-  data: D
-): Promise<Value[A]['output']> {
+type Category = Values['category']
+
+async function categoryHandler<
+  A extends keyof Category,
+  D extends Category[A]['input']
+>(action: A, data: D): Promise<Category[A]['output']> {
   const db = supabase.from('task_categories')
   switch (action) {
     case 'add': {

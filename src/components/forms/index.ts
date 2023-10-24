@@ -6,3 +6,4 @@ export { default as CreatureCategoryForm } from './CreatureCategoryForm/Creature
 export { default as LibraryCategoryForm } from './LibraryCategoryForm/LibraryCategoryForm.vue'
 export { default as LibrarySubcategoryForm } from './LibrarySubcategoryForm/LibrarySubcategoryForm.vue'
 export { default as LibraryTaskForm } from './LibraryTaskForm/LibraryTaskForm.vue'
+export { default as SearchForm } from './SearchForm/SearchForm.vue'

@@ -3,8 +3,9 @@ import { computed } from 'vue'
 import { FieldControl } from '@/components/ui/inputs'
 
 type Props = {
-  label: string
+  label?: string
   type?: 'email' | 'number' | 'password'
+  placeholder?: string
   modelValue?: string | number
   disabled?: boolean
   error?: string
@@ -38,6 +39,7 @@ const inputValue = computed({
     <input
       v-model="inputValue"
       :type="type || 'text'"
+      :placeholder="placeholder"
       :disabled="disabled"
       @blur="$emit('blur')"
       :class="[
