@@ -6,6 +6,7 @@ import { useUserStore } from '@/stores/user/userStore'
 import { useStudentStore } from '@/stores/student/studentStore'
 import { useCreatureStore } from '@/stores/creature/creatureStore'
 import { useLibraryStore } from '@/stores/library/libraryStore'
+import { setUITheme } from './helpers/setUITheme'
 
 const userStore = useUserStore()
 const studentStore = useStudentStore()
@@ -16,6 +17,9 @@ onMounted(() => {
   creatureStore.setCreatures()
   libraryStore.setTasks()
   libraryStore.setCategories()
+
+  const theme = localStorage.getItem('theme') || 'night'
+  setUITheme(theme)
 
   supabase.auth.onAuthStateChange((event, session) => {
     console.log({ event, session })

@@ -5,9 +5,9 @@ import { ProgressGraph } from '@/components/students'
 import { PageTitle } from '@/components/ui'
 import { ButtonLogout } from '@/components/ui/buttons'
 import { useStudentStoreValues } from '@/stores/student/studentStore'
-import { useUserStoreValues } from '@/stores/user/userStore'
+import UserInfo from '@/components/account/UserInfo.vue'
+import ThemeSwitcher from '@/components/account/ThemeSwitcher.vue'
 
-const { user } = useUserStoreValues()
 const { students } = useStudentStoreValues()
 
 const showProgress = computed(() => {
@@ -27,16 +27,12 @@ const showProgress = computed(() => {
     </template>
     <div className="flex w-full flex-col items-center">
       <div className="flex flex-col gap-3">
-        <div>
-          <span>{{ user?.name || user?.email }}</span>
-          <div v-if="user?.isAdmin" className="badge badge-accent ml-2">
-            admin
-          </div>
-        </div>
+        <UserInfo />
+        <ThemeSwitcher />
         <v-btn variant="neutral" href="/creatures"> Істоти </v-btn>
         <v-btn variant="warning" href="/library"> Бібліотека </v-btn>
       </div>
-      <div v-if="showProgress" class="w-full mt-6">
+      <div v-if="showProgress" class="w-full max-w-3xl mt-6">
         <ProgressGraph />
       </div>
     </div>
