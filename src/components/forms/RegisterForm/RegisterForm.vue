@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useForm } from 'vee-validate'
 import { useToast } from 'vue-toast-notification'
 import { useRouter } from 'vue-router'
 import { toTypedSchema } from '@vee-validate/zod'
 import { RegisterSchema } from '@/schemas/AuthSchema'
-import { InputField } from '@/components/ui/inputs'
+import { FormControl, InputField } from '@/components/ui/inputs'
 import api from '@/api/api'
 import { RouteName } from '@/utils/constants'
 
+const loading = ref(false)
 const router = useRouter()
 const $toast = useToast({ position: 'top', duration: 5000 })
 
@@ -20,6 +22,7 @@ const pwd = defineComponentBinds('password')
 
 const onSubmit = handleSubmit(async (data) => {
   try {
+    loading.value = true
     await api.register(data)
     $toast.success('Користувача зареєстровано!', {
       onDismiss: () => {
@@ -29,12 +32,18 @@ const onSubmit = handleSubmit(async (data) => {
   } catch (_error) {
     const error = _error as Error
     $toast.error(error.message)
+  } finally {
+    loading.value = false
   }
 })
 </script>
 
 <template>
-  <form @submit="onSubmit">
+  <FormControl
+    @submit="onSubmit"
+    button-text="Зареєструватись"
+    :loading="loading"
+  >
     <InputField label="Ім'я" :error="errors.name" v-bind="name" />
     <InputField
       label="Ел. пошта"
@@ -48,6 +57,5 @@ const onSubmit = handleSubmit(async (data) => {
       :error="errors.password"
       v-bind="pwd"
     />
-    <v-btn type="submit" variant="success">Зареєструватись</v-btn>
-  </form>
+  </FormControl>
 </template>

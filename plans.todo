@@ -1,4 +1,4 @@
-- add ability to change theme
+- add add a UI indication that the user is not logged in
 - add stories reading (by 2-4 words)
 - add pagination for tasks
 - add ability to send request for delete word to admin

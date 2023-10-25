@@ -21,3 +21,5 @@ export type Category = {
 export type Action = 'add' | 'update' | 'delete' | 'getAll'
 
 export type ModalKeys = ValueOf<typeof MODAlS>
+
+export type ThemeName = 'night' | 'light' | 'custom'

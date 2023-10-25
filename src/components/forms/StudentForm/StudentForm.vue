@@ -6,7 +6,7 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import api from '@/api/api'
 import { StudentSchema, type StudentInput } from '@/schemas/StudentSchema'
-import { InputField, SelectField } from '@/components/ui/inputs'
+import { FormControl, InputField, SelectField } from '@/components/ui/inputs'
 import { DIFFICULTY_TYPES, RouteName } from '@/utils/constants'
 import SelectAvatar from './SelectAvatar/SelectAvatar.vue'
 import { useUserStoreValues } from '@/stores/user/userStore'
@@ -59,7 +59,7 @@ const onSubmit = handleSubmit(async (data) => {
 </script>
 
 <template>
-  <form @submit="onSubmit">
+  <FormControl :button-text="isAdding ? 'Add' : 'Update'" @submit="onSubmit">
     <InputField v-bind="name" label="Ім'я" :error="errors.name" />
     <SelectAvatar v-bind="avatar" label="Аватар" :error="errors.avatar" />
     <SelectField
@@ -74,11 +74,5 @@ const onSubmit = handleSubmit(async (data) => {
       label="Довжина раунду"
       :error="errors.roundLength"
     />
-
-    <div class="text-center">
-      <v-btn class="mt-6" :loading="loading" variant="success" type="submit">
-        {{ isAdding ? 'Add' : 'Update' }}
-      </v-btn>
-    </div>
-  </form>
+  </FormControl>
 </template>

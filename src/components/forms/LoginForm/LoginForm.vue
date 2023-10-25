@@ -2,7 +2,7 @@
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { LoginSchema } from '@/schemas/AuthSchema'
-import { InputField } from '@/components/ui/inputs'
+import { FormControl, InputField } from '@/components/ui/inputs'
 import { useRouter } from 'vue-router'
 import { RouteName } from '@/utils/constants'
 import { ref } from 'vue'
@@ -35,7 +35,7 @@ const onSubmit = handleSubmit(async (data) => {
 </script>
 
 <template>
-  <form @submit="onSubmit">
+  <FormControl @submit="onSubmit" button-text="Увійти" :loading="isLoading">
     <InputField
       label="Ел. пошта"
       type="email"
@@ -48,6 +48,5 @@ const onSubmit = handleSubmit(async (data) => {
       :error="errors.password"
       v-bind="pwd"
     />
-    <v-btn :loading="isLoading" type="submit" variant="success">Увійти</v-btn>
-  </form>
+  </FormControl>
 </template>

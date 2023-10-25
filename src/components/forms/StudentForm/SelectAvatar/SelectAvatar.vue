@@ -38,10 +38,10 @@ function handleChangeSlide(e: Event, type: 'next' | 'prev') {
 </script>
 
 <template>
-  <div>
+  <div class="max-w-[315px] mx-auto">
     <div className="text-sm">{{ label }}</div>
     <div
-      class="mx-auto flex w-full max-w-[315px] items-center"
+      class="mx-auto flex w-full items-center"
       :class="{ 'border-red-400 border': !!error }"
     >
       <v-btn

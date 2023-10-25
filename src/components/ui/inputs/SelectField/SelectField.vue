@@ -24,7 +24,7 @@ const selectedValue = computed({
 </script>
 
 <template>
-  <FieldControl class="max-w-xs" :label="label" :error="error">
+  <FieldControl :label="label" :error="error">
     <select
       class="select-bordered select-info rounded-full select"
       v-model="selectedValue"

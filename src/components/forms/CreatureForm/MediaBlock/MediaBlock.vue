@@ -31,13 +31,11 @@ function handleMediaChange(id: string, val: string) {
   )
 }
 
-function handleAddMoreMedia(e: Event) {
-  e.preventDefault()
+function handleAddMoreMedia() {
   mediaInputs.push({ id: nanoid(5), value: '' })
 }
 
-function handleRemoveMedia(e: Event, id: string) {
-  e.preventDefault()
+function handleRemoveMedia(id: string) {
   const indexEl = mediaInputs.findIndex((input) => input.id === id)
 
   mediaInputs.splice(indexEl, 1)
@@ -46,8 +44,7 @@ function handleRemoveMedia(e: Event, id: string) {
     mediaInputs.map((m) => m.value)
   )
 }
-function handleSetMainImage(e: Event, id: string) {
-  e.preventDefault()
+function handleSetMainImage(id: string) {
   const newMainImage = mediaInputs.find((el) => el.id === id)?.value
 
   if (!newMainImage || !props.mainImage) return
@@ -69,7 +66,7 @@ function handleSetMainImage(e: Event, id: string) {
     >
       <v-btn
         v-if="mainImage"
-        @click="(e) => handleSetMainImage(e, input.id)"
+        @click.prevent="handleSetMainImage(input.id)"
         :icon="{ name: 'hi-switch-horizontal' }"
         size="xs"
         class="mb-7"
@@ -81,7 +78,7 @@ function handleSetMainImage(e: Event, id: string) {
         @input="(val) => handleMediaChange(input.id, val)"
       />
       <v-btn
-        @click="(e) => handleRemoveMedia(e, input.id)"
+        @click.prevent="handleRemoveMedia(input.id)"
         :icon="{ name: 'md-removecircle' }"
         size="xs"
         class="mb-7"
@@ -89,6 +86,6 @@ function handleSetMainImage(e: Event, id: string) {
         variant="error"
       />
     </div>
-    <ButtonAdd @click="handleAddMoreMedia" />
+    <ButtonAdd @click.prevent="handleAddMoreMedia" />
   </div>
 </template>
