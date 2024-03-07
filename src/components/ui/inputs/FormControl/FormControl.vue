@@ -5,8 +5,8 @@ type Props = {
   row?: boolean
   justify?: 'center' | 'start' | 'end'
 }
+withDefaults(defineProps<Props>(), { justify: 'center' })
 
-defineProps<Props>()
 defineEmits<{ (e: 'submit', event: Event): void }>()
 </script>
 
@@ -14,7 +14,7 @@ defineEmits<{ (e: 'submit', event: Event): void }>()
   <form
     @submit="(e) => $emit('submit', e)"
     class="flex items-center w-full gap-4"
-    :class="[`flex-${row ? 'row' : 'col'}`, `justify-${justify || 'center'}`]"
+    :class="[`flex-${row ? 'row' : 'col'}`, `justify-${justify}`]"
   >
     <div class="overflow-auto w-full max-w-lg p-1">
       <slot />
