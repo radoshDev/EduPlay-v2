@@ -6,6 +6,7 @@ import { transformStatData } from '@/helpers/transformStatData'
 import { useStudentStoreValues } from '@/stores/student/studentStore'
 import type { Progress, StudentsProgress } from '@/types/student'
 import { GRAPH_COLORS, GRAPH_PERIOD_OPTIONS } from '@/utils/constants'
+import { sortByDate } from '@/helpers/sortByDate'
 
 const { students } = useStudentStoreValues()
 const statPeriod = ref(GRAPH_PERIOD_OPTIONS[0].value)
@@ -22,17 +23,24 @@ const uniqueDates = computed(() => {
     )
   ]
 })
+
 const studentsProgress = computed<StudentsProgress[]>(() => {
   if (!students.value.data) return []
 
-  return students.value.data.map((student, i) => ({
-    label: student.name,
-    backgroundColor: GRAPH_COLORS[i],
-    progress: uniqueDates.value.map((date) => {
+  return students.value.data.map((student, i) => {
+    const progress = uniqueDates.value.map((date) => {
       const entry = student.progress.find((item) => item.date === date)
       return { date, value: entry?.value || 0 }
     })
-  }))
+
+    progress.sort((a, b) => sortByDate(a.date, b.date))
+
+    return {
+      label: student.name,
+      backgroundColor: GRAPH_COLORS[i],
+      progress
+    }
+  })
 })
 
 const graphData = computed(() => {
@@ -40,7 +48,7 @@ const graphData = computed(() => {
   if (statPeriod.value === 'month') period = 30
   if (statPeriod.value === 'year') period = 365
 
-  const days = studentsProgress.value[0]?.progress.length - period
+  const days = uniqueDates.value.length - period
   const startIndex = days > 0 ? days : 0
 
   let progress: Progress[] = []

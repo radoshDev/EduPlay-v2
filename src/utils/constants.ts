@@ -84,8 +84,8 @@ export const VARIANT_COLORS: Variant[] = [
 ]
 
 export const GRAPH_PERIOD_OPTIONS = [
-  { label: 'Тиждень', value: 'week' },
-  { label: 'Місяць', value: 'month' },
+  { label: '7 днів', value: 'week' },
+  { label: '30 днів', value: 'month' },
   { label: 'Рік', value: 'year' }
 ]
 
