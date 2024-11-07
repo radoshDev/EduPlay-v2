@@ -16,7 +16,7 @@ function handlePrimaryStudentChange(isPrimaryStudent?: boolean) {
 onMounted(() => {
   const primaryStudentId = localStorage.getItem('primaryStudentId')
 
-  if (primaryStudentId) {
+  if (primaryStudentId === props.studentId) {
     primaryStudent.value = true
   }
 })
