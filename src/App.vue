@@ -32,6 +32,7 @@ onMounted(() => {
 
     if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
       userStore.setCurrentUser(session.user)
+      setUITheme(theme)
     }
 
     if (
