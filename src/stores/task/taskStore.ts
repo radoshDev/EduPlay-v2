@@ -24,6 +24,15 @@ export const useTaskStore = defineStore('taskStore', () => {
 
     const dataFilteredByDifficulty = tasks.value.data.filter((task) => {
       if (!task.subcategory?.difficulty) return true
+
+      if (studentDifficulty > 3 && task.type === 'math') {
+        const isNotSimpleNumber = !/(^[0-2]\s(\+|-))|((\+|-)\s[0-2])$/.test(
+          task.value
+        )
+        const isNotSimpleResult = Number(task.result) > 1
+        return isNotSimpleNumber && isNotSimpleResult
+      }
+
       return task.subcategory.difficulty <= studentDifficulty
     })
 
